@@ -17,16 +17,6 @@ public class Start {
     //TODO if found configuration file the start home menu
     public static void main(String [] args){
 
-
-        List<String> str = new ArrayList<>();
-
-        str.add("dissan");
-        str.add("ahmed");
-
-        Output.printRow("MAIN", str, null);
-        System.exit(0);
-
-
         /*
         *        return Hashing.sha256()
                 .hashString(password, StandardCharsets.UTF_8)

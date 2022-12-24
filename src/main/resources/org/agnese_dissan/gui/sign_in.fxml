@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane fx:controller="org.agnese_dissan.gui.LogInViewController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="login_button" layoutX="141.0" layoutY="300.0" mnemonicParsing="false" onAction="#loginAction" text="Log in " />
+      <Label layoutX="147.0" layoutY="69.0" text="LOG IN">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="username_field" layoutX="72.0" layoutY="146.0" prefHeight="25.0" prefWidth="191.0" />
+      <TextField fx:id="password_label" layoutX="74.0" layoutY="217.0" prefHeight="25.0" prefWidth="191.0" />
+      <Label layoutX="72.0" layoutY="120.0" text="Username" />
+      <Label layoutX="74.0" layoutY="192.0" text="Password" />
+      <Button layoutX="78.0" layoutY="351.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="191.0" text="Not registered? Sign up!" />
+      <Label fx:id="status_label" layoutX="60.0" layoutY="259.0" />
+   </children>
+</Pane>
