@@ -10,5 +10,7 @@ module job {
     opens org.agnese_dissan.daos to com.google.gson;
     exports org.agnese_dissan;
     exports org.agnese_dissan.gui;
+    exports org.agnese_dissan.gui.login;
+    opens org.agnese_dissan.gui.login to javafx.fxml;
 
 }
