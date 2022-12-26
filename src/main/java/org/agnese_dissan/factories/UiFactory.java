@@ -1,8 +1,12 @@
 package org.agnese_dissan.factories;
 
 
+import org.agnese_dissan.Macros;
 import org.agnese_dissan.cli.EmployeeView;
 import org.agnese_dissan.cli.EmployerView;
+import org.agnese_dissan.cli.LoginView;
+import org.agnese_dissan.gui.StartGuiUi;
+import org.agnese_dissan.gui.login.SignInGui;
 import org.agnese_dissan.interfaces.JobView;
 import org.agnese_dissan.models.User;
 
@@ -11,21 +15,53 @@ public class UiFactory {
     private UiFactory(){}
     private static EmployeeView employeeView = null;
     private static EmployerView employerView = null;
+    private static SignInGui signView = null;
+    private static LoginView loginView = null;
+    private static StartGuiUi startGuiUi = null;
+    private static SignInGui signInGui = null;
+    private static boolean gui = false;
+
+
+    public static void setGui(boolean gui) {
+        UiFactory.gui = gui;
+    }
+
     public static JobView getUi(int type, User user){
 
-        if (type == 0){
-            if (employerView == null){
-                employerView = new EmployerView(user);
+        if (gui){
+            if (type == Macros.START.ordinal()){
+                if (startGuiUi == null){
+                    startGuiUi = new StartGuiUi();
+                }
+                return startGuiUi;
+            }else if (type == Macros.SIGN_IN.ordinal()){
+                if (signInGui == null){
+                    signInGui = new SignInGui();
+                }
+                return signInGui;
             }
-            return employerView;
-        }
 
-        else if (type == 1) {
-            if (employeeView == null) {
-                employeeView = new EmployeeView(user);
+        }else {
+
+            if (type == Macros.START.ordinal()){
+                if (loginView == null){
+                    loginView = new LoginView();
+                }
+                return loginView;
+            }else if (type == Macros.EMPLOYER.ordinal()) {
+                if (employerView == null) {
+                    employerView = new EmployerView(user);
+                }
+                return employerView;
+            } else if (type == Macros.EMPLOYEE.ordinal()) {
+                if (employeeView == null) {
+                    employeeView = new EmployeeView(user);
+                }
+                return employeeView;
             }
-            return employeeView;
         }
         return null;
     }
+
+
 }

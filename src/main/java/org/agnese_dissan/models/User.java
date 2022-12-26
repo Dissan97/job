@@ -1,5 +1,8 @@
 package org.agnese_dissan.models;
 
+import org.agnese_dissan.Macros;
+import org.agnese_dissan.models.time.Date;
+
 import java.util.zip.DataFormatException;
 
 public class User {
@@ -14,7 +17,7 @@ public class User {
     private int userType;
     //CONSTRUCTORS
     public User(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth) throws DataFormatException {
-        this(username, password, name, surname, dateOfBirth, cityOfBirth ,0);
+        this(username, password, name, surname, dateOfBirth, cityOfBirth , Macros.EMPLOYEE.ordinal());
     }
     public User(String username, String password, String name, String surname,String dateOfBirth, String cityOfBirth ,int userType) throws DataFormatException {
         this.setUsername(username);

@@ -1,4 +1,4 @@
-package org.agnese_dissan.models;
+package org.agnese_dissan.models.time;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -10,8 +10,6 @@ public class Date {
     private int day;
     private int month;
     private int year;
-
-
 
     public Date(String d) throws DataFormatException {
         long length;

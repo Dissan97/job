@@ -1,15 +1,7 @@
 package org.agnese_dissan;
 
-
-import org.agnese_dissan.cli.LoginView;
-import org.agnese_dissan.cli.io.Output;
-import org.agnese_dissan.models.DateTime;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.zip.DataFormatException;
-
+import org.agnese_dissan.factories.UiFactory;
+import org.agnese_dissan.interfaces.JobView;
 
 public class Start {
 
@@ -17,13 +9,20 @@ public class Start {
     //TODO if found configuration file the start home menu
     public static void main(String [] args){
 
-        /*
-        *        return Hashing.sha256()
-                .hashString(password, StandardCharsets.UTF_8)
-                .toString();*/
+        boolean gui = true;
+        JobView startView;
 
-        LoginView loginView = new LoginView();
-        loginView.startUi();
+        if (args != null){
+            if (args[0].equalsIgnoreCase("CLI")){
+                gui = false;
+            }
+        }
+
+        UiFactory.setGui(gui);
+        startView = UiFactory.getUi(Macros.START.ordinal(), null);
+        assert startView != null;
+        startView.startUi();
+
 
         //TODO if not found configuration file the start login menu
 

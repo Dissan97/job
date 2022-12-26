@@ -1,4 +1,4 @@
-package org.agnese_dissan.models;
+package org.agnese_dissan.models.time;
 
 import org.jetbrains.annotations.NotNull;
 

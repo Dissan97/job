@@ -4,7 +4,6 @@ package org.agnese_dissan.graphicControllers;
 import org.agnese_dissan.controllers.LoginLogic;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.exceptions.UserLoginFailedException;
-import org.agnese_dissan.models.Date;
 
 import java.util.zip.DataFormatException;
 

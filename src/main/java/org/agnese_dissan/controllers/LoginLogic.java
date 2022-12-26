@@ -8,7 +8,6 @@ import org.agnese_dissan.factories.DAOFactory;
 import org.agnese_dissan.factories.UiFactory;
 import org.agnese_dissan.interfaces.DAO;
 import org.agnese_dissan.interfaces.JobView;
-import org.agnese_dissan.models.Date;
 import org.agnese_dissan.models.User;
 
 import java.nio.charset.StandardCharsets;

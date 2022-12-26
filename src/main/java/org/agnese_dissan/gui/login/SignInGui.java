@@ -1,25 +1,62 @@
 package org.agnese_dissan.gui.login;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import org.agnese_dissan.beans.LoginBean;
+import org.agnese_dissan.cli.io.Output;
+import org.agnese_dissan.exceptions.UserLoginFailedException;
+import org.agnese_dissan.graphicControllers.LoginGraphic;
 import org.agnese_dissan.interfaces.JobView;
 
-import java.io.IOException;
+//TODO ADJUST TO NEW FORMAT
+public class SignInGui implements JobView {
 
-public class SignInGui extends Application implements JobView {
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(SignInGui.class.getResource("sign_in.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Log in");
-        stage.setScene(scene);
-        stage.show();
+    private final LoginBean bean;
+    private final LoginGraphic graphic;
+
+    public SignInGui() {
+        this.bean = new LoginBean();
+        this.graphic = this.bean.getGraphic();
+
+
     }
 
-    public static void main(String[] args) {
-        launch();
+    @FXML
+    TextField username_field;
+    @FXML
+    PasswordField password_field;
+    @FXML
+    Label status_label;
+
+
+    public void signUp(ActionEvent event) {
+
+        String username = username_field.getText();
+        String password = password_field.getText();
+
+        this.bean.setUsername(username);
+        this.bean.setPassword(password);
+
+        Output.println("username: " + username);
+        Output.println("password: " + password);
+        try {
+            this.graphic.signIn(this.bean.getUsername(), this.bean.getPassword());
+        } catch (UserLoginFailedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+        public void completeRegistration(ActionEvent event) {
+    }
+
+    //TODO implementare il cambio di pagina modificare la classe SignUpCtrl
+    public void changeView(ActionEvent actionEvent) {
     }
 
     @Override

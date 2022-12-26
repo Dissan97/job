@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane fx:controller="org.agnese_dissan.gui.login.SignInCtrl" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="org.agnese_dissan.gui.login.SignInGui" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="sign_in_button" layoutX="141.0" layoutY="300.0" mnemonicParsing="false" onAction="#signUp" text="Log in " />
       <Label layoutX="147.0" layoutY="69.0" text="LOG IN">

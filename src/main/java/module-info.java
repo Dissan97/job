@@ -12,5 +12,6 @@ module job {
     exports org.agnese_dissan.gui;
     exports org.agnese_dissan.gui.login;
     opens org.agnese_dissan.gui.login to javafx.fxml;
+    opens org.agnese_dissan.models.time to com.google.gson;
 
 }

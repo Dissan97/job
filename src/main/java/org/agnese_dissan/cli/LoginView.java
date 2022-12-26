@@ -5,10 +5,8 @@ import org.agnese_dissan.beans.LoginBean;
 import org.agnese_dissan.cli.io.Input;
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.exceptions.LoginException;
-import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.graphicControllers.LoginGraphic;
 import org.agnese_dissan.interfaces.JobView;
-import org.agnese_dissan.models.Date;
 
 import java.util.ArrayList;
 import java.util.List;
