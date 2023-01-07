@@ -1,20 +1,19 @@
 package org.agnese_dissan.models.time;
 
+import org.agnese_dissan.exceptions.InvalidDateException;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.zip.DataFormatException;
-
-public class DateTime extends Date{
+public class JobDateTime extends JobDate {
 
     int hour;
     int minute;
-    public DateTime(String d, String time) throws DataFormatException {
+    public JobDateTime(String d, String time) throws InvalidDateException {
         super(d);
         this.timeParsing(time);
     }
 
 
-    private void timeParsing(@NotNull String time) throws DataFormatException {
+    private void timeParsing(@NotNull String time) throws InvalidDateException {
         long length;
         String[] t = time.split(":");
         length = t.length;
@@ -31,14 +30,14 @@ public class DateTime extends Date{
             t = temp;
         }
         if (length != 2){
-            throw new DataFormatException("TIME FORMAT ERROR: " + time);
+            throw new InvalidDateException("TIME FORMAT ERROR: " + time);
         }
 
         int hour = Integer.parseInt(t[0]);
         int minute = Integer.parseInt(t[1]);
 
         if (hour > 24 || minute > 60){
-            throw new DataFormatException("TIME FORMAT ERROR: " + time);
+            throw new InvalidDateException("TIME FORMAT ERROR: " + time);
         }
 
         this.hour = hour;

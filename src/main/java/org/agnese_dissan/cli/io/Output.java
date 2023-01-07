@@ -27,12 +27,12 @@ public class Output{
     }
 
     public static void getCommandList(String page, List<String> commandList){
-        Output.print("["+ page + "]: Command list\n[");
+        Output.pageMessage(page, "COMMAND LIST", true);
+        int i = 0;
         for (String command:
                 commandList) {
-            Output.print("|" +command + "|");
+            Output.println("[" + (i++) + "] " + command);
         }
-        Output.println("]");
     }
 
     public static void pageMessage(String page, String s, boolean line){

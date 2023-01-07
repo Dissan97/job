@@ -1,11 +1,10 @@
 package org.agnese_dissan.factories;
 
 
-import org.agnese_dissan.models.Employee;
-import org.agnese_dissan.models.Employer;
-import org.agnese_dissan.models.User;
-
-import java.util.zip.DataFormatException;
+import org.agnese_dissan.exceptions.InvalidDateException;
+import org.agnese_dissan.models.users.Employee;
+import org.agnese_dissan.models.users.Employer;
+import org.agnese_dissan.models.users.User;
 
 public class UserFactory {
 
@@ -21,7 +20,7 @@ public class UserFactory {
      * @param whichUser we want to get
      * @return the user instance
      */
-    public static User getUser(int whichUser) throws DataFormatException {
+    public static User getUser(int whichUser) throws InvalidDateException {
         if (whichUser == 0){
             if (employer == null){
                 employer = new Employer();

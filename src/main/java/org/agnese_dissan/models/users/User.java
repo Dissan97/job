@@ -1,9 +1,8 @@
-package org.agnese_dissan.models;
+package org.agnese_dissan.models.users;
 
 import org.agnese_dissan.Macros;
-import org.agnese_dissan.models.time.Date;
-
-import java.util.zip.DataFormatException;
+import org.agnese_dissan.exceptions.InvalidDateException;
+import org.agnese_dissan.models.time.JobDate;
 
 public class User {
     //ATTRIBUTES
@@ -16,10 +15,10 @@ public class User {
     private String cityOfBirth;
     private int userType;
     //CONSTRUCTORS
-    public User(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth) throws DataFormatException {
+    public User(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth) throws InvalidDateException {
         this(username, password, name, surname, dateOfBirth, cityOfBirth , Macros.EMPLOYEE.ordinal());
     }
-    public User(String username, String password, String name, String surname,String dateOfBirth, String cityOfBirth ,int userType) throws DataFormatException {
+    public User(String username, String password, String name, String surname,String dateOfBirth, String cityOfBirth ,int userType) throws InvalidDateException {
         this.setUsername(username);
         this.setPassword(password);
         this.setName(name);
@@ -28,7 +27,7 @@ public class User {
         this.setCityOfBirth(cityOfBirth);
         this.setUserType(userType);
     }
-    public User() throws DataFormatException {
+    public User() throws InvalidDateException {
         this(null, null, null, null, "1900-01-01", null,-1);
     }
     //GETTERS
@@ -73,9 +72,9 @@ public class User {
         this.userType = userType;
     }
 
-    public void setDateOfBirth(String dateOfBirth) throws DataFormatException {
+    public void setDateOfBirth(String dateOfBirth) throws InvalidDateException {
 
-        Date date = new Date(dateOfBirth);
+        JobDate date = new JobDate(dateOfBirth);
         this.dateOfBirth = date.toString();
     }
 

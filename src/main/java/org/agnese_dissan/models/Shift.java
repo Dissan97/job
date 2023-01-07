@@ -1,26 +1,36 @@
 package org.agnese_dissan.models;
 
+import org.agnese_dissan.exceptions.InvalidDateException;
+import org.agnese_dissan.models.time.JobDateTime;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
 
 public class Shift {
 
-    private String code;
-    private String name;
-    private JobPlace jobPlace;
-    private Employer employer;
+    private String code = null;
+    private String name = null;
+    private String jobPlace = null;
+    private String employer = null;
+    private String dateTime = null;
+    private String description = null;
 
-    private Date date;
-
-    public Shift(Employer employer) {
+    public Shift(String employer, String jobName, String jobPlace, String dateTime, String description) {
+        this.name = jobName;
         this.employer = employer;
+        this.jobPlace = jobPlace;
+        this.dateTime = dateTime;
+        this.description = description;
+        this.setCode();
     }
 
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCode() {
+        this.code = this.employer + this.getName() + getDateTime();
     }
 
     public String getName() {
@@ -31,19 +41,14 @@ public class Shift {
         this.name = name;
     }
 
-    public JobPlace getPlace() {
-        return jobPlace;
+
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setPlace(JobPlace jobPlace) {
-        this.jobPlace = jobPlace;
-    }
+    public void setDateTime(String jobDate, String jobTime) throws InvalidDateException {
 
-    public Employer getEmployer() {
-        return employer;
-    }
-
-    public void setEmployer(Employer employer) {
-        this.employer = employer;
+        JobDateTime dateTime = new JobDateTime(jobDate, jobTime);
+        this.dateTime = dateTime.toString();
     }
 }

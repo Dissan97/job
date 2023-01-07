@@ -2,19 +2,19 @@ package org.agnese_dissan.factories;
 
 
 import org.agnese_dissan.Macros;
-import org.agnese_dissan.cli.EmployeeView;
 import org.agnese_dissan.cli.EmployerView;
+import org.agnese_dissan.cli.EmployeeView;
 import org.agnese_dissan.cli.LoginView;
 import org.agnese_dissan.gui.StartGuiUi;
 import org.agnese_dissan.gui.login.SignInGui;
 import org.agnese_dissan.interfaces.JobView;
-import org.agnese_dissan.models.User;
+import org.agnese_dissan.models.users.User;
 
 public class UiFactory {
 
     private UiFactory(){}
-    private static EmployeeView employeeView = null;
-    private static EmployerView employerView = null;
+    private static EmployerView employeeView = null;
+    private static EmployeeView employerView = null;
     private static SignInGui signView = null;
     private static LoginView loginView = null;
     private static StartGuiUi startGuiUi = null;
@@ -50,12 +50,12 @@ public class UiFactory {
                 return loginView;
             }else if (type == Macros.EMPLOYER.ordinal()) {
                 if (employerView == null) {
-                    employerView = new EmployerView(user);
+                    employerView = new EmployeeView(user);
                 }
                 return employerView;
             } else if (type == Macros.EMPLOYEE.ordinal()) {
                 if (employeeView == null) {
-                    employeeView = new EmployeeView(user);
+                    employeeView = new EmployerView(user);
                 }
                 return employeeView;
             }

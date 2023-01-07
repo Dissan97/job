@@ -1,8 +1,11 @@
 package org.agnese_dissan.cli.io;
 
+import org.agnese_dissan.Macros;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 public class Input{
 
@@ -21,6 +24,9 @@ public class Input{
         return line;
     }
 
+
+
+
     public static String getCmd(){
         String ln = line();
         if(ln.contains("_")){
@@ -36,6 +42,25 @@ public class Input{
 
         }
         return ln;
+    }
+
+    public static String getCmd(List<String> command){
+        String cmd = getCmd();
+        String ret;
+        int num = 0;
+        try{
+            num = Integer.parseInt(cmd);
+
+            if (num >= command.size()){
+                return "INVALID_NUMBER";
+            }
+
+            ret = command.get(num);
+        }catch (NumberFormatException e){
+            ret = cmd;
+        }
+
+        return ret;
     }
 
     public static void close() throws IOException {

@@ -3,7 +3,8 @@ package org.agnese_dissan.daos;
 
 
 import org.agnese_dissan.interfaces.DAO;
-import org.agnese_dissan.models.User;
+import org.agnese_dissan.models.Shift;
+import org.agnese_dissan.models.users.User;
 
 import java.util.List;
 
@@ -26,6 +27,16 @@ public class MysqlDb implements DAO {
 
     @Override
     public List<User> getUserList() {
+        return null;
+    }
+
+    @Override
+    public void publishShift(Shift shift) {
+
+    }
+
+    @Override
+    public List<Shift> getShiftList() {
         return null;
     }
 }

@@ -7,7 +7,8 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.agnese_dissan.interfaces.DAO;
-import org.agnese_dissan.models.User;
+import org.agnese_dissan.models.Shift;
+import org.agnese_dissan.models.users.User;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -16,10 +17,11 @@ import java.util.List;
 
 public class FileSystem implements DAO {
 
-    private final String path = "src/main/resources/org/agnese_dissan/dao/user.json";
+    private final String userPath = "src/main/resources/org/agnese_dissan/dao/user.json";
+    private final String shiftPath = "src/main/resources/org/agnese_dissan/dao/shifts.json";
     @Override
     public void putUser(User user) {
-        File file = new File(path);
+        File file = new File(userPath);
 
         BufferedWriter writer;
 
@@ -65,7 +67,7 @@ public class FileSystem implements DAO {
         try {
             reader = JsonParser.parseReader(
                     new JsonReader(
-                            new FileReader(path)
+                            new FileReader(userPath)
                     )
             );
         } catch (FileNotFoundException e) {
@@ -79,5 +81,42 @@ public class FileSystem implements DAO {
 
         return gson.fromJson(reader, REVIEW_TYPE);
     }
+
+    @Override
+    public void publishShift(Shift shift) {
+        File file = new File(shiftPath);
+
+        BufferedWriter writer;
+
+        List<Shift> shifts = this.getShiftList();
+        if (shifts == null){
+            shifts = new ArrayList<>();
+        }
+        shifts.add(shift);
+
+        try {
+            writer = new BufferedWriter(
+                    new FileWriter(file, false)
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Gson gson = new Gson();
+        gson.toJson(shifts, writer);
+        try {
+            //TODO Remove this print
+            System.out.println("WRITING IN FILESYSTEM: " + shift.getCode());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Shift> getShiftList() {
+        return null;
+    }
+
 
 }

@@ -66,6 +66,11 @@
             <version>23.1.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.peteroupc</groupId>
+            <artifactId>uriutility</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
 
 </project>

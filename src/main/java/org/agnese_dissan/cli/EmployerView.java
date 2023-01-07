@@ -1,76 +1,182 @@
 package org.agnese_dissan.cli;
 
+import org.agnese_dissan.beans.AccountBean;
+import org.agnese_dissan.beans.ShiftBean;
 import org.agnese_dissan.cli.io.Input;
 import org.agnese_dissan.cli.io.Output;
+import org.agnese_dissan.exceptions.InvalidDateException;
+import org.agnese_dissan.graphicControllers.ShiftPublisherGraphic;
 import org.agnese_dissan.interfaces.JobView;
-import org.agnese_dissan.models.Employee;
-import org.agnese_dissan.models.User;
+import org.agnese_dissan.interfaces.Refresh;
+import org.agnese_dissan.models.users.Employer;
+import org.agnese_dissan.models.users.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.DataFormatException;
+
+import static org.agnese_dissan.Macros.BACK_CALL;
 
 public class EmployerView implements JobView {
 
+    private Employer employer;
+    private final AccountBean accountBean;
     private final List<String> commandList = new ArrayList<>();
-    private Employee employee;
+
+    private final String pageMsg;
+
     public EmployerView(User user) {
+
+        this.accountBean = new AccountBean(user);
+
         try {
-            employee = new Employee(user);
-        } catch (DataFormatException e) {
+            employer = new Employer(user);
+        } catch (InvalidDateException e) {
             e.printStackTrace();
         }
+        pageMsg = "@EMPLOYER{" + this.accountBean.getUsername() + "}";
         commandList.add("ACCOUNT");
-        commandList.add("BOOK_ROOM");
-        commandList.add("VIEW_ROOMS");
-        commandList.add("CHECK_IN");
+        commandList.add("PUBLISH_SHIFT");
+        commandList.add("VIEW_CANDIDATES");
+        commandList.add("HANDLE_CANDIDATE");
         commandList.add("HELP");
         commandList.add("EXIT");
     }
 
     @Override
     public void startUi() {
-        Output.println("[HOME{("+ employee.getUsername()+")}]");
-        Output.pageMessage("[HOME]", "Type help to get list", true);
+        String page = "HOME" + pageMsg;
+        Output.pageMessage(page, "TYPE HELP TO GET COMMAND LIST", true);
         while (true) {
 
-            Output.print("HOME:-> ");
-            String line = Input.getCmd();
+            Output.pageMessage(page,"",false);
+            String line = Input.getCmd(this.commandList);
 
-            if (line.equals("ACCOUNT")){
-                this.getAccountInfo();
-            } else if (line.equals("BOOK_ROOM")) {
+            switch (line) {
+                case "ACCOUNT":
+                    this.getAccountInfo();
+                    break;
+                case "PUBLISH_SHIFT":
+                    publishShift();
 
-            } else if (line.equals("VIEW_ROOMS")) {
+                    break;
+                case "VIEW_CANDIDATES":
 
-            } else if (line.equals("CHECK_IN")) {
-                this.checkIn();
-            } else if (line.equals("HELP")) {
-                Output.getCommandList("HOME", this.commandList);
-            } else if (line.equals("EXIT")) {
-                Output.pageMessage("HOME", employee.getUsername() + " Bye...", true);
-                System.exit(0);
-            } else if (line.equals("")) {
-                continue;
-            } else {
-                Output.pageMessage("HOME", "PLEASE TYPE THIS COMMAND", true);
-                Output.getCommandList("HOME", this.commandList);
+                    break;
+                case "HANDLE_CANDIDATE":
+
+                    break;
+                case "HELP":
+                    Output.getCommandList("HELP" + pageMsg, this.commandList);
+                    break;
+                case "EXIT":
+                    Output.pageMessage("HOME", this.employer.getUsername() + " Bye...", true);
+                    System.exit(0);
+                case "":
+
+                    break;
+                case "INVALID_NUMBER":
+                    Output.pageMessage(page, line + " VALUES ALLOWED 0.." + (this.commandList.size() - 1), true);
+                    break;
+                default:
+                    Output.pageMessage(page, "PLEASE TYPE THIS COMMAND", true);
+                    Output.getCommandList("HELP" + pageMsg, this.commandList);
+                    break;
+            }
+
+        }
+    }
+
+    private int publishShift() {
+        ShiftBean bean = new ShiftBean(this.employer);
+        ShiftPublisherGraphic shiftPublisherGraphic = bean.getGraphic();
+        String line;
+        String page = "PUBLISH_SHIFT" + this.pageMsg;
+
+        Output.pageMessage(page, "PRESS #BACK TO #EXIT", true);
+
+        if (bean.getName() == null) {
+            Output.pageMessage(page, "Job name", false);
+            line = Input.line();
+
+            if (this.exit(line, bean)) {
+                return BACK_CALL.ordinal();
+            }
+
+            if (bean.setName(line) == -1){
+                Output.pageMessage(page, "Job name cannot be empty", true);
+                return this.publishShift();
             }
 
         }
 
+        bean.setEmployer(this.employer);
+
+        if (bean.getJobPlace() == null){
+            Output.pageMessage(page, "Job place insert address", false);
+            line = Input.line();
+
+            if (this.exit(line, bean)) {
+                return BACK_CALL.ordinal();
+            }
+            if (bean.setJobPlace(line) == -1){
+                Output.pageMessage(page, "Job place cannot be empty", true);
+                return this.publishShift();
+            }
+        }
+
+        if (bean.getDateTime() == null){
+            Output.pageMessage(page, "Insert day", false);
+            line = Input.line();
+
+            if (this.exit(line, bean)) {
+                return BACK_CALL.ordinal();
+            }
+
+            String dateTime = line;
+            Output.pageMessage(page, "Insert Time", false);
+            line = Input.line();
+
+            if (this.exit(line, bean)){
+                return BACK_CALL.ordinal();
+            }
+
+            dateTime += " " + line;
+            try {
+                bean.setDateTime(dateTime);
+            } catch (InvalidDateException e) {
+                Output.pageMessage(page, e.getMessage(), true);
+                Output.pageMessage(page, "INSERTED {" + line + "}", true);
+                return this.publishShift();
+            }
+        }
+
+        if (bean.getDescription() == null){
+            Output.pageMessage(page, "Insert description", false);
+            line = Input.line();
+            bean.setDescription(line);
+
+            if (this.exit(line, bean)){
+                return BACK_CALL.ordinal();
+            }
+        }
+
+        shiftPublisherGraphic.publishShift();
+
+        return 0;
     }
-
-    private void getAccountInfo(){
-        String page = "HOME{" + employee.getUsername() + "}";
-        Output.pageMessage(page, "NAME: " + employee.getName() , true);
-        Output.pageMessage(page, "SURNAME: " + employee.getSurname(), true);
-        Output.pageMessage(page, "DATE OF BIRTH: " + employee.getDateOfBirth(), true);
-        Output.pageMessage(page, "CITY OF BIRTH: " + employee.getCityOfBirth(), true);
+    private void getAccountInfo () {
+        String page = "ACCOUNT" + this.pageMsg;
+        Output.pageMessage(page, "NAME: " + accountBean.getName(), true);
+        Output.pageMessage(page, "SURNAME: " + accountBean.getSurname(), true);
+        Output.pageMessage(page, "DATE OF BIRTH: " + accountBean.getDateOfBirth(), true);
+        Output.pageMessage(page, "CITY OF BIRTH: " + accountBean.getCityOfBirth(), true);
     }
+    private boolean exit(String s, Refresh bean) {
 
-    private void checkIn() {
+        if (s.equalsIgnoreCase("#BACK") || s.equalsIgnoreCase("#EXIT")) {
+            Output.println("Entered Here");
+            bean.refresh();
+        }
+        return false;
     }
-
-
 }

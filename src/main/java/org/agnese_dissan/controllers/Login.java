@@ -2,20 +2,20 @@ package org.agnese_dissan.controllers;
 
 import com.google.common.hash.Hashing;
 import org.agnese_dissan.cli.io.Output;
+import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.exceptions.UserLoginFailedException;
 import org.agnese_dissan.factories.DAOFactory;
 import org.agnese_dissan.factories.UiFactory;
 import org.agnese_dissan.interfaces.DAO;
 import org.agnese_dissan.interfaces.JobView;
-import org.agnese_dissan.models.User;
+import org.agnese_dissan.models.users.User;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Objects;
-import java.util.zip.DataFormatException;
 
-public class LoginLogic {
+public class Login {
 
     private User user;
     private String password;
@@ -23,7 +23,7 @@ public class LoginLogic {
 
    private DAO dao;
 
-    public LoginLogic(){
+    public Login(){
         this.db = false;
         dao = DAOFactory.getDAO(false);
         dao = DAOFactory.getDAO(false);
@@ -43,7 +43,7 @@ public class LoginLogic {
     }
 
 
-    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth) throws UserAlreadyExistException, DataFormatException {
+    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, int type) throws UserAlreadyExistException, InvalidDateException {
         this.password = password;
 
         if(verify(username) == -1){

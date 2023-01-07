@@ -1,17 +1,16 @@
 package org.agnese_dissan.models.time;
 
+import org.agnese_dissan.exceptions.InvalidDateException;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.zip.DataFormatException;
-
-public class Date {
+public class JobDate {
 
     private final String [] MONTHS = {"January","February", "March", "April", "May" ,"June", "July", "August", "September", "October", "November", "December"};
     private int day;
     private int month;
     private int year;
 
-    public Date(String d) throws DataFormatException {
+    public JobDate(String d) throws InvalidDateException {
         long length;
         String[] date = d.split("-");
         length = date.length;
@@ -31,7 +30,7 @@ public class Date {
             }
 
             if (length != 3){
-                throw new DataFormatException("Error date cannot pass this format: " + d);
+                throw new InvalidDateException("Error date cannot pass this format: " + d);
             }
 
             date = temp;
@@ -41,19 +40,19 @@ public class Date {
 
     }
 
-    private void dateParsing(String @NotNull [] date) throws DataFormatException {
+    private void dateParsing(String @NotNull [] date) throws InvalidDateException {
 
             if (date[0].length() == 4){
 
                 if (Integer.parseInt(date[0]) < 1900){
-                    throw new DataFormatException("Cannot pass such a date");
+                    throw new InvalidDateException("Cannot pass such a date");
                 }
 
                 int first = Integer.parseInt(date[1]);
                 int second = Integer.parseInt(date[2]);
 
                 if (first > 12 || second > 31 || first < 1 || second < 1){
-                    throw new DataFormatException("Cannot pass this month: " + first + " and this day: " + second);
+                    throw new InvalidDateException("Cannot pass this month: " + first + " and this day: " + second);
                 }
 
                 if (first == 2){
@@ -61,12 +60,12 @@ public class Date {
                     int num = Integer.parseInt(date[0]);
 
                     if (second > 29){
-                        throw new DataFormatException("February cannot ha more than 29 days");
+                        throw new InvalidDateException("February cannot ha more than 29 days");
                     }
 
                     if (num % 4 != 0){
                         if (second > 28){
-                            throw new DataFormatException("This year is not leap");
+                            throw new InvalidDateException("This year is not leap");
                         }
                     }
 
@@ -75,12 +74,12 @@ public class Date {
                     if (num % 2 == 1){
                         num = unit;
                         if (num != 6 &&  num != 2 && second > 28){
-                            throw new DataFormatException("This year is not leap");
+                            throw new InvalidDateException("This year is not leap");
                         }
                     }else {
                         num = unit;
                         if (num % 4 != 0 && second > 28){
-                            throw new DataFormatException("BAD FORMAT");
+                            throw new InvalidDateException("BAD FORMAT");
                         }
                     }
 
@@ -93,14 +92,14 @@ public class Date {
 
                     case 4, 6, 9, 11 ->{
                         if (second > 30){
-                            throw new DataFormatException(MONTHS[first - 1] + " cannot have more than 30 days");
+                            throw new InvalidDateException(MONTHS[first - 1] + " cannot have more than 30 days");
                         }
                     }
 
                 }
 
             }   else {
-                throw new DataFormatException("Pass date as yyyy/mm/dd");
+                throw new InvalidDateException("Pass date as yyyy/mm/dd");
             }
 
             this.year = Integer.parseInt(date[0]);
