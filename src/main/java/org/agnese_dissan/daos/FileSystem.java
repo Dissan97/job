@@ -17,11 +17,12 @@ import java.util.List;
 
 public class FileSystem implements DAO {
 
-    private final String userPath = "src/main/resources/org/agnese_dissan/dao/user.json";
-    private final String shiftPath = "src/main/resources/org/agnese_dissan/dao/shifts.json";
+    private final String USER_PATH = "src/main/resources/org/agnese_dissan/dao/user.json";
+    private final String SHIFT_PATH = "src/main/resources/org/agnese_dissan/dao/shifts.json";
+    private final String CONFIG_PATH =  "src/main/resources/org/agnese_dissan/dao/config.json";
     @Override
     public void putUser(User user) {
-        File file = new File(userPath);
+        File file = new File(USER_PATH);
 
         BufferedWriter writer;
 
@@ -52,12 +53,39 @@ public class FileSystem implements DAO {
 
     @Override
     public void saveConfig(User user) {
+        BufferedWriter writer;
+        try {
+             writer = new BufferedWriter(
+                    new FileWriter(this.CONFIG_PATH)
+            );
+            Gson gson = new Gson();
+            gson.toJson(user, writer);
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public User loadConfig() {
-        return null;
+        JsonElement jsonReader = null;
+
+        try {
+            jsonReader = JsonParser.parseReader(
+                    new JsonReader(
+                            new FileReader(this.CONFIG_PATH)
+                    )
+            );
+        } catch (FileNotFoundException ignored) {
+        }
+
+        Type REVIEW_TYPE = new TypeToken<User>() {
+        }.getType();
+        Gson gson = new Gson();
+
+        return gson.fromJson(jsonReader, REVIEW_TYPE);
     }
 
     @Override
@@ -67,7 +95,7 @@ public class FileSystem implements DAO {
         try {
             reader = JsonParser.parseReader(
                     new JsonReader(
-                            new FileReader(userPath)
+                            new FileReader(USER_PATH)
                     )
             );
         } catch (FileNotFoundException e) {
@@ -84,7 +112,7 @@ public class FileSystem implements DAO {
 
     @Override
     public void publishShift(Shift shift) {
-        File file = new File(shiftPath);
+        File file = new File(SHIFT_PATH);
 
         BufferedWriter writer;
 

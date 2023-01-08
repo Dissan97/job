@@ -43,7 +43,7 @@ public class SignInGui implements JobView {
         Output.println("username: " + username);
         Output.println("password: " + password);
         try {
-            this.graphic.signIn(this.bean.getUsername(), this.bean.getPassword());
+            this.graphic.signIn(this.bean.getUsername(), this.bean.getPassword(), false);
         } catch (UserLoginFailedException e) {
             e.printStackTrace();
         }

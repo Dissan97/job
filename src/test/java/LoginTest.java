@@ -1,12 +1,7 @@
-import org.agnese_dissan.cli.io.Input;
 import org.agnese_dissan.exceptions.UserLoginFailedException;
 import org.agnese_dissan.graphicControllers.LoginGraphic;
 import org.junit.jupiter.api.Test;
-import sun.misc.SignalHandler;
 
-import java.io.*;
-
-import static java.lang.System.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,7 +26,7 @@ public class LoginTest {
 */
 
         try {
-            graphic.signIn("dissan", "badPassword");
+            graphic.signIn("dissan", "badPassword", false);
         } catch (UserLoginFailedException e) {
             e.printStackTrace();
             failed = true;

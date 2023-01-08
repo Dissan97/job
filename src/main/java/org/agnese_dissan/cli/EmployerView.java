@@ -4,7 +4,9 @@ import org.agnese_dissan.beans.AccountBean;
 import org.agnese_dissan.beans.ShiftBean;
 import org.agnese_dissan.cli.io.Input;
 import org.agnese_dissan.cli.io.Output;
+import org.agnese_dissan.controllers.Login;
 import org.agnese_dissan.exceptions.InvalidDateException;
+import org.agnese_dissan.factories.DAOFactory;
 import org.agnese_dissan.graphicControllers.ShiftPublisherGraphic;
 import org.agnese_dissan.interfaces.JobView;
 import org.agnese_dissan.interfaces.Refresh;
@@ -39,6 +41,7 @@ public class EmployerView implements JobView {
         commandList.add("VIEW_CANDIDATES");
         commandList.add("HANDLE_CANDIDATE");
         commandList.add("HELP");
+        commandList.add("LOG_OUT");
         commandList.add("EXIT");
     }
 
@@ -68,6 +71,10 @@ public class EmployerView implements JobView {
                 case "HELP":
                     Output.getCommandList("HELP" + pageMsg, this.commandList);
                     break;
+
+                case "LOG_OUT":
+                    Login.LogOut(DAOFactory.isFs());
+                    return;
                 case "EXIT":
                     Output.pageMessage("HOME", this.employer.getUsername() + " Bye...", true);
                     System.exit(0);

@@ -7,6 +7,7 @@ import org.agnese_dissan.cli.io.Input;
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.exceptions.LoginException;
+import org.agnese_dissan.factories.UiFactory;
 import org.agnese_dissan.graphicControllers.LoginGraphic;
 import org.agnese_dissan.interfaces.JobView;
 
@@ -61,6 +62,7 @@ public class LoginView implements JobView{
             }
 
             if (ret == Macros.SIGN_IN_SUCCESS.ordinal()){
+                this.bean.refresh();
                 return;
             } else if (ret == Macros.SIGN_IN_FAILED.ordinal()) {
                 Output.pageMessage("LOGIN", "There's some error", true);
@@ -221,8 +223,15 @@ public class LoginView implements JobView{
             return this.signIn(false);
         }
 
+        boolean store = false;
+        Output.pageMessage("LOGIN", "Want to store configuration? y to approve", false);
+        String line = Input.line();
+        if (line.equalsIgnoreCase("yes") || line.equalsIgnoreCase("y")){
+            store = true;
+        }
+
         try {
-            this.graphic.signIn(this.bean.getUsername(), this.bean.getPassword());
+            this.graphic.signIn(this.bean.getUsername(), this.bean.getPassword(), store);
         } catch (LoginException e) {
             e.printStackTrace();
             return Macros.ERROR.ordinal();

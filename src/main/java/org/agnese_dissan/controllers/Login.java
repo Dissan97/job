@@ -1,6 +1,7 @@
 package org.agnese_dissan.controllers;
 
 import com.google.common.hash.Hashing;
+import org.agnese_dissan.Macros;
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
@@ -25,11 +26,10 @@ public class Login {
 
     public Login(){
         this.db = false;
-        dao = DAOFactory.getDAO(false);
-        dao = DAOFactory.getDAO(false);
+        dao = DAOFactory.getDAO();
     }
 
-    public void signIn(String username, String password) throws UserLoginFailedException {
+    public void signIn(String username, String password, boolean store) throws UserLoginFailedException {
 
         this.password = password;
         int userKind = verify(username, password);
@@ -38,6 +38,11 @@ public class Login {
             throw new UserLoginFailedException();
         }
         JobView view = UiFactory.getUi(userKind, this.user);
+
+        if (store){
+            dao.saveConfig(this.user);
+        }
+
         assert view != null;
         view.startUi();
     }
@@ -50,9 +55,17 @@ public class Login {
             throw new UserAlreadyExistException(username);
         }
         password = shaPassword(password);
-        DAO dao = DAOFactory.getDAO(this.db);
+        DAO dao = DAOFactory.getDAO();
         dao.putUser(new User(username, password, name, surname, dateOfBirth, cityOfBirth));
 
+    }
+
+    public static void LogOut(Boolean db){
+        DAO tempDao = DAOFactory.getDAO();
+        tempDao.saveConfig(null);
+        JobView view = UiFactory.getUi(Macros.START.ordinal(), null);
+        assert view != null;
+        view.startUi();
     }
 
     public String getPassword() {
@@ -89,7 +102,7 @@ public class Login {
 
     private int verify(String username) {
         List<User> users = dao.getUserList();
-        if (user != null) {
+        if (this.user != null) {
             for (User user : users
             ) {
                 if (Objects.equals(user.getUsername(), username)) {

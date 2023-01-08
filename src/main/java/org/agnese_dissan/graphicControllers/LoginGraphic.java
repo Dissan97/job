@@ -6,8 +6,6 @@ import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.exceptions.UserLoginFailedException;
 
-import java.util.zip.DataFormatException;
-
 public class LoginGraphic {
 
     Login login;
@@ -15,8 +13,8 @@ public class LoginGraphic {
         this.login = new Login();
     }
 
-    public void signIn(String username, String password) throws UserLoginFailedException {
-            login.signIn(username, password);
+    public void signIn(String username, String password, boolean store) throws UserLoginFailedException {
+            login.signIn(username, password, store);
     }
 
     public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, int type) throws UserAlreadyExistException, InvalidDateException {
