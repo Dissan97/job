@@ -9,6 +9,7 @@ public class Start {
 
 
     //TODO if found configuration file the start home menu
+    //TODO add a state machine to handle GUI
     public static void main(String [] args){
 
         boolean gui = true;

@@ -15,7 +15,7 @@ public enum Macros {
     EMPLOYER,
     EMPLOYEE,
     START,
-    BAD_VALUE
+    LOGIN
 
 
 }

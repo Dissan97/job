@@ -6,13 +6,16 @@ module job {
     requires org.jetbrains.annotations;
 
     opens org.agnese_dissan.gui to javafx.fxml;
-    opens org.agnese_dissan.models to com.google.gson;
     opens org.agnese_dissan.daos to com.google.gson;
     exports org.agnese_dissan;
     exports org.agnese_dissan.gui;
     exports org.agnese_dissan.gui.login;
+    exports org.agnese_dissan.models.users;
+    exports org.agnese_dissan.exceptions;
+
     opens org.agnese_dissan.gui.login to javafx.fxml;
     opens org.agnese_dissan.models.time to com.google.gson;
     opens org.agnese_dissan.models.users to com.google.gson;
+    opens org.agnese_dissan.models.job to com.google.gson;
 
 }

@@ -105,7 +105,7 @@ public class ShiftBean implements Refresh {
         int currentMin = currentTime.getMinute();
         if (jobYear < currentYear) {
             return true;
-        } else if (jobMonth < currentMonth && jobYear == currentYear) {
+        } else if (jobMonth > currentMonth && jobYear == currentYear) {
             return true;
         } else if (jobDay < currentDay || jobDay - currentDay > 7 && jobMonth == currentMonth) {
             return true;

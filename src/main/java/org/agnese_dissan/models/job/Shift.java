@@ -1,10 +1,7 @@
-package org.agnese_dissan.models;
+package org.agnese_dissan.models.job;
 
 import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.models.time.JobDateTime;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class Shift {

@@ -1,8 +1,11 @@
 package org.agnese_dissan.cli.io;
 
+import org.agnese_dissan.models.job.ShiftApply;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Output{
@@ -26,7 +29,7 @@ public class Output{
         print(msg + "\n");
     }
 
-    public static void getCommandList(String page, List<String> commandList){
+    public static void printList(String page, List<String> commandList){
         Output.pageMessage(page, "COMMAND LIST", true);
         int i = 0;
         for (String command:
@@ -40,7 +43,7 @@ public class Output{
         if (line)
             page += ("]: " + s + "\n");
         else
-            page += ("]: " + s + "-> ");
+            page += ("] " + s + "\n>> ");
         Output.print(page);
     }
 
@@ -64,9 +67,7 @@ public class Output{
 
         StringBuilder lines = new StringBuilder("___");
 
-        for (int i = 0; i < (max) * (values.size()) ; i++){
-            lines.append("_");
-        }
+        lines.append("_".repeat(Math.max(0, (max) * (values.size()))));
 
         lines.append("___");
         String line = lines.toString();
@@ -75,13 +76,13 @@ public class Output{
         StringBuilder builder = new StringBuilder();
 
 
-        builder.append(line+"\n| ");
+        builder.append(line).append("\n| ");
         for (String column: values
         ) {
             builder.append(column);
             builder.append(" | ");
         }
-        builder.append(" |\n"+ line);
+        builder.append(" |\n").append(line);
 
 
         String output = builder.toString();

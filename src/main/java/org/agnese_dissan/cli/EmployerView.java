@@ -23,7 +23,6 @@ public class EmployerView implements JobView {
     private Employer employer;
     private final AccountBean accountBean;
     private final List<String> commandList = new ArrayList<>();
-
     private final String pageMsg;
 
     public EmployerView(User user) {
@@ -48,7 +47,7 @@ public class EmployerView implements JobView {
     @Override
     public void startUi() {
         String page = "HOME" + pageMsg;
-        Output.pageMessage(page, "TYPE HELP TO GET COMMAND LIST", true);
+        Output.pageMessage(page, "type help to command list", true);
         while (true) {
 
             Output.pageMessage(page,"",false);
@@ -69,7 +68,7 @@ public class EmployerView implements JobView {
 
                     break;
                 case "HELP":
-                    Output.getCommandList("HELP" + pageMsg, this.commandList);
+                    Output.printList("HELP" + pageMsg, this.commandList);
                     break;
 
                 case "LOG_OUT":
@@ -86,7 +85,7 @@ public class EmployerView implements JobView {
                     break;
                 default:
                     Output.pageMessage(page, "PLEASE TYPE THIS COMMAND", true);
-                    Output.getCommandList("HELP" + pageMsg, this.commandList);
+                    Output.printList("HELP" + pageMsg, this.commandList);
                     break;
             }
 

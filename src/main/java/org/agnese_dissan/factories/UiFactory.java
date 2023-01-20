@@ -13,8 +13,8 @@ import org.agnese_dissan.models.users.User;
 public class UiFactory {
 
     private UiFactory(){}
-    private static EmployerView employeeView = null;
-    private static EmployeeView employerView = null;
+    private static EmployeeView employeeView = null;
+    private static EmployerView employerView = null;
     private static SignInGui signView = null;
     private static LoginView loginView = null;
     private static StartGuiUi startGuiUi = null;
@@ -50,12 +50,12 @@ public class UiFactory {
                 return loginView;
             }else if (type == Macros.EMPLOYER.ordinal()) {
                 if (employerView == null) {
-                    employerView = new EmployeeView(user);
+                    employerView = new EmployerView(user);
                 }
                 return employerView;
             } else if (type == Macros.EMPLOYEE.ordinal()) {
                 if (employeeView == null) {
-                    employeeView = new EmployerView(user);
+                    employeeView = new EmployeeView(user);
                 }
                 return employeeView;
             }

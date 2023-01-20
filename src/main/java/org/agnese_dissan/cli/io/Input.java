@@ -1,7 +1,5 @@
 package org.agnese_dissan.cli.io;
 
-import org.agnese_dissan.Macros;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,7 +7,7 @@ import java.util.List;
 
 public class Input{
 
-    private static final BufferedReader INPUT = new BufferedReader(
+    private static final BufferedReader in = new BufferedReader(
             new InputStreamReader( System.in)
     );
     private Input(){}
@@ -17,7 +15,7 @@ public class Input{
     public static String line() {
         String line = null;
         try {
-            line = INPUT.readLine();
+            line = in.readLine();
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -64,6 +62,11 @@ public class Input{
     }
 
     public static void close() throws IOException {
-        INPUT.close();
+        in.close();
+    }
+
+    public static String getInfo(String page, String msg) {
+        Output.pageMessage(page,"Insert " +  msg, false);
+        return Input.line();
     }
 }

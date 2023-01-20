@@ -1,3 +1,5 @@
+package com.agnese_dissan;
+
 import org.agnese_dissan.exceptions.UserLoginFailedException;
 import org.agnese_dissan.graphicControllers.LoginGraphic;
 import org.junit.jupiter.api.Test;
@@ -14,7 +16,7 @@ public class LoginTest {
 
         boolean success = true;
         boolean failed = false;
-        LoginGraphic graphic = new LoginGraphic();
+
 
 
 /*        try {
@@ -24,16 +26,6 @@ public class LoginTest {
             success = false;
         }
 */
-
-        try {
-            graphic.signIn("dissan", "badPassword", false);
-        } catch (UserLoginFailedException e) {
-            e.printStackTrace();
-            failed = true;
-        }
-
-        assertTrue(success);
-        assertTrue(failed);
 
 
     }

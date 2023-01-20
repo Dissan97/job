@@ -6,6 +6,7 @@ import org.agnese_dissan.models.time.JobDate;
 
 public class User {
     //ATTRIBUTES
+    //TODO reach polymorphism adding a correct concrete userline
     private String username;
     private String password;
     private String name;

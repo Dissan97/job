@@ -2,7 +2,7 @@ package org.agnese_dissan.controllers;
 
 import org.agnese_dissan.factories.DAOFactory;
 import org.agnese_dissan.interfaces.DAO;
-import org.agnese_dissan.models.Shift;
+import org.agnese_dissan.models.job.Shift;
 
 public class ShiftPublisher {
 

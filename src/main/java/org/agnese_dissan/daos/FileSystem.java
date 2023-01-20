@@ -7,7 +7,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.agnese_dissan.interfaces.DAO;
-import org.agnese_dissan.models.Shift;
+import org.agnese_dissan.models.job.Shift;
 import org.agnese_dissan.models.users.User;
 
 import java.io.*;
@@ -22,6 +22,10 @@ public class FileSystem implements DAO {
     private final String CONFIG_PATH =  "src/main/resources/org/agnese_dissan/dao/config.json";
     @Override
     public void putUser(User user) {
+        File dir = new File("src/main/resources/org/agnese_dissan/dao/" + user.getUsername());
+
+        //TODO create a directory for new user with following file if is employer or is employee or is assistant
+
         File file = new File(USER_PATH);
 
         BufferedWriter writer;

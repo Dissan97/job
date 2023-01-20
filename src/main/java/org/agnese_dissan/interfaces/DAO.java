@@ -1,7 +1,7 @@
 package org.agnese_dissan.interfaces;
 
 
-import org.agnese_dissan.models.Shift;
+import org.agnese_dissan.models.job.Shift;
 import org.agnese_dissan.models.users.User;
 
 import java.util.List;
@@ -18,5 +18,9 @@ public interface DAO {
     void publishShift(Shift shift);
 
     List<Shift> getShiftList();
+
+    //TODO add exception to all the processes throw ioException
+    //TODO add function removeShift candidateShift
+    //TODO add some feature that will load some configuration file to handle some state
 
 }

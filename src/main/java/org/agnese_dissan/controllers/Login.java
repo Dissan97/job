@@ -2,6 +2,8 @@ package org.agnese_dissan.controllers;
 
 import com.google.common.hash.Hashing;
 import org.agnese_dissan.Macros;
+import org.agnese_dissan.beans.AccountBean;
+import org.agnese_dissan.beans.LoginBean;
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
@@ -20,11 +22,12 @@ public class Login {
 
     private User user;
     private String password;
+
     private final boolean db;
 
    private DAO dao;
 
-    public Login(){
+    public Login(LoginBean bean){
         this.db = false;
         dao = DAOFactory.getDAO();
     }
@@ -48,7 +51,7 @@ public class Login {
     }
 
 
-    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, int type) throws UserAlreadyExistException, InvalidDateException {
+    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, Macros type) throws UserAlreadyExistException, InvalidDateException {
         this.password = password;
 
         if(verify(username) == -1){
@@ -56,7 +59,7 @@ public class Login {
         }
         password = shaPassword(password);
         DAO dao = DAOFactory.getDAO();
-        dao.putUser(new User(username, password, name, surname, dateOfBirth, cityOfBirth));
+        dao.putUser(new User(username, password, name, surname, dateOfBirth, cityOfBirth, type.ordinal()));
 
     }
 
@@ -90,7 +93,6 @@ public class Login {
 
         for (User user: users
         ) {
-            Output.println("username: " + user.getUsername() + " | password: " + user.getPassword());
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 this.user = user;
                 return user.getUserType();

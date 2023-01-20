@@ -13,6 +13,7 @@ import java.io.IOException;
 
 public class ViewChanger {
 
+    //TODO must be changed to a state machine pattern
     private static Scene home = null;
     private static Scene now;
     private static Scene prev = null;
@@ -45,7 +46,7 @@ public class ViewChanger {
     }
 
     /**
-     * This function is used to setUp some view using a specific fxml file
+     * This function is used to set some view using a specific fxml file
      * @param name fxml filename
      */
 

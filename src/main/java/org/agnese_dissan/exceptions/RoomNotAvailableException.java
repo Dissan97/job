@@ -1,6 +1,6 @@
 package org.agnese_dissan.exceptions;
 
-public class RoomNotAvailableException extends BookingException{
+public class RoomNotAvailableException extends Exception {
     public RoomNotAvailableException() {
         super();
     }
