@@ -10,7 +10,7 @@ public class Start {
 
     //TODO if found configuration file the start home menu
     //TODO add a state machine to handle GUI
-    public static void main(String [] args){
+    public static void main(String [] args) {
 
         boolean gui = true;
         boolean local = true;
@@ -29,9 +29,9 @@ public class Start {
         UiFactory.setGui(gui);
         DAOFactory.setStorageMethod(local);
 
-        ConfigurationJson configurationJson = new ConfigurationJson(false);
+        ConfigurationJson configurationJson = new ConfigurationJson();
 
-        int starter = Macros.START.ordinal();
+        Macros starter = Macros.START;
         User user = null;
 
         if (configurationJson.hasConfig()){

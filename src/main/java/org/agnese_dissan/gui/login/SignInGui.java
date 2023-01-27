@@ -19,7 +19,7 @@ public class SignInGui implements JobView {
 
     public SignInGui() {
         this.bean = new LoginBean();
-        this.graphic = new LoginGraphic(this.bean);
+        this.graphic = new LoginGraphic();
 
 
 

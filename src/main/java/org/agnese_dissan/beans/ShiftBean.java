@@ -15,7 +15,6 @@ public class ShiftBean implements Refresh {
     private String dateTime;
     private String description;
     private Employer employer;
-    private final ShiftPublisherGraphic graphic;
 
     public ShiftBean() {
         this.shiftCode = null;
@@ -24,7 +23,6 @@ public class ShiftBean implements Refresh {
         this.dateTime = null;
         this.description = null;
         this.employer = null;
-        this.graphic = new ShiftPublisherGraphic(this);
     }
 
     public ShiftBean(Employer employer) {
@@ -130,10 +128,6 @@ public class ShiftBean implements Refresh {
 
     public void setEmployer(Employer employer) {
         this.employer = employer;
-    }
-
-    public ShiftPublisherGraphic getGraphic() {
-        return this.graphic;
     }
 
     public void refresh() {

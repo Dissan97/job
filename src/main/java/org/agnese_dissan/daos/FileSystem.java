@@ -6,54 +6,109 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.interfaces.DAO;
 import org.agnese_dissan.models.job.Shift;
+import org.agnese_dissan.models.job.ShiftApply;
+import org.agnese_dissan.models.users.Employer;
 import org.agnese_dissan.models.users.User;
 
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class FileSystem implements DAO {
 
     private final String USER_PATH = "src/main/resources/org/agnese_dissan/dao/user.json";
-    private final String SHIFT_PATH = "src/main/resources/org/agnese_dissan/dao/shifts.json";
     private final String CONFIG_PATH =  "src/main/resources/org/agnese_dissan/dao/config.json";
     @Override
-    public void putUser(User user) {
-        File dir = new File("src/main/resources/org/agnese_dissan/dao/" + user.getUsername());
+    public void putUser(User user) throws UserAlreadyExistException {
 
-        //TODO create a directory for new user with following file if is employer or is employee or is assistant
 
-        File file = new File(USER_PATH);
+        File usersFile = new File(USER_PATH);
 
         BufferedWriter writer;
 
         List<User> users = this.getUserList();
+
         if (users == null){
             users = new ArrayList<>();
+        }else {
+            for (User u: users
+                 ) {
+                if (u.getUsername().equals(user.getUsername())){
+                    throw new UserAlreadyExistException();
+                }
+            }
         }
-        users.add(user);
+
+        String folder = user.getUserType().name().toLowerCase(Locale.ROOT) + "/";
+        String userPath = "src/main/resources/org/agnese_dissan/dao/users/" + folder + user.getUsername();
+        File dir = new File(userPath);
+
+        if (!dir.mkdir()){
+            throw new UserAlreadyExistException();
+        }
+
+        userPath += "/";
+        String path = userPath + "schedules.json";
+        File neededFiles = new File(path);
 
         try {
+
+            users.add(user);
+
             writer = new BufferedWriter(
-                    new FileWriter(file, false)
+                    new FileWriter(usersFile, false)
             );
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        Gson gson = new Gson();
-        gson.toJson(users, writer);
-        try {
-            //TODO Remove this print
-            System.out.println("WRITING IN FILESYSTEM: " + user.getUsername());
+            Gson gson = new Gson();
+            gson.toJson(users, writer);
+            writer.flush();
             writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
+            if (!neededFiles.createNewFile()) {
+                throw new IOException();
+            }
+            switch (user.getUserType()) {
+                case EMPLOYEE -> {
+
+                    path = userPath + "appliances.json";
+                    neededFiles = new File(path);
+
+                    if (!neededFiles.createNewFile()) {
+                        throw new IOException();
+                    }
+
+                }
+
+                case EMPLOYER -> {
+                    path = userPath + "shifts.json";
+                    neededFiles = new File(path);
+                    if (!neededFiles.createNewFile()) {
+                        throw new IOException();
+                    }
+
+                    path = userPath + "candidates.json";
+                    neededFiles = new File(path);
+                    if (!neededFiles.createNewFile()) {
+                        throw new IOException();
+                    }
+                }
+                }
+            } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new UserAlreadyExistException(e.getMessage());
+            }
+
+            
+
     }
+
+        //TODO create a directory for new user with following file if is employer or is employee or is assistant
 
     @Override
     public void saveConfig(User user) {
@@ -116,6 +171,7 @@ public class FileSystem implements DAO {
 
     @Override
     public void publishShift(Shift shift) {
+        String SHIFT_PATH = "src/main/resources/org/agnese_dissan/dao/shifts.json";
         File file = new File(SHIFT_PATH);
 
         BufferedWriter writer;
@@ -147,6 +203,11 @@ public class FileSystem implements DAO {
 
     @Override
     public List<Shift> getShiftList() {
+        return null;
+    }
+
+    @Override
+    public List<ShiftApply> getSchedules(Employer employer) {
         return null;
     }
 

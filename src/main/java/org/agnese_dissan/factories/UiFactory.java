@@ -15,7 +15,6 @@ public class UiFactory {
     private UiFactory(){}
     private static EmployeeView employeeView = null;
     private static EmployerView employerView = null;
-    private static SignInGui signView = null;
     private static LoginView loginView = null;
     private static StartGuiUi startGuiUi = null;
     private static SignInGui signInGui = null;
@@ -26,15 +25,15 @@ public class UiFactory {
         UiFactory.gui = gui;
     }
 
-    public static JobView getUi(int type, User user){
+    public static JobView getUi(Macros type, User user){
 
         if (gui){
-            if (type == Macros.START.ordinal()){
+            if (type == Macros.START){
                 if (startGuiUi == null){
                     startGuiUi = new StartGuiUi();
                 }
                 return startGuiUi;
-            }else if (type == Macros.SIGN_IN.ordinal()){
+            }else if (type == Macros.SIGN_IN){
                 if (signInGui == null){
                     signInGui = new SignInGui();
                 }
@@ -43,17 +42,17 @@ public class UiFactory {
 
         }else {
 
-            if (type == Macros.START.ordinal()){
+            if (type == Macros.START){
                 if (loginView == null){
                     loginView = new LoginView();
                 }
                 return loginView;
-            }else if (type == Macros.EMPLOYER.ordinal()) {
+            }else if (type == Macros.EMPLOYER) {
                 if (employerView == null) {
                     employerView = new EmployerView(user);
                 }
                 return employerView;
-            } else if (type == Macros.EMPLOYEE.ordinal()) {
+            } else if (type == Macros.EMPLOYEE) {
                 if (employeeView == null) {
                     employeeView = new EmployeeView(user);
                 }

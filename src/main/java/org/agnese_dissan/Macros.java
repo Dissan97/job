@@ -13,9 +13,10 @@ public enum Macros {
     ERROR,
     SIGN_IN,
     EMPLOYER,
+
     EMPLOYEE,
-    START,
-    LOGIN
+    ASSISTANT,
+    START
 
 
 }

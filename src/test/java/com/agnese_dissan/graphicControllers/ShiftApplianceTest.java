@@ -20,7 +20,7 @@ public class ShiftApplianceTest {
     @Test
     public void shiftAppliance(){
         ShiftBean bean = new ShiftBean();
-        ShiftPublisherGraphic publisherGraphic = new ShiftPublisherGraphic(bean);
+        ShiftPublisherGraphic publisherGraphic = new ShiftPublisherGraphic();
         Date date = new Date();
         SimpleDateFormat dayFormat = new SimpleDateFormat("yyyy/MM/dd"), timeFormat = new SimpleDateFormat("HH:mm");
         boolean passed = true;

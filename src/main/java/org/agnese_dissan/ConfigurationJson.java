@@ -9,7 +9,7 @@ public class ConfigurationJson {
     private User user;
     DAO dao;
 
-    public ConfigurationJson(boolean dao) {
+    public ConfigurationJson() {
         this.dao = DAOFactory.getDAO();
     }
 
@@ -21,7 +21,7 @@ public class ConfigurationJson {
         return config;
     }
 
-    public int getUserType() {
+    public Macros getUserType() {
         return user.getUserType();
     }
 

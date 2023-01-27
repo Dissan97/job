@@ -4,6 +4,8 @@ module job {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.jetbrains.annotations;
+    requires java.sql;
+    requires mariadb.java.client;
 
     opens org.agnese_dissan.gui to javafx.fxml;
     opens org.agnese_dissan.daos to com.google.gson;
@@ -12,6 +14,7 @@ module job {
     exports org.agnese_dissan.gui.login;
     exports org.agnese_dissan.models.users;
     exports org.agnese_dissan.exceptions;
+
 
     opens org.agnese_dissan.gui.login to javafx.fxml;
     opens org.agnese_dissan.models.time to com.google.gson;

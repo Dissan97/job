@@ -2,9 +2,7 @@ package org.agnese_dissan.controllers;
 
 import com.google.common.hash.Hashing;
 import org.agnese_dissan.Macros;
-import org.agnese_dissan.beans.AccountBean;
-import org.agnese_dissan.beans.LoginBean;
-import org.agnese_dissan.cli.io.Output;
+import org.agnese_dissan.daos.DaoManager;
 import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.exceptions.UserLoginFailedException;
@@ -15,64 +13,49 @@ import org.agnese_dissan.interfaces.JobView;
 import org.agnese_dissan.models.users.User;
 
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
 public class Login {
 
     private User user;
-    private String password;
+    private final DaoManager dao;
 
-    private final boolean db;
-
-   private DAO dao;
-
-    public Login(LoginBean bean){
-        this.db = false;
-        dao = DAOFactory.getDAO();
+    public Login(){
+        this.dao = DaoManager.getDaoManager();
     }
-
+    //TODO control store value
     public void signIn(String username, String password, boolean store) throws UserLoginFailedException {
 
-        this.password = password;
-        int userKind = verify(username, password);
+        Macros userKind = verify(username, password);
 
-        if (userKind == -1){
+        if (userKind == Macros.ERROR){
             throw new UserLoginFailedException();
         }
-        JobView view = UiFactory.getUi(userKind, this.user);
+
 
         if (store){
-            dao.saveConfig(this.user);
+            this.dao.saveConfig(this.user);
         }
-
-        assert view != null;
-        view.startUi();
     }
 
 
-    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, Macros type) throws UserAlreadyExistException, InvalidDateException {
-        this.password = password;
-
-        if(verify(username) == -1){
+    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, Macros type) throws UserAlreadyExistException, InvalidDateException, SQLException {
+        if(verify(username) == Macros.ERROR){
             throw new UserAlreadyExistException(username);
         }
         password = shaPassword(password);
-        DAO dao = DAOFactory.getDAO();
-        dao.putUser(new User(username, password, name, surname, dateOfBirth, cityOfBirth, type.ordinal()));
+        this.dao.putUser(new User(username, password, name, surname, dateOfBirth, cityOfBirth, type));
 
     }
-
-    public static void LogOut(Boolean db){
+    //TODO move this method to controller
+    public static void LogOut(){
         DAO tempDao = DAOFactory.getDAO();
         tempDao.saveConfig(null);
-        JobView view = UiFactory.getUi(Macros.START.ordinal(), null);
+        JobView view = UiFactory.getUi(Macros.START, null);
         assert view != null;
         view.startUi();
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public User getUser() {
@@ -80,15 +63,9 @@ public class Login {
     }
 
 
-    //TODO use this feature
-    /**void changeDAO(){
-        this.db = !this.db;
-        dao = DAOFactory.getDAO(this.db);
-    }*/
+    private Macros verify(String username, String password){
 
-    private int verify(String username, String password){
-
-        List<User> users = dao.getUserList();
+        List<User> users = this.dao.getUserList();
         password = shaPassword(password);
 
         for (User user: users
@@ -99,20 +76,20 @@ public class Login {
             }
         }
 
-        return -1;
+        return Macros.ERROR;
     }
 
-    private int verify(String username) {
-        List<User> users = dao.getUserList();
+    private Macros verify(String username) {
+        List<User> users = this.dao.getUserList();
         if (this.user != null) {
             for (User user : users
             ) {
                 if (Objects.equals(user.getUsername(), username)) {
-                    return -1;
+                    return Macros.ERROR;
                 }
             }
         }
-        return 0;
+        return Macros.START;
     }
 
     private String shaPassword(String password){

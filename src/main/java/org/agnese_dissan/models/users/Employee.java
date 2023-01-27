@@ -1,7 +1,6 @@
 package org.agnese_dissan.models.users;
 
 import org.agnese_dissan.exceptions.InvalidDateException;
-import org.agnese_dissan.models.users.User;
 
 public class Employee extends User {
 
@@ -10,8 +9,8 @@ public class Employee extends User {
 
     }
 
-    public Employee(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth) throws InvalidDateException {
-        super(username, password, name, surname, dateOfBirth, cityOfBirth);
+    public Employee(String username) throws InvalidDateException {
+        super(username);
     }
 
     public Employee(User user) throws InvalidDateException {

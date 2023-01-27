@@ -2,14 +2,14 @@ package org.agnese_dissan.factories;
 
 
 import org.agnese_dissan.daos.FileSystem;
-import org.agnese_dissan.daos.MysqlDb;
+import org.agnese_dissan.daos.MariaDbJDBC;
 import org.agnese_dissan.interfaces.DAO;
 
 public class DAOFactory {
 
     private static FileSystem fileSystem = null;
-    private static MysqlDb mysqlDb = null;
-    private static boolean local = false;
+    private static MariaDbJDBC dbms = null;
+    private static boolean local = true;
     private DAOFactory(){
     }
 
@@ -25,11 +25,11 @@ public class DAOFactory {
             dao = fileSystem;
         } else {
 
-            if (mysqlDb == null){
-                mysqlDb = new MysqlDb();
+            if (dbms == null){
+                dbms = new MariaDbJDBC();
             }
 
-            dao = mysqlDb;
+            dao = dbms;
         }
         return dao;
     }

@@ -14,12 +14,16 @@ public class User {
 
     private String dateOfBirth;
     private String cityOfBirth;
-    private int userType;
+    private Macros userType;
     //CONSTRUCTORS
     public User(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth) throws InvalidDateException {
-        this(username, password, name, surname, dateOfBirth, cityOfBirth , Macros.EMPLOYEE.ordinal());
+        this(username, password, name, surname, dateOfBirth, cityOfBirth , Macros.EMPLOYEE);
     }
-    public User(String username, String password, String name, String surname,String dateOfBirth, String cityOfBirth ,int userType) throws InvalidDateException {
+
+    public User(String username) throws InvalidDateException {
+        this(username, null, null, null,"1900-01-01",null);
+    }
+    public User(String username, String password, String name, String surname,String dateOfBirth, String cityOfBirth ,Macros userType) throws InvalidDateException {
         this.setUsername(username);
         this.setPassword(password);
         this.setName(name);
@@ -29,7 +33,7 @@ public class User {
         this.setUserType(userType);
     }
     public User() throws InvalidDateException {
-        this(null, null, null, null, "1900-01-01", null,-1);
+        this(null, null, null, null, "1900-01-01", null,Macros.ERROR);
     }
     //GETTERS
     public String getUsername() {
@@ -44,7 +48,7 @@ public class User {
     public String getSurname() {
         return surname;
     }
-    public int getUserType() {
+    public Macros getUserType() {
         return userType;
     }
 
@@ -69,7 +73,7 @@ public class User {
     public void setSurname(String surname) {
         this.surname = surname;
     }
-    public void setUserType(int userType) {
+    public void setUserType(Macros userType) {
         this.userType = userType;
     }
 

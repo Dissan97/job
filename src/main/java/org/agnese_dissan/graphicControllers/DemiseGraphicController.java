@@ -1,32 +1,25 @@
 package org.agnese_dissan.graphicControllers;
 
-import org.agnese_dissan.Macros;
+
 import org.agnese_dissan.beans.DemiseBean;
+import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.controllers.DemiseController;
 import org.agnese_dissan.models.users.Employee;
 
 public class DemiseGraphicController {
-    private final DemiseBean demiseBean;
 
-    private DemiseController controller;
     public DemiseGraphicController(){
-        this.demiseBean = new DemiseBean();
-        this.controller = DemiseController.getController(this);
+
+        //TODO Add this parameters
+        DemiseBean demiseBean = new DemiseBean();
+        Output.println(demiseBean.toString());
+        DemiseController controller = DemiseController.getController(this);
+        Output.println(controller.toString());
     }
 
-
-    public DemiseBean getDemiseBean() {
-        return this.demiseBean;
-    }
-
-
-    public void notifyDemise(Macros which) {
-    }
 
     public void getApplication(Employee employee) {
+        Output.println(employee.toString());
     }
 
-    public String newDemise(String line) {
-        return line;
-    }
 }

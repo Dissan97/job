@@ -31,7 +31,7 @@ public class LoginView implements JobView{
         commandList.add("HELP");
         commandList.add("EXIT");
         this.bean = new LoginBean();
-        this.graphic = new LoginGraphic(this.bean);
+        this.graphic = new LoginGraphic();
     }
 
     @Override
@@ -92,7 +92,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (!this.bean.isBad(line, false)) {
+            if (this.bean.isGood(line, false)) {
                 this.username = line;
             }else {
                 Output.pageMessage(page,"Cannot insert blank username", true);
@@ -105,7 +105,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (!this.bean.isBad(line, true)) {
+            if (this.bean.isGood(line, true)) {
                 this.password = line;
             }else {
                 Output.pageMessage(page,"error password must have at least 8 character", true);
@@ -118,7 +118,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (!this.bean.isBad(line, false)){
+            if (this.bean.isGood(line, false)){
                 this.name = line;
             }else {
                 Output.pageMessage(page,"name cannot be blank", true);
@@ -131,7 +131,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (!this.bean.isBad(line, false)){
+            if (this.bean.isGood(line, false)){
                 this.surname = line;
             }else {
                 Output.pageMessage(page,"surname cannot be blank", true);
@@ -144,7 +144,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (!this.bean.isBad(line, false)){
+            if (this.bean.isGood(line, false)){
                 try {
                     JobDate date = new JobDate(line);
                     this.dateOfBirth = date.toString();
@@ -163,7 +163,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (!this.bean.isBad(line, false)){
+            if (this.bean.isGood(line, false)){
                 this.cityOfBirth = line;
             }else {
                 Output.pageMessage(page,"city of birth cannot be blank", true);
@@ -207,7 +207,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (!this.bean.isBad(line, false)) {
+            if (this.bean.isGood(line, false)) {
                 this.username = line;
             }else {
                 Output.pageMessage("SING_IN","Cannot insert blank username", true);
@@ -220,7 +220,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (!this.bean.isBad(line, true)) {
+            if (this.bean.isGood(line, true)) {
                 this.password = line;
             }else {
                 Output.pageMessage("SING_IN","error password must have at least 8 character", true);

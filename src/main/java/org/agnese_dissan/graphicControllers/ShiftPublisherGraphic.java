@@ -9,11 +9,7 @@ public class ShiftPublisherGraphic {
     private ShiftBean bean;
     public ShiftPublisherGraphic() {
         this.shiftPublisher = new ShiftPublisher();
-    }
-
-    public ShiftPublisherGraphic(ShiftBean bean) {
-        this();
-        this.setBean(bean);
+        this.bean = new ShiftBean();
     }
 
     public void setBean(ShiftBean bean) {
@@ -22,6 +18,10 @@ public class ShiftPublisherGraphic {
 
     public void publishShift(){
         shiftPublisher.publish(this.bean.getEmployer().getUsername(),this.bean.getName(), this.bean.getJobPlace(), this.bean.getDateTime(), this.bean.getDescription());
+    }
+
+    public ShiftBean getBean() {
+        return  this.bean;
     }
 }
 
