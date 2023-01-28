@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.interfaces.DAO;
+import org.agnese_dissan.models.job.DemiseMessages;
 import org.agnese_dissan.models.job.Shift;
 import org.agnese_dissan.models.job.ShiftApply;
 import org.agnese_dissan.models.users.Employer;
@@ -60,12 +61,12 @@ public class FileSystem implements DAO {
 
             users.add(user);
 
-            writer = new BufferedWriter(
-                    new FileWriter(usersFile, false)
-            );
+                        writer = new BufferedWriter(
+                                new FileWriter(usersFile, false)
+                        );
 
-            Gson gson = new Gson();
-            gson.toJson(users, writer);
+                        Gson gson = new Gson();
+                        gson.toJson(users, writer);
             writer.flush();
             writer.close();
 
@@ -209,6 +210,31 @@ public class FileSystem implements DAO {
     @Override
     public List<ShiftApply> getSchedules(Employer employer) {
         return null;
+    }
+
+    @Override
+    public List<DemiseMessages> checkMessage(User user) {
+        String path = "src/main/resources/org/agnese_dissan/dao/"+user.getUsername()+"/issues.json";
+
+        JsonElement reader;
+
+        try {
+            reader = JsonParser.parseReader(
+                    new JsonReader(
+                            new FileReader(path)
+                    )
+            );
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        Type REVIEW_TYPE = new TypeToken<List<DemiseMessages>>() {
+        }.getType();
+
+        Gson gson = new Gson();
+
+        return gson.fromJson(reader, REVIEW_TYPE);
+
     }
 
 

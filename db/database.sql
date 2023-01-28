@@ -6,16 +6,16 @@ CREATE schema `Job`;
 use `Job`;
 
 CREATE TABLE `Users` (
-  `username` varchar(32) NOT NULL,
-  `password` varchar(64) NOT NULL,
-  `name` varchar(32) NOT NULL,
-  `surname` varchar(32) NOT NULL,
-  `cityOfBirth` varchar(32) NOT NULL,
-  `dateOfBirth` date NOT NULL,
-  `tel` varchar(16) DEFAULT NULL,
-  `userType` int(11) NOT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+    `username` varchar(32) NOT NULL,
+    `password` varchar(64) NOT NULL,
+    `name` varchar(32) NOT NULL,
+    `surname` varchar(32) NOT NULL,
+    `cityOfBirth` varchar(32) NOT NULL,
+    `dateOfBirth` date NOT NULL,
+    `tel` varchar(16) DEFAULT NULL,
+    `userType` varchar(16) NOT NULL,
+    PRIMARY KEY (`username`)
+);
 
 
 create table if not exists `Job`.`shift`(

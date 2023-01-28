@@ -2,6 +2,7 @@ package org.agnese_dissan.factories;
 
 
 import org.agnese_dissan.Macros;
+import org.agnese_dissan.cli.AssistantView;
 import org.agnese_dissan.cli.EmployerView;
 import org.agnese_dissan.cli.EmployeeView;
 import org.agnese_dissan.cli.LoginView;
@@ -16,6 +17,7 @@ public class UiFactory {
     private static EmployeeView employeeView = null;
     private static EmployerView employerView = null;
     private static LoginView loginView = null;
+    private static AssistantView assistantView = null;
     private static StartGuiUi startGuiUi = null;
     private static SignInGui signInGui = null;
     private static boolean gui = false;
@@ -57,6 +59,11 @@ public class UiFactory {
                     employeeView = new EmployeeView(user);
                 }
                 return employeeView;
+            } else if (type == Macros.ASSISTANT) {
+                if (assistantView == null){
+                    assistantView = new AssistantView(user);
+                }
+                return assistantView;
             }
         }
         return null;

@@ -2,12 +2,12 @@ package org.agnese_dissan.interfaces;
 
 
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
+import org.agnese_dissan.models.job.DemiseMessages;
 import org.agnese_dissan.models.job.Shift;
 import org.agnese_dissan.models.job.ShiftApply;
 import org.agnese_dissan.models.users.Employer;
 import org.agnese_dissan.models.users.User;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -25,6 +25,8 @@ public interface DAO {
     List<Shift> getShiftList();
 
     List<ShiftApply> getSchedules(Employer employer);
+
+    List<DemiseMessages> checkMessage(User user);
 
     //TODO add exception to all the processes throw ioException
     //TODO add function removeShift candidateShift

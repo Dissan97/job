@@ -16,26 +16,32 @@ public class DemiseMangerState extends CliStateMachine{
     private Employee employee = null;
     private Assistant assistant = null;
     private ShiftManagerState shiftManagerState = null;
+    private DemiseNotifierState demiseNotifierState = null;
     public DemiseMangerState(User user) {
         try {
-        if (user.getUserType() == Macros.EMPLOYEE){
-                this.employee = new Employee(user);
+            this.demiseNotifierState = new DemiseNotifierState(user);
+            this.demiseNotifierState.nextState(null);
+            switch (user.getUserType()) {
+                case EMPLOYEE -> this.employee = new Employee(user);
+                case ASSISTANT -> this.assistant = new Assistant(user);
             }
-        if (user.getUserType() == Macros.ASSISTANT){
-            this.assistant = new Assistant(user);
-        }
         } catch (InvalidDateException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
     @Override
     public void nextState(CliStates state) {
+
+
         if (this.employee != null){
             this.demiseShift();
         }
         if (this.assistant != null){
-            this.manageShiftDemise();
+            switch (state) {
+                case CONTROL_DEMISE ->   this.manageShiftDemise();
+                case DEMISE_SHIFT -> {}
+            }
         }
     }
 

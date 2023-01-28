@@ -4,6 +4,7 @@ import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.factories.DAOState;
 import org.agnese_dissan.interfaces.DAO;
+import org.agnese_dissan.models.job.DemiseMessages;
 import org.agnese_dissan.models.job.Shift;
 import org.agnese_dissan.models.job.ShiftApply;
 import org.agnese_dissan.models.users.Employer;
@@ -65,6 +66,12 @@ public class DaoManager implements DAO, Runnable {
 
     @Override
     public List<ShiftApply> getSchedules(Employer employer) {
+        return null;
+    }
+
+    @Override
+    public List<DemiseMessages> checkMessage(User user) {
+
         return null;
     }
 

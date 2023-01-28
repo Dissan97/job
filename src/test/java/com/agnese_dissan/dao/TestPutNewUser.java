@@ -1,9 +1,7 @@
 package com.agnese_dissan.dao;
 
-import com.agnese_dissan.models.job.TestShiftScheduling;
 import org.agnese_dissan.Macros;
 import org.agnese_dissan.daos.FileSystem;
-import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.models.users.User;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -11,9 +9,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestPutNewUser {
+class TestPutNewUser {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(TestPutNewUser.class);
     /**

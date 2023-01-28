@@ -171,11 +171,7 @@ public class LoginView implements JobView{
             }
         }
 
-
-
         line = Input.getInfo(page, "Register as {" + Macros.EMPLOYER.name() + "}? y to accept");
-
-
         if (this.exit(line)){
             return BACK_CALL;
         }
@@ -198,10 +194,7 @@ public class LoginView implements JobView{
     }
 
     private Macros signIn() {
-
         String line;
-
-
         if (this.username == null) {
             line = Input.getInfo("SING_IN", "Username");
             if (exit(line)){

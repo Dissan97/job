@@ -13,10 +13,13 @@ public enum Macros {
     ERROR,
     SIGN_IN,
     EMPLOYER,
-
     EMPLOYEE,
     ASSISTANT,
-    START
+    START;
 
 
+    @Override
+    public java.lang.String toString() {
+        return this.name();
+    }
 }

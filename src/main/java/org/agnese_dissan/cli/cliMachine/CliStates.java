@@ -8,6 +8,6 @@ public enum CliStates {
     HANDLE_CANDIDATE,
     APPLY_SHIFT,
     VIEW_APPLIES,
-    DEMISE_SHIFT,
+    DEMISE_SHIFT, CONTROL_DEMISE,
 
 }

@@ -16,7 +16,6 @@ public class Start {
         boolean local = true;
         JobView startView;
 
-
         try {
             if (args[0].equalsIgnoreCase("CLI")){
                 gui = false;

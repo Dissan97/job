@@ -43,9 +43,7 @@ public class EmployeeView implements JobView {
         String page = "HOME" + this.pageMsg;
         Output.pageMessage(page, "Type help to get list", false);
         while (true) {
-
             String line = Input.getCmd(this.commandList);
-
             switch (line) {
                 case "ACCOUNT" ->
                     this.stateMachine.nextState(CliStates.ACCOUNT);

@@ -3,6 +3,7 @@ package org.agnese_dissan.daos;
 
 
 import org.agnese_dissan.interfaces.DAO;
+import org.agnese_dissan.models.job.DemiseMessages;
 import org.agnese_dissan.models.job.Shift;
 import org.agnese_dissan.models.job.ShiftApply;
 import org.agnese_dissan.models.users.Employer;
@@ -23,7 +24,7 @@ public class MariaDbJDBC implements DAO {
         statement.setString(4, user.getSurname());
         statement.setString(5, user.getCityOfBirth());
         statement.setString(6, user.getDateOfBirth());
-        statement.setInt(7, user.getUserType().ordinal());
+        statement.setString(7, user.getUserType().name());
         if (statement.execute()){
             System.out.println("EXECUTED");
         }
@@ -58,6 +59,12 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public List<ShiftApply> getSchedules(Employer employer) {
+        return null;
+    }
+
+    @Override
+    public List<DemiseMessages> checkMessage(User user) {
+
         return null;
     }
 }

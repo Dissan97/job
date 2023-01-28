@@ -13,7 +13,7 @@ public class DemiseGraphicController {
         //TODO Add this parameters
         DemiseBean demiseBean = new DemiseBean();
         Output.println(demiseBean.toString());
-        DemiseController controller = DemiseController.getController(this);
+        DemiseController controller = new DemiseController(this);
         Output.println(controller.toString());
     }
 
