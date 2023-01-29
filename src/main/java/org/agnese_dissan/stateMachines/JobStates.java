@@ -1,6 +1,6 @@
-package org.agnese_dissan.cli.cliMachine;
+package org.agnese_dissan.stateMachines;
 
-public enum CliStates {
+public enum JobStates {
     ACCOUNT,
     PUBLISH_SHIFT,
     VIEW_SCHEDULING,
@@ -8,6 +8,6 @@ public enum CliStates {
     HANDLE_CANDIDATE,
     APPLY_SHIFT,
     VIEW_APPLIES,
-    DEMISE_SHIFT, CONTROL_DEMISE,
+    DEMISE_SHIFT, CONTROL_DEMISE, HOME,
 
 }

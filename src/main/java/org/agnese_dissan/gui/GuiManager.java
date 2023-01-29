@@ -11,14 +11,15 @@ import java.io.IOException;
  * Class used to change scene throw fxml-views
  */
 
-public class ViewChanger {
+public class GuiManager {
 
+    public final static int WEIGHT = 1024, HEIGHT = 720;
     //TODO must be changed to a state machine pattern
     private static Scene home = null;
     private static Scene now;
     private static Scene prev = null;
-    public static Stage stage;
 
+    public static Stage stage;
 
     /**
      * This function must be launched before all if you want to run the code
@@ -26,7 +27,8 @@ public class ViewChanger {
      */
 
     public static void setStage(Stage stage) {
-        ViewChanger.stage = stage;
+        GuiManager.stage = stage;
+        GuiManager.stage.setResizable(false);
     }
 
     /**
@@ -35,12 +37,13 @@ public class ViewChanger {
      */
 
     public static void setUp(String name) throws IOException {
-        if (home == null) {
-            FXMLLoader fxmlLoader = new FXMLLoader(StartGuiUi.class.getResource(name));
-            now = new Scene(fxmlLoader.load(), 320, 240);
-            home = now;
-            prev = null;
-        }
+
+
+        FXMLLoader fxmlLoader = new FXMLLoader(StartGuiUi.class.getResource(name));
+        now = new Scene(fxmlLoader.load(), WEIGHT, HEIGHT);
+        home = now;
+        prev = null;
+
         stage.setScene(home);
         stage.show();
     }
@@ -53,7 +56,7 @@ public class ViewChanger {
     public static void changeScene(String name) throws IOException {
         prev = now;
         FXMLLoader fxmlLoader = new FXMLLoader(StartGuiUi.class.getResource(name));
-        now = new Scene(fxmlLoader.load(), 320, 240);
+        now = new Scene(fxmlLoader.load(),  WEIGHT, HEIGHT);
         stage.setScene(now);
         stage.show();
     }
@@ -62,7 +65,7 @@ public class ViewChanger {
      * Function used to go back
      */
 
-    public static void goBack(){
+    private static void goBack(){
 
         if (prev != null && now != home) {
             Scene temp;
@@ -78,12 +81,20 @@ public class ViewChanger {
      * Function used to go home
      */
 
-    public static void goHome(){
+    private static void goHome(){
         if (now != home) {
             prev = now;
             now = home;
             stage.setScene(now);
             stage.show();
+        }
+    }
+
+    public static void changeScene(ViewAction action){
+        if (action == ViewAction.HOME){
+            goHome();
+        } else if (action == ViewAction.BACK){
+            goBack();
         }
     }
 

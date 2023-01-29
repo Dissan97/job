@@ -1,4 +1,4 @@
-package org.agnese_dissan.cli.cliMachine;
+package org.agnese_dissan.stateMachines.cliMachine;
 
 import org.agnese_dissan.beans.ShiftBean;
 import org.agnese_dissan.cli.io.Input;
@@ -7,22 +7,24 @@ import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.graphicControllers.ShiftPublisherGraphic;
 import org.agnese_dissan.models.users.Employer;
 import org.agnese_dissan.models.users.User;
+import org.agnese_dissan.stateMachines.JobStateMachine;
+import org.agnese_dissan.stateMachines.JobStates;
 
 import java.util.Objects;
 
 import static org.agnese_dissan.Macros.BACK_CALL;
 
-public class PublishShiftState extends CliStateMachine {
+public class PublishShiftStateCli extends JobStateMachine {
 
     private final Employer employer;
 
-    protected PublishShiftState(User user) throws InvalidDateException {
+    protected PublishShiftStateCli(User user) throws InvalidDateException {
         this.employer = new Employer(user.getUsername(), user.getPassword(), user.getName(), user.getSurname(), user.getDateOfBirth(), user.getCityOfBirth());
     }
 
     @Override
-    public void nextState(CliStates state) {
-        if (Objects.requireNonNull(state) == CliStates.PUBLISH_SHIFT) {
+    public void nextState(JobStates state) {
+        if (Objects.requireNonNull(state) == JobStates.PUBLISH_SHIFT) {
             this.publishShift();
         }
     }

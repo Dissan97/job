@@ -1,8 +1,8 @@
 package org.agnese_dissan.cli;
 
-import org.agnese_dissan.cli.cliMachine.CliMachine;
-import org.agnese_dissan.cli.cliMachine.CliStateMachine;
-import org.agnese_dissan.cli.cliMachine.CliStates;
+import org.agnese_dissan.stateMachines.cliMachine.CliMachine;
+import org.agnese_dissan.stateMachines.JobStateMachine;
+import org.agnese_dissan.stateMachines.JobStates;
 import org.agnese_dissan.cli.io.Input;
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.controllers.Login;
@@ -16,7 +16,7 @@ public class EmployerView implements JobView {
 
     private final List<String> commandList = new ArrayList<>();
     private final String pageMsg;
-    private final CliStateMachine stateMachine;
+    private final JobStateMachine stateMachine;
 
     public EmployerView(User user) {
         pageMsg = "@EMPLOYER{" + user.getUsername() + "}";
@@ -42,19 +42,19 @@ public class EmployerView implements JobView {
             String line = Input.getCmd(this.commandList);
             switch (line) {
                 case "ACCOUNT":
-                    this.stateMachine.nextState(CliStates.ACCOUNT);
+                    this.stateMachine.nextState(JobStates.ACCOUNT);
                     break;
                 case "PUBLISH_SHIFT":
-                    this.stateMachine.nextState(CliStates.PUBLISH_SHIFT);
+                    this.stateMachine.nextState(JobStates.PUBLISH_SHIFT);
                     break;
                 case "VIEW_SCHEDULING":
-                    this.stateMachine.nextState(CliStates.VIEW_SCHEDULING);
+                    this.stateMachine.nextState(JobStates.VIEW_SCHEDULING);
                     break;
                 case "VIEW_CANDIDATES":
-                    this.stateMachine.nextState(CliStates.VIEW_CANDIDATES);
+                    this.stateMachine.nextState(JobStates.VIEW_CANDIDATES);
                     break;
                 case "HANDLE_CANDIDATE":
-                    this.stateMachine.nextState(CliStates.HANDLE_CANDIDATE);
+                    this.stateMachine.nextState(JobStates.HANDLE_CANDIDATE);
                     break;
                 case "HELP":
                     Output.printList("HELP" + pageMsg, this.commandList);

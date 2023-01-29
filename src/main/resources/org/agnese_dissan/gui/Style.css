@@ -1,0 +1,92 @@
+.root {
+    -fx-font-family: "Helvetica";
+    -fx-background-color: #EFEFEF;
+    -fx-font-style: italic;
+    -fx-font-size: 13px;
+    -fx-text-fill: #000000;
+}
+
+.button {
+    -fx-background-color: #EFEFEF;
+    -fx-background-radius: 1;
+    -fx-border-color: #C7C7CC;
+    -fx-border-width: 1;
+    -fx-font-size: 13px;
+    -fx-text-fill: #000000;
+    -fx-padding: 4 8;
+}
+
+.button:hover {
+    -fx-background-color: #dddddd;
+    -fx-effect: dropshadow(three-pass-box, rgba(66, 65, 65, 0.8), 10, 0, 0, 0);
+}
+
+.label {
+    -fx-background-color: transparent;
+}
+
+.main-label{
+    -fx-font-size: 20px;
+}
+
+.password-field:hover {
+    -fx-border-color: #424141;
+}
+
+.password-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #C7C7CC;
+    -fx-border-width: 0 0 1 0;
+}
+
+
+
+.account-label{
+    -fx-background-color: #EFEFEF;
+    -fx-font-size: 15px;
+    -fx-border-color: #C7C7CC;
+    -fx-border-width: 1;
+}
+.check-box{
+    -fx-background-color: transparent;
+    -fx-font-size: 13px;
+    -fx-text-fill: #000000;
+}
+
+.text-field:hover {
+    -fx-border-color: #424141;
+}
+
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #C7C7CC;
+    -fx-border-width: 0 0 1 0;
+    -fx-font-size: 13px;
+    -fx-text-fill: #000000;
+}
+
+.list-view {
+    -fx-background-color: #EFEFEF;
+    -fx-background-radius: 1;
+    -fx-border-color: #C7C7CC;
+}
+
+.list-cell {
+    -fx-background-color: #EFEFEF;
+    -fx-background-radius: 1;
+    -fx-border-color: #C7C7CC;
+    -fx-border-width: 1;
+    -fx-font-size: 13px;
+    -fx-text-fill: #000000;
+    -fx-padding: 4 8;
+}
+
+.list-cell:hover {
+    -fx-background-color: #d9edf7;
+}
+
+.list-cell:selected {
+    -fx-background-color: #337ab7;
+    -fx-text-fill: white;
+}
+

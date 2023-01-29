@@ -1,4 +1,4 @@
-package org.agnese_dissan.cli.cliMachine;
+package org.agnese_dissan.stateMachines.cliMachine;
 
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.daos.DaoManager;
@@ -7,16 +7,19 @@ import org.agnese_dissan.models.job.DemiseMessages;
 import org.agnese_dissan.models.users.Assistant;
 import org.agnese_dissan.models.users.Employee;
 import org.agnese_dissan.models.users.User;
+import org.agnese_dissan.stateMachines.JobStateMachine;
+import org.agnese_dissan.stateMachines.JobStates;
+
 import java.util.List;
 
-public class DemiseNotifierState extends CliStateMachine implements Runnable{
+public class DemiseNotifierStateCli extends JobStateMachine implements Runnable{
 
     private final Thread thread;
     private Employee employee;
     private Assistant assistant;
     private final User user;
 
-    public DemiseNotifierState(User user) {
+    public DemiseNotifierStateCli(User user) {
         this.thread = new Thread(this);
         this.user = user;
         try {
@@ -32,7 +35,7 @@ public class DemiseNotifierState extends CliStateMachine implements Runnable{
     }
 
     @Override
-    public void nextState(CliStates state) {
+    public void nextState(JobStates state) {
         if (state == null){
             this.thread.start();
         }

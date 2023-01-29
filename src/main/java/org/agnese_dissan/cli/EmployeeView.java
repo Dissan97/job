@@ -1,8 +1,8 @@
 package org.agnese_dissan.cli;
 
-import org.agnese_dissan.cli.cliMachine.CliMachine;
-import org.agnese_dissan.cli.cliMachine.CliStateMachine;
-import org.agnese_dissan.cli.cliMachine.CliStates;
+import org.agnese_dissan.stateMachines.cliMachine.CliMachine;
+import org.agnese_dissan.stateMachines.JobStateMachine;
+import org.agnese_dissan.stateMachines.JobStates;
 import org.agnese_dissan.cli.io.Input;
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.exceptions.InvalidDateException;
@@ -18,7 +18,7 @@ public class EmployeeView implements JobView {
 
     private Employee employee;
     private final List<String> commandList = new ArrayList<>();
-    private final CliStateMachine stateMachine;
+    private final JobStateMachine stateMachine;
     private final String pageMsg;
 
     public EmployeeView(User user) {
@@ -46,13 +46,13 @@ public class EmployeeView implements JobView {
             String line = Input.getCmd(this.commandList);
             switch (line) {
                 case "ACCOUNT" ->
-                    this.stateMachine.nextState(CliStates.ACCOUNT);
+                    this.stateMachine.nextState(JobStates.ACCOUNT);
                 case "APPLY_SHIFT" ->
-                    this.stateMachine.nextState(CliStates.APPLY_SHIFT);
+                    this.stateMachine.nextState(JobStates.APPLY_SHIFT);
                 case "VIEW_APPLIES" ->
-                    this.stateMachine.nextState(CliStates.VIEW_APPLIES);
+                    this.stateMachine.nextState(JobStates.VIEW_APPLIES);
                 case "DEMISE_SHIFT" ->
-                    this.stateMachine.nextState(CliStates.DEMISE_SHIFT);
+                    this.stateMachine.nextState(JobStates.DEMISE_SHIFT);
                 case "HELP" ->
                     Output.printList("HOME", this.commandList);
                 case "EXIT" -> {

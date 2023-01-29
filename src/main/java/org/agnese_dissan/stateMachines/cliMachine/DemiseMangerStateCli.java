@@ -1,25 +1,26 @@
-package org.agnese_dissan.cli.cliMachine;
+package org.agnese_dissan.stateMachines.cliMachine;
 
-import org.agnese_dissan.Macros;
 import org.agnese_dissan.cli.io.Input;
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.models.users.Assistant;
 import org.agnese_dissan.models.users.Employee;
 import org.agnese_dissan.models.users.User;
+import org.agnese_dissan.stateMachines.JobStateMachine;
+import org.agnese_dissan.stateMachines.JobStates;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DemiseMangerState extends CliStateMachine{
+public class DemiseMangerStateCli extends JobStateMachine {
 
     private Employee employee = null;
     private Assistant assistant = null;
-    private ShiftManagerState shiftManagerState = null;
-    private DemiseNotifierState demiseNotifierState = null;
-    public DemiseMangerState(User user) {
+    private ShiftManagerStateCli shiftManagerState = null;
+    private DemiseNotifierStateCli demiseNotifierState = null;
+    public DemiseMangerStateCli(User user) {
         try {
-            this.demiseNotifierState = new DemiseNotifierState(user);
+            this.demiseNotifierState = new DemiseNotifierStateCli(user);
             this.demiseNotifierState.nextState(null);
             switch (user.getUserType()) {
                 case EMPLOYEE -> this.employee = new Employee(user);
@@ -31,7 +32,7 @@ public class DemiseMangerState extends CliStateMachine{
     }
 
     @Override
-    public void nextState(CliStates state) {
+    public void nextState(JobStates state) {
 
 
         if (this.employee != null){
@@ -91,8 +92,8 @@ public class DemiseMangerState extends CliStateMachine{
 
     private void checkShiftManager(){
         if (this.shiftManagerState == null){
-            this.shiftManagerState = new ShiftManagerState(this.employee);
+            this.shiftManagerState = new ShiftManagerStateCli(this.employee);
         }
-        this.shiftManagerState.nextState(CliStates.VIEW_APPLIES);
+        this.shiftManagerState.nextState(JobStates.VIEW_APPLIES);
     }
 }

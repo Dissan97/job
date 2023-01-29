@@ -1,23 +1,25 @@
-package org.agnese_dissan.cli.cliMachine;
+package org.agnese_dissan.stateMachines.cliMachine;
 
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.models.users.User;
+import org.agnese_dissan.stateMachines.JobStateMachine;
+import org.agnese_dissan.stateMachines.JobStates;
 
 import java.util.Objects;
 
-public class AccountState extends CliStateMachine {
+public class AccountStateCli extends JobStateMachine {
 
     private final User user;
     private final String pageMsg;
 
-    public AccountState(User user) {
+    public AccountStateCli(User user) {
         this.user = user;
         this.pageMsg = "Account@Employer{" + user.getUsername() + "}";
     }
 
     @Override
-    public void nextState(CliStates state) {
-        if (Objects.requireNonNull(state) == CliStates.ACCOUNT) {
+    public void nextState(JobStates state) {
+        if (Objects.requireNonNull(state) == JobStates.ACCOUNT) {
             this.getAccountInfo();
         }
     }

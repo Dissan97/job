@@ -1,12 +1,12 @@
-package org.agnese_dissan.cli.cliMachine;
+package org.agnese_dissan.stateMachines;
 
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.interfaces.Refresh;
 
-public abstract class CliStateMachine {
+public abstract class JobStateMachine {
 
     private String account;
-    public abstract void nextState(CliStates state);
+    public abstract void nextState(JobStates state);
     /**
      * Function need to avoid blocking a user into a use case giving him a method to go back
      * @param s passing the string controlling if is #EXIT or #BACK

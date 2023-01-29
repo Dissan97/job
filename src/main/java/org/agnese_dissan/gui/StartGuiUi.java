@@ -8,9 +8,8 @@ public class StartGuiUi extends Application implements JobView {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("FAST JOB");
-        ViewChanger.setStage(stage);
-        ViewChanger.setUp("sign_in.fxml");
-
+        GuiManager.setStage(stage);
+        GuiManager.setUp("sign_in.fxml");
     }
 
     @Override

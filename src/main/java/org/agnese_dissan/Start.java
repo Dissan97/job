@@ -23,7 +23,10 @@ public class Start {
             if (args[1].equalsIgnoreCase("DB")){
                 local = false;
             }
-        } catch (ArrayIndexOutOfBoundsException ignored) {}
+        } catch (ArrayIndexOutOfBoundsException e) {
+            gui = true;
+            UiFactory.setGui(true);
+        }
 
         UiFactory.setGui(gui);
         DAOFactory.setStorageMethod(local);

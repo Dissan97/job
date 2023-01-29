@@ -61,5 +61,23 @@
     "dateOfBirth": "1999-10-9",
     "cityOfBirth": "Benevento",
     "userType": "EMPLOYER"
+  },
+  {
+    "username": "zio",
+    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "name": "test",
+    "surname": "test",
+    "dateOfBirth": "1999-12-31",
+    "cityOfBirth": "rome",
+    "userType": "EMPLOYEE"
+  },
+  {
+    "username": "salem",
+    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "name": "dissan",
+    "surname": "pass",
+    "dateOfBirth": "1997-10-11",
+    "cityOfBirth": "cadaf",
+    "userType": "EMPLOYER"
   }
 ]

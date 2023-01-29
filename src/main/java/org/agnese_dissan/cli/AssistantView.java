@@ -1,8 +1,8 @@
 package org.agnese_dissan.cli;
 
-import org.agnese_dissan.cli.cliMachine.CliMachine;
-import org.agnese_dissan.cli.cliMachine.CliStateMachine;
-import org.agnese_dissan.cli.cliMachine.CliStates;
+import org.agnese_dissan.stateMachines.cliMachine.CliMachine;
+import org.agnese_dissan.stateMachines.JobStateMachine;
+import org.agnese_dissan.stateMachines.JobStates;
 import org.agnese_dissan.cli.io.Input;
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.interfaces.JobView;
@@ -15,7 +15,7 @@ public class AssistantView implements JobView {
 
     private final String pageMsg;
     private final List<String> commandList = new ArrayList<>();
-    private final CliStateMachine stateMachine;
+    private final JobStateMachine stateMachine;
 
     public AssistantView(User user) {
         this.pageMsg = "@Assistant{" + user.getUsername() + "}";
@@ -36,9 +36,9 @@ public class AssistantView implements JobView {
             Output.pageMessage(page, "", false);
             String line = Input.getCmd(this.commandList);
             switch (line) {
-                case "ACCOUNT" -> this.stateMachine.nextState(CliStates.ACCOUNT);
-                case "CONTROL_DEMISE" -> this.stateMachine.nextState(CliStates.CONTROL_DEMISE);
-                case "HANDLE_DEMISE" -> this.stateMachine.nextState(CliStates.HANDLE_CANDIDATE);
+                case "ACCOUNT" -> this.stateMachine.nextState(JobStates.ACCOUNT);
+                case "CONTROL_DEMISE" -> this.stateMachine.nextState(JobStates.CONTROL_DEMISE);
+                case "HANDLE_DEMISE" -> this.stateMachine.nextState(JobStates.HANDLE_CANDIDATE);
                 case "HELP" -> Output.printList("HELP" + pageMsg, this.commandList);
                 case "EXIT" -> {
                     return;
