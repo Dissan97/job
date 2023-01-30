@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Job@localhost">
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.45">
+    <root id="1">
+      <DefaultCasing>exact</DefaultCasing>
+      <ServerVersion>10.10.2</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="Job">
+      <Current>1</Current>
+    </schema>
+    <schema id="3" parent="1" name="db"/>
+    <schema id="4" parent="1" name="information_schema"/>
+    <schema id="5" parent="1" name="mysql"/>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <schema id="7" parent="1" name="sys"/>
+  </database-model>
+</dataSource>
