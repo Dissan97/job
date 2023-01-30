@@ -1,8 +1,14 @@
 package org.agnese_dissan.gui.login;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.agnese_dissan.beans.LoginBean;
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.exceptions.UserLoginFailedException;
@@ -37,19 +43,16 @@ public class SignInGui implements JobView {
             try {
                 graphic.signIn(username, password, logged.isSelected());
             } catch (UserLoginFailedException e) {
-                throw new RuntimeException(e);
+              GuiManager.exception(e);
             }
+        }else{
+            GuiManager.popUp("Insert user name and password");
         }
 
 
 
     }
 
-
-
-
-        public void completeRegistration(ActionEvent event) {
-    }
 
     public void changeView(ActionEvent actionEvent) throws IOException {
         GuiManager.changeScene("sign_up.fxml");
@@ -63,4 +66,6 @@ public class SignInGui implements JobView {
             throw new RuntimeException(e);
         }
     }
+
+
 }

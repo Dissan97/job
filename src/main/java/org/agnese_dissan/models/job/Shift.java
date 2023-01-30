@@ -48,4 +48,8 @@ public class Shift {
         JobDateTime dateTime = new JobDateTime(jobDate, jobTime);
         this.dateTime = dateTime.toString();
     }
+
+    public String getEmployer() {
+        return this.employer;
+    }
 }

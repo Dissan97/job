@@ -1,9 +1,10 @@
 package org.agnese_dissan.beans;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import org.agnese_dissan.exceptions.InvalidDateException;
-import org.agnese_dissan.graphicControllers.ShiftPublisherGraphic;
 import org.agnese_dissan.interfaces.Refresh;
 import org.agnese_dissan.models.users.Employer;
 import org.agnese_dissan.models.time.JobDateTime;
@@ -12,15 +13,16 @@ public class ShiftBean implements Refresh {
     private String shiftCode;
     private String name;
     private String jobPlace;
-    private String dateTime;
+    private String jobDate;
     private String description;
     private Employer employer;
+    private String jobTime;
 
     public ShiftBean() {
         this.shiftCode = null;
         this.name = null;
         this.jobPlace = null;
-        this.dateTime = null;
+        this.jobDate = null;
         this.description = null;
         this.employer = null;
     }
@@ -64,55 +66,45 @@ public class ShiftBean implements Refresh {
         }
     }
 
-    public String getDateTime() {
-        return this.dateTime;
+    public String getJobDate() {
+        return this.jobDate;
     }
 
-    public void setDateTime(String dateTime) throws InvalidDateException {
-        if (dateTime.equals("")) {
+    public String getJobTime() {
+        return this.jobTime;
+    }
+
+    public void setDateTime(String date, String time) throws InvalidDateException, ParseException {
+        if (date.equals("") || time.equals("")) {
             throw new InvalidDateException("Date cannot be empty");
         } else {
-            String[] raw = dateTime.split(" ");
-            if (raw.length != 2) {
-                throw new InvalidDateException("Date or time passed incorrectly");
-            } else {
-                Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                JobDateTime currentTime = new JobDateTime(dateFormat.format(date), timeFormat.format(date));
-                JobDateTime jobTime = new JobDateTime(raw[0], raw[1]);
-                if (this.badTime(jobTime, currentTime)) {
-                    throw new InvalidDateException("Cannot insert a date previous than current date or after a week".toUpperCase());
-                } else {
-                    this.dateTime = jobTime.toString();
-                }
+
+            //controlling that this is correct it will throw invalid datetimeException otherwise.
+            new JobDateTime(date, time);
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date today = new Date();
+            Date input = formatter.parse(date);
+
+            Calendar todayControl = Calendar.getInstance();
+            todayControl.setTime(today);
+
+            Calendar inputControl = Calendar.getInstance();
+            inputControl.setTime(input);
+
+            long diff = inputControl.getTimeInMillis() - todayControl.getTimeInMillis();
+            long diffDays = diff / (24 * 60 * 60 * 1000);
+
+            if (!(diffDays >= 0 && diffDays <= 7)) {
+                throw new InvalidDateException("Date is within a week from today");
             }
+
+            this.jobDate = date;
+            this.jobTime = time;
         }
     }
 
-    private boolean badTime(JobDateTime jobTime, JobDateTime currentTime) {
-        int jobYear = jobTime.getYear();
-        int currentYear = currentTime.getYear();
-        int jobMonth = jobTime.getMonth();
-        int currentMonth = currentTime.getMonth();
-        int jobDay = jobTime.getDay();
-        int currentDay = currentTime.getDay();
-        int jobHour = jobTime.getHour();
-        int currentHour = currentTime.getHour();
-        int jobMin = jobTime.getMinute();
-        int currentMin = currentTime.getMinute();
-        if (jobYear < currentYear) {
-            return true;
-        } else if (jobMonth > currentMonth && jobYear == currentYear) {
-            return true;
-        } else if (jobDay < currentDay || jobDay - currentDay > 7 && jobMonth == currentMonth) {
-            return true;
-        } else if ((jobHour < currentHour || jobHour - currentHour < 4) && jobDay == currentDay) {
-            return true;
-        } else {
-            return jobHour - currentHour == 4 && jobMin < currentMin;
-        }
-    }
+
 
     public String getDescription() {
         return this.description;
@@ -134,7 +126,7 @@ public class ShiftBean implements Refresh {
         this.name = null;
         this.employer = null;
         this.jobPlace = null;
-        this.dateTime = null;
+        this.jobDate = null;
         this.description = null;
     }
 }

@@ -72,7 +72,7 @@ public class PublishShiftStateCli extends JobStateMachine {
             }
         }
 
-        if (bean.getDateTime() == null){
+        if (bean.getJobDate() == null){
             Output.pageMessage(page, "Insert day", false);
             line = Input.line();
 
@@ -90,8 +90,9 @@ public class PublishShiftStateCli extends JobStateMachine {
 
             dateTime += " " + line;
             try {
-                bean.setDateTime(dateTime);
-            } catch (InvalidDateException e) {
+                //todo add time
+                bean.setDateTime(dateTime, "");
+            } catch (Exception e) {
                 Output.pageMessage(page, e.getMessage(), true);
                 Output.pageMessage(page, "INSERTED {" + line + "}", true);
                 return this.publishShift();

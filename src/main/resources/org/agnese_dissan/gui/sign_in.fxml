@@ -15,4 +15,5 @@
    <Button alignment="CENTER" layoutX="427.0" layoutY="415.0" mnemonicParsing="false" onAction="#changeView" prefHeight="0.0" prefWidth="191.0" text="not registered? Sign up!" textAlignment="CENTER" />
    <Label fx:id="status_label" layoutX="60.0" layoutY="259.0" />
    <CheckBox fx:id="logged" layoutX="529.0" layoutY="370.0" mnemonicParsing="false" text="stay logged" />
+
 </Pane>

@@ -173,9 +173,11 @@ public class FileSystem implements DAO {
     @Override
     public void publishShift(Shift shift) {
         String SHIFT_PATH = "src/main/resources/org/agnese_dissan/dao/shifts.json";
+        String userShiftPath = "src/main/resources/org/agnese_dissan/dao/users/employer/" + shift.getEmployer() + "/shifts.json";
         File file = new File(SHIFT_PATH);
-
+        File localFile = new File(userShiftPath);
         BufferedWriter writer;
+        BufferedWriter localWriter;
 
         List<Shift> shifts = this.getShiftList();
         if (shifts == null){
@@ -187,15 +189,34 @@ public class FileSystem implements DAO {
             writer = new BufferedWriter(
                     new FileWriter(file, false)
             );
+
+            localWriter = new BufferedWriter(
+                    new FileWriter(localFile, true)
+            );
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
+
         Gson gson = new Gson();
         gson.toJson(shifts, writer);
         try {
-            //TODO Remove this print
-            System.out.println("WRITING IN FILESYSTEM: " + shift.getCode());
+            if (localFile.exists()) {
+                    localWriter.write(",");
+                    localWriter.flush();
+
+            }else {
+                localWriter.write("[");
+                localWriter.flush();
+            }
+
+            gson.toJson(shift, localWriter);
+
+            if (!localFile.exists()){
+                localWriter.write("]");
+                localWriter.flush();
+            }
+            localWriter.close();
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();

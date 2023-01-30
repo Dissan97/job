@@ -4,80 +4,8 @@
     "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
     "name": "dissan",
     "surname": "ahmed",
-    "dateOfBirth": "1997-10-9",
-    "cityOfBirth": "Dhaka",
-    "userType": "EMPLOYEE"
-  },
-  {
-    "username": "test",
-    "password": "fd5cb51bafd60f6fdbedde6e62c473da6f247db271633e15919bab78a02ee9eb",
-    "name": "test",
-    "surname": "test",
-    "dateOfBirth": "2023-1-26",
-    "cityOfBirth": "test",
-    "userType": "EMPLOYEE"
-  },
-  {
-    "username": "gio",
-    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "gio",
-    "surname": "piz",
-    "dateOfBirth": "2000-10-11",
-    "cityOfBirth": "Garbatella",
-    "userType": "EMPLOYEE"
-  },
-  {
-    "username": "edo",
-    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "edo",
-    "surname": "test",
-    "dateOfBirth": "1991-12-31",
-    "cityOfBirth": "test",
-    "userType": "EMPLOYER"
-  },
-  {
-    "username": "ale",
-    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "ale",
-    "surname": "test",
-    "dateOfBirth": "1997-8-8",
-    "cityOfBirth": "test",
-    "userType": "EMPLOYER"
-  },
-  {
-    "username": "luca",
-    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "luca",
-    "surname": "ramo",
-    "dateOfBirth": "1999-12-25",
-    "cityOfBirth": "Cagliari",
-    "userType": "EMPLOYER"
-  },
-  {
-    "username": "pepe",
-    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "pepe",
-    "surname": "pepe",
-    "dateOfBirth": "1999-10-9",
-    "cityOfBirth": "Benevento",
-    "userType": "EMPLOYER"
-  },
-  {
-    "username": "zio",
-    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "test",
-    "surname": "test",
-    "dateOfBirth": "1999-12-31",
-    "cityOfBirth": "rome",
-    "userType": "EMPLOYEE"
-  },
-  {
-    "username": "salem",
-    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "dissan",
-    "surname": "pass",
-    "dateOfBirth": "1997-10-11",
-    "cityOfBirth": "cadaf",
+    "dateOfBirth": "1997-10-10",
+    "cityOfBirth": "roma",
     "userType": "EMPLOYER"
   }
 ]

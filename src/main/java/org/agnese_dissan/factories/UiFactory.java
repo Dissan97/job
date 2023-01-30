@@ -8,9 +8,6 @@ import org.agnese_dissan.cli.EmployeeView;
 import org.agnese_dissan.cli.LoginView;
 import org.agnese_dissan.gui.StartGuiUi;
 import org.agnese_dissan.gui.UserGuiStarter;
-import org.agnese_dissan.gui.users.EmployeeViewGui;
-import org.agnese_dissan.gui.users.EmployerViewGui;
-import org.agnese_dissan.gui.login.SignInGui;
 import org.agnese_dissan.interfaces.JobView;
 import org.agnese_dissan.models.users.User;
 
@@ -18,9 +15,7 @@ public class UiFactory {
 
     private UiFactory(){}
     private static EmployeeView employeeView = null;
-    private static EmployeeViewGui employeeViewGui = null;
     private static EmployerView employerView = null;
-    private static EmployerViewGui employerViewGui = null;
     private static LoginView loginView = null;
     private static StartGuiUi startGuiUi = null;
     private static AssistantView assistantView = null;

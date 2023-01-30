@@ -1,5 +1,6 @@
 package org.agnese_dissan.gui.login;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -72,5 +73,6 @@ public class SignUpGui implements JobView {
 
         }
     }
+
 
 }

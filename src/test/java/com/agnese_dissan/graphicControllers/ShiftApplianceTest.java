@@ -53,8 +53,8 @@ public class ShiftApplianceTest {
             today = nowDate.toString();
 
             bean.setEmployer(new Employer("TrialUser", "password", "Name", "Surname", today, "City"));
-            bean.setDateTime(today + " " + now);
-        } catch (InvalidDateException e) {
+            bean.setDateTime(today + " " + now, "");
+        } catch (Exception e) {
             e.printStackTrace();
             passed = false;
         }

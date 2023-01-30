@@ -33,10 +33,7 @@ public class DaoManager implements DAO, Runnable {
 
     @Override
     public void putUser(User user) throws UserAlreadyExistException {
-        this.user = user;
-        this.fileSystem.putUser(this.user);
-        this.state = DAOState.PUT_USER;
-        this.thread.start();
+        //IMPLEMENT
     }
 
     @Override

@@ -19,7 +19,7 @@ public class UserGuiStarter implements JobView {
             String file = user.getUserType().name().toLowerCase(Locale.ROOT)+".fxml";
             GuiManager.setUp(file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            GuiManager.exception(e);
         }
     }
 
