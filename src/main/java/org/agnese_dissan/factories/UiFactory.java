@@ -40,9 +40,7 @@ public class UiFactory {
                     }
 
                     case EMPLOYEE, EMPLOYER, ASSISTANT -> {
-                        if (userGuiStarter == null){
-                            userGuiStarter = new UserGuiStarter(user);
-                        }
+                        userGuiStarter = new UserGuiStarter(user);
                         return userGuiStarter;
                     }
                 }

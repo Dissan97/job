@@ -21,6 +21,7 @@ import java.io.IOException;
 //TODO ADJUST TO NEW FORMAT
 public class SignInGui implements JobView {
 
+    @FXML
     public CheckBox logged;
 
     @FXML
@@ -54,7 +55,7 @@ public class SignInGui implements JobView {
     }
 
 
-    public void changeView(ActionEvent actionEvent) throws IOException {
+    public void changeView() throws IOException {
         GuiManager.changeScene("sign_up.fxml");
     }
 

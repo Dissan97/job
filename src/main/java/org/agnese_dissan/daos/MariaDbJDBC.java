@@ -2,6 +2,7 @@ package org.agnese_dissan.daos;
 
 
 
+import org.agnese_dissan.exceptions.ShiftAlreadyApplied;
 import org.agnese_dissan.interfaces.DAO;
 import org.agnese_dissan.models.job.DemiseMessages;
 import org.agnese_dissan.models.job.Shift;
@@ -16,6 +17,7 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public void putUser(User user) throws SQLException {
+       /**
         Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Job?user=root&password=password");
         CallableStatement statement = connection.prepareCall("{ call new_user(?,?,?,?,?,?,?) }");
         statement.setString(1, user.getUsername());
@@ -30,6 +32,7 @@ public class MariaDbJDBC implements DAO {
         }
         statement.close();
         connection.close();
+        */
     }
 
     @Override
@@ -48,7 +51,7 @@ public class MariaDbJDBC implements DAO {
     }
 
     @Override
-    public void publishShift(Shift shift) {
+    public void pushShift(Shift shift) {
 
     }
 
@@ -65,6 +68,16 @@ public class MariaDbJDBC implements DAO {
     @Override
     public List<DemiseMessages> checkMessage(User user) {
 
+        return null;
+    }
+
+    @Override
+    public void pushAppliance(ShiftApply shiftApply) throws ShiftAlreadyApplied {
+        //Push appliance to the database
+    }
+
+    @Override
+    public List<ShiftApply> pullAppliances(User user) {
         return null;
     }
 }

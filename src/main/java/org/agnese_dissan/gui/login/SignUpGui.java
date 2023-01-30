@@ -1,6 +1,5 @@
 package org.agnese_dissan.gui.login;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -10,9 +9,7 @@ import org.agnese_dissan.graphicControllers.LoginGraphic;
 import org.agnese_dissan.gui.GuiManager;
 import org.agnese_dissan.gui.ViewAction;
 import org.agnese_dissan.interfaces.JobView;
-
 import java.io.IOException;
-import java.util.zip.GZIPInputStream;
 
 public class SignUpGui implements JobView {
 
@@ -66,6 +63,7 @@ public class SignUpGui implements JobView {
             }
             try {
                 graphic.signUp(username, pwd, name, surname, dateOfBirth, cityOfBirth, macros);
+                GuiManager.popUp("SIGN UP SUCCESS");
                 GuiManager.setUp("sign_in.fxml");
             } catch (Exception e) {
                 throw new RuntimeException(e);

@@ -66,13 +66,10 @@ public class ShiftBean implements Refresh {
         }
     }
 
-    public String getJobDate() {
-        return this.jobDate;
+    public String getJobDateTime() {
+        return this.jobDate + "::" + this.jobTime;
     }
 
-    public String getJobTime() {
-        return this.jobTime;
-    }
 
     public void setDateTime(String date, String time) throws InvalidDateException, ParseException {
         if (date.equals("") || time.equals("")) {

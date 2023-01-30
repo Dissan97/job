@@ -18,7 +18,7 @@ public class ShiftPublisherGraphic {
 
     public void publishShift(){
         //TODO can add something that return an error?
-        shiftPublisher.publish(this.bean.getEmployer().getUsername(),this.bean.getName(), this.bean.getJobPlace(), this.bean.getJobDate(), this.bean.getDescription());
+        shiftPublisher.publish(this.bean.getEmployer().getUsername(),this.bean.getName(), this.bean.getJobPlace(), this.bean.getJobDateTime(), this.bean.getDescription());
     }
 
     public ShiftBean getBean() {

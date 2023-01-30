@@ -11,9 +11,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Objects;
 
 /**
  * Class used to change scene throw fxml-views
@@ -22,6 +19,9 @@ import java.util.Objects;
 public class GuiManager {
 
     public final static int WEIGHT = 1024, HEIGHT = 720;
+    public static final double BUTTON_WIDTH = 500;
+    public static final int BUTTON_HEIGHT = 100;
+
     //TODO must be changed to a state machine pattern
     private static Scene home = null;
     private static Scene now;
@@ -120,7 +120,15 @@ public class GuiManager {
         timeline.play();
     }
 
+    public static void logout(){
+        try {
+            GuiManager.setUp("sign_in.fxml");
+        } catch (IOException e) {
+            GuiManager.exception(e);
+        }
+    }
+
     public static void exception(Exception e) {
-        popUp("Something wrong\n\t" + e.getMessage(), e.getMessage().length() + 100);
+        popUp("Something wrong\n\t" + e.getMessage(), e.getMessage().length() + 400);
     }
 }

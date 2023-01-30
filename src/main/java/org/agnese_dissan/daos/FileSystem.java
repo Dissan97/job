@@ -1,11 +1,11 @@
 package org.agnese_dissan.daos;
 
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import org.agnese_dissan.exceptions.ShiftAlreadyApplied;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.interfaces.DAO;
 import org.agnese_dissan.models.job.DemiseMessages;
@@ -22,8 +22,11 @@ import java.util.Locale;
 
 public class FileSystem implements DAO {
 
-    private final String USER_PATH = "src/main/resources/org/agnese_dissan/dao/user.json";
-    private final String CONFIG_PATH =  "src/main/resources/org/agnese_dissan/dao/config.json";
+    private final String DAO_PATH = "src/main/resources/org/agnese_dissan/dao/";
+    private final String USER_PATH = DAO_PATH + "user.json";
+    private final String CONFIG_PATH = DAO_PATH + "/config.json";
+    private final String SHIFT_PATH = DAO_PATH + "/shifts.json";
+
     @Override
     public void putUser(User user) throws UserAlreadyExistException {
 
@@ -109,8 +112,6 @@ public class FileSystem implements DAO {
 
     }
 
-        //TODO create a directory for new user with following file if is employer or is employee or is assistant
-
     @Override
     public void saveConfig(User user) {
         BufferedWriter writer;
@@ -171,11 +172,11 @@ public class FileSystem implements DAO {
     }
 
     @Override
-    public void publishShift(Shift shift) {
-        String SHIFT_PATH = "src/main/resources/org/agnese_dissan/dao/shifts.json";
-        String userShiftPath = "src/main/resources/org/agnese_dissan/dao/users/employer/" + shift.getEmployer() + "/shifts.json";
-        File file = new File(SHIFT_PATH);
-        File localFile = new File(userShiftPath);
+    public void pushShift(Shift shift) {
+
+        File file = new File(this.SHIFT_PATH);
+        //todo add a filter to this function
+        File localFile = new File(DAO_PATH + "users/employer/" +shift.getEmployer() + "/shifts.json");
         BufferedWriter writer;
         BufferedWriter localWriter;
 
@@ -191,7 +192,7 @@ public class FileSystem implements DAO {
             );
 
             localWriter = new BufferedWriter(
-                    new FileWriter(localFile, true)
+                    new FileWriter(localFile, false)
             );
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -200,24 +201,13 @@ public class FileSystem implements DAO {
 
         Gson gson = new Gson();
         gson.toJson(shifts, writer);
+
+        shifts = this.getMineShifts(shifts, shift.getEmployer());
+
+        gson.toJson(shifts, localWriter);
         try {
-            if (localFile.exists()) {
-                    localWriter.write(",");
-                    localWriter.flush();
-
-            }else {
-                localWriter.write("[");
-                localWriter.flush();
-            }
-
-            gson.toJson(shift, localWriter);
-
-            if (!localFile.exists()){
-                localWriter.write("]");
-                localWriter.flush();
-            }
-            localWriter.close();
             writer.close();
+            localWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -225,7 +215,24 @@ public class FileSystem implements DAO {
 
     @Override
     public List<Shift> getShiftList() {
-        return null;
+        JsonElement reader;
+
+        try {
+            reader = JsonParser.parseReader(
+                    new JsonReader(
+                            new FileReader(this.SHIFT_PATH)
+                    )
+            );
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        Type REVIEW_TYPE = new TypeToken<List<Shift>>() {
+        }.getType();
+
+        Gson gson = new Gson();
+
+        return gson.fromJson(reader, REVIEW_TYPE);
     }
 
     @Override
@@ -235,7 +242,7 @@ public class FileSystem implements DAO {
 
     @Override
     public List<DemiseMessages> checkMessage(User user) {
-        String path = "src/main/resources/org/agnese_dissan/dao/"+user.getUsername()+"/issues.json";
+        String path = DAO_PATH + user.getUsername()+"/issues.json";
 
         JsonElement reader;
 
@@ -256,6 +263,99 @@ public class FileSystem implements DAO {
 
         return gson.fromJson(reader, REVIEW_TYPE);
 
+    }
+
+    @Override
+    public void pushAppliance(ShiftApply shiftApply) throws ShiftAlreadyApplied {
+
+        String filename = "/appliances.json";
+        String employerPath = DAO_PATH + "users/employer/" + shiftApply.getEmployer() + filename;
+        String employeePath = DAO_PATH + "users/employee/" + shiftApply.getEmployee() + filename;
+
+        List<ShiftApply> shiftApplies;
+        try {
+            shiftApplies = this.getEmployeeApplication(employeePath);
+        } catch (FileNotFoundException e) {
+            throw new ShiftAlreadyApplied();
+        }
+
+        if (shiftApplies != null) {
+            for (ShiftApply apply : shiftApplies
+            ) {
+                if (apply.toString().equals(shiftApply.toString())) {
+                    throw new ShiftAlreadyApplied();
+                }
+            }
+        }  else {
+            shiftApplies = new ArrayList<>();
+        }
+
+        shiftApplies.add(shiftApply);
+
+        File employee = new File(employeePath);
+        File employer = new File(employerPath);
+
+        BufferedWriter employerWriter;
+        BufferedWriter employeeWriter;
+
+        Gson gson = new Gson();
+
+        try {
+            employeeWriter = new BufferedWriter(
+                new FileWriter(employee)
+            );
+
+            gson.toJson(shiftApplies, employeeWriter);
+
+            employerWriter = new BufferedWriter(
+                    new FileWriter(employer)
+            );
+
+            shiftApplies = this.getEmployeeApplication(employerPath);
+            if (shiftApplies == null){
+                shiftApplies = new ArrayList<>();
+            }
+                shiftApplies.add(shiftApply);
+            gson.toJson(shiftApplies, employerWriter);
+
+            employeeWriter.close();
+            employerWriter.close();
+
+        }catch (IOException e){
+            throw new ShiftAlreadyApplied();
+        }
+    }
+
+    @Override
+    public List<ShiftApply> pullAppliances(User user) throws FileNotFoundException {
+        String employeePath = DAO_PATH + "users/employee/" + user.getUsername() + "/appliances.json";
+        return this.getEmployeeApplication(employeePath);
+    }
+
+    private List<ShiftApply> getEmployeeApplication(String path) throws FileNotFoundException {
+        BufferedReader reader;
+
+        reader = new BufferedReader(
+                new FileReader(path)
+        );
+
+        Type REVIEW_TYPE = new TypeToken<List<ShiftApply>>() {
+        }.getType();
+
+        Gson gson = new Gson();
+
+        return gson.fromJson(reader, REVIEW_TYPE);
+
+    }
+
+    private List<Shift> getMineShifts(List<Shift> shifts, String employer){
+        List<Shift> local = new ArrayList<>();
+        for (Shift shift: shifts){
+            if (shift.getEmployer().equals(employer)){
+                local.add(shift);
+            }
+        }
+        return local;
     }
 
 

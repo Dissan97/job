@@ -52,11 +52,6 @@ public class PublishShiftGui {
 
         graphic.publishShift();
 
-
-
     }
 
-    private boolean controlTxt(TextField textField){
-        return !textField.getText().equals("") && textField.getText().length() >= 1;
-    }
 }

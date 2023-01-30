@@ -10,7 +10,7 @@
    <Label fx:id="username" alignment="CENTER" layoutX="353.0" layoutY="17.0" prefHeight="30.0" prefWidth="313.0" styleClass="main-label"
           text="ACCOUNT: [" textAlignment="CENTER">
    </Label>
-   <Button layoutX="938.0" layoutY="17.0" mnemonicParsing="false" text="LOG OUT"/>
+   <Button layoutX="938.0" layoutY="17.0" mnemonicParsing="false" text="LOG OUT" onAction="#logout"/>
    <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" text="BACK" onAction="#back"/>
    <Label fx:id="name" styleClass="account-label" layoutX="356.0" layoutY="210.0" prefHeight="19.0" prefWidth="313.0" text="Name: "/>
    <Label fx:id="surname" styleClass="account-label" layoutX="356.0" layoutY="254.0" prefHeight="19.0" prefWidth="313.0"

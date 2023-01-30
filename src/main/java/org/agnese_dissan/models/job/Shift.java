@@ -52,4 +52,8 @@ public class Shift {
     public String getEmployer() {
         return this.employer;
     }
+
+    public String getPlace() {
+        return this.jobPlace;
+    }
 }

@@ -25,7 +25,13 @@ public class AccountGui {
     }
 
 
+    @FXML
     public void back() {
         GuiManager.changeScene(ViewAction.BACK);
+    }
+
+    @FXML
+    public void logout() {
+        GuiManager.logout();
     }
 }

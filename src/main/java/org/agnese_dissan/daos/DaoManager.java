@@ -1,6 +1,7 @@
 package org.agnese_dissan.daos;
 
 import org.agnese_dissan.cli.io.Output;
+import org.agnese_dissan.exceptions.ShiftAlreadyApplied;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.factories.DAOState;
 import org.agnese_dissan.interfaces.DAO;
@@ -10,7 +11,9 @@ import org.agnese_dissan.models.job.ShiftApply;
 import org.agnese_dissan.models.users.Employer;
 import org.agnese_dissan.models.users.User;
 
+import java.io.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DaoManager implements DAO, Runnable {
@@ -33,7 +36,10 @@ public class DaoManager implements DAO, Runnable {
 
     @Override
     public void putUser(User user) throws UserAlreadyExistException {
-        //IMPLEMENT
+            this.user = user;
+            this.fileSystem.putUser(this.user);
+            this.state = DAOState.PUT_USER;
+            //this.thread.start();
     }
 
     @Override
@@ -52,13 +58,13 @@ public class DaoManager implements DAO, Runnable {
     }
 
     @Override
-    public void publishShift(Shift shift) {
+    public void pushShift(Shift shift) {
 
     }
 
     @Override
     public List<Shift> getShiftList() {
-        return null;
+        return this.fileSystem.getShiftList();
     }
 
     @Override
@@ -71,6 +77,17 @@ public class DaoManager implements DAO, Runnable {
 
         return null;
     }
+
+    @Override
+    public void pushAppliance(ShiftApply shiftApply) throws ShiftAlreadyApplied {
+        this.fileSystem.pushAppliance(shiftApply);
+    }
+
+    @Override
+    public List<ShiftApply> pullAppliances(User user) throws FileNotFoundException {
+        return this.fileSystem.pullAppliances(user);
+    }
+
 
     @Override
     public void run() {

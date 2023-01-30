@@ -12,10 +12,10 @@
    </Label>
    <Button layoutX="938.0" layoutY="17.0" mnemonicParsing="false" text="LOG OUT" onAction="#logout"/>
    <Button layoutX="358.0" layoutY="291.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="310.0"
-           text="APPLY SHIFT"/>
+           text="APPLY SHIFT" onAction="#applyJob"/>
    <Button layoutX="357.0" layoutY="400.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="310.0"
            text="DEMISE SHIFT"/>
    <Button layoutX="845.0" layoutY="17.0" mnemonicParsing="false" text="ACCOUNT" onAction="#getAccount"/>
    <Button layoutX="358.0" layoutY="346.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="310.0"
-           text="VIEW APPLIES"/>
+           text="VIEW APPLIES" onAction="#viewApplies"/>
 </Pane>
