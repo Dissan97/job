@@ -1,9 +1,9 @@
 package com.agnese_dissan.graphicControllers;
 
-import org.AgneseDissan.beans.ShiftBean;
-import org.AgneseDissan.graphicControllers.ShiftPublisherGraphic;
-import org.AgneseDissan.models.time.JobDate;
-import org.AgneseDissan.models.users.Employer;
+import org.dissan.beans.ShiftBean;
+import org.dissan.graphicControllers.ShiftPublisherGraphic;
+import org.dissan.models.time.JobDate;
+import org.dissan.models.users.Employer;
 import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;

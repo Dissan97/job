@@ -1,8 +1,8 @@
 package com.agnese_dissan.dao;
 
-import org.AgneseDissan.Macros;
-import org.AgneseDissan.daos.FileSystem;
-import org.AgneseDissan.models.users.User;
+import org.dissan.Macros;
+import org.dissan.daos.FileSystem;
+import org.dissan.models.users.User;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

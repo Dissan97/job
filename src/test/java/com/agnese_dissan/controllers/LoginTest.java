@@ -1,12 +1,12 @@
 package com.agnese_dissan.controllers;
 
 
-import org.AgneseDissan.Macros;
-import org.AgneseDissan.controllers.Login;
-import org.AgneseDissan.exceptions.InvalidDateException;
-import org.AgneseDissan.exceptions.UserAlreadyExistException;
-import org.AgneseDissan.exceptions.UserLoginFailedException;
-import org.AgneseDissan.factories.DAOFactory;
+import org.dissan.Macros;
+import org.dissan.controllers.Login;
+import org.dissan.exceptions.InvalidDateException;
+import org.dissan.exceptions.UserAlreadyExistException;
+import org.dissan.exceptions.UserLoginFailedException;
+import org.dissan.factories.DAOFactory;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

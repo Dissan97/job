@@ -7,22 +7,22 @@ module job {
     requires java.sql;
     requires mariadb.java.client;
 
-    opens org.AgneseDissan.gui to javafx.fxml;
-    opens org.AgneseDissan.daos to com.google.gson;
-    exports org.AgneseDissan;
-    exports org.AgneseDissan.gui;
-    exports org.AgneseDissan.gui.login;
-    exports org.AgneseDissan.models.users;
-    exports org.AgneseDissan.exceptions;
-    exports org.AgneseDissan.gui.employer;
-    exports org.AgneseDissan.models.job;
-    exports org.AgneseDissan.gui.employee;
+    opens org.dissan.gui to javafx.fxml;
+    opens org.dissan.daos to com.google.gson;
+    exports org.dissan;
+    exports org.dissan.gui;
+    exports org.dissan.gui.login;
+    exports org.dissan.models.users;
+    exports org.dissan.exceptions;
+    exports org.dissan.gui.employer;
+    exports org.dissan.models.job;
+    exports org.dissan.gui.employee;
 
-    opens org.AgneseDissan.gui.employee to javafx.fxml;
-    opens org.AgneseDissan.gui.employer to javafx.fxml;
-    opens org.AgneseDissan.gui.login to javafx.fxml;
-    opens org.AgneseDissan.models.users to com.google.gson;
-    opens org.AgneseDissan.models.job to com.google.gson;
+    opens org.dissan.gui.employee to javafx.fxml;
+    opens org.dissan.gui.employer to javafx.fxml;
+    opens org.dissan.gui.login to javafx.fxml;
+    opens org.dissan.models.users to com.google.gson;
+    opens org.dissan.models.job to com.google.gson;
 
 
 }
