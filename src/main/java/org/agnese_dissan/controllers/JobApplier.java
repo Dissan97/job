@@ -8,13 +8,11 @@ import org.agnese_dissan.interfaces.DAO;
 import org.agnese_dissan.models.job.Shift;
 import org.agnese_dissan.models.job.ShiftApply;
 import org.agnese_dissan.models.time.JobDate;
-import org.agnese_dissan.models.users.Employee;
 import org.agnese_dissan.models.users.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
 public class JobApplier {
@@ -33,9 +31,10 @@ public class JobApplier {
         this.bean.setShiftList(shiftList);
     }
 
-    public void pushAppliance(Shift shift, User user) throws InvalidDateException, ShiftAlreadyApplied {
+    public void pushAppliance(Shift shift, User user) throws IOException, ShiftAlreadyApplied {
         DAO dao = DaoManager.getDaoManager();
-        ShiftApply shiftApply = new ShiftApply(new Employee(user), shift);
+        ShiftApply shiftApply = new ShiftApply(user.getUsername(), shift);
+        this.verifyAppliance(shiftApply, user);
         dao.pushAppliance(shiftApply);
     }
 
@@ -58,6 +57,18 @@ public class JobApplier {
             }
         } catch (Exception e) {
            this.applyList.remove(finaLI);
+        }
+
+    }
+
+    private void verifyAppliance(ShiftApply apply, User user) throws FileNotFoundException, ShiftAlreadyApplied {
+        DAO dao = DaoManager.getDaoManager();
+        List<ShiftApply> applyList = dao.pullAppliances(user);
+        for (ShiftApply a:
+        applyList) {
+            if (a.toString().equals(apply.toString())){
+                throw new ShiftAlreadyApplied();
+            }
         }
 
     }

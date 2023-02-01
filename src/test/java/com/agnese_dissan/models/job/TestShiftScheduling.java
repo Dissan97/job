@@ -31,7 +31,7 @@ public class TestShiftScheduling {
         Employee employee;
         try {
             employee = new Employee("test");
-            goodApply = new ShiftApply(employee, new Shift("test", "test", "test", jobDate, "test"));
+            goodApply = new ShiftApply("employee", new Shift("test", "test", "test", jobDate, "test"));
         } catch (InvalidDateException e) {
             throw new RuntimeException(e);
         }
@@ -46,7 +46,7 @@ public class TestShiftScheduling {
         List<ShiftApply> badAppliance = new ArrayList<>();
         ShiftApply badApply;
         String badDate = "1900-01-01";
-        badApply = new ShiftApply(employee, new Shift("test", "test", "test", badDate, "test"));
+        badApply = new ShiftApply("BadEmployee", new Shift("test", "test", "test", badDate, "test"));
         badAppliance.add(badApply);
         scheduling = new ShiftScheduling();
         scheduling.addSchedule(badAppliance);

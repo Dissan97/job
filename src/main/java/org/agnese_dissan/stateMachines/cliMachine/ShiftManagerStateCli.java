@@ -9,6 +9,8 @@ import org.agnese_dissan.stateMachines.JobStateMachine;
 import org.agnese_dissan.stateMachines.JobStates;
 
 public class ShiftManagerStateCli extends JobStateMachine {
+
+    //TODO MANAGE THIS CLASS
     private Employee employee;
     private final ShiftGraphicManager shiftGraphicManager;
     public ShiftManagerStateCli(User user) {

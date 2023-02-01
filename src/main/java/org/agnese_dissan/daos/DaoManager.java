@@ -79,7 +79,7 @@ public class DaoManager implements DAO, Runnable {
     }
 
     @Override
-    public void pushAppliance(ShiftApply shiftApply) throws ShiftAlreadyApplied {
+    public void pushAppliance(ShiftApply shiftApply) throws IOException {
         this.fileSystem.pushAppliance(shiftApply);
     }
 
@@ -91,6 +91,11 @@ public class DaoManager implements DAO, Runnable {
     @Override
     public void removeAppliance(ShiftApply apply) throws IOException {
         this.fileSystem.removeAppliance(apply);
+    }
+
+    @Override
+    public void updateAppliance(ShiftApply apply) throws IOException {
+        this.fileSystem.updateAppliance(apply);
     }
 
 

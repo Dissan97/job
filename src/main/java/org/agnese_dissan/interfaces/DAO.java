@@ -1,7 +1,6 @@
 package org.agnese_dissan.interfaces;
 
 
-import org.agnese_dissan.exceptions.ShiftAlreadyApplied;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.models.job.DemiseMessages;
 import org.agnese_dissan.models.job.Shift;
@@ -31,11 +30,13 @@ public interface DAO {
 
     List<DemiseMessages> checkMessage(User user);
 
-    void pushAppliance(ShiftApply shiftApply) throws ShiftAlreadyApplied;
+    void pushAppliance(ShiftApply shiftApply) throws IOException;
 
     List<ShiftApply> pullAppliances(User user) throws FileNotFoundException;
 
     void removeAppliance(ShiftApply apply) throws IOException;
+
+    void updateAppliance(ShiftApply apply) throws IOException;
 
     //TODO add exception to all the processes throw ioException
     //TODO add function removeShift candidateShift

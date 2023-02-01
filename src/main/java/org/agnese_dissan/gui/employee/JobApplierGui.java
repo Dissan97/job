@@ -25,9 +25,9 @@ public class JobApplierGui {
 
     @FXML
     public void buildView() {
-        JobApplierGraphic graphic = new JobApplierGraphic();
-        JobApplierBean bean = graphic.getBean();
-        graphic.pullShifts();
+        JobApplierGraphic controller = new JobApplierGraphic();
+        JobApplierBean bean = controller.getBean();
+        controller.pullShifts();
         this.vBox.getChildren().clear();
         Label[] labels;
         Button[] submit;
@@ -61,7 +61,8 @@ public class JobApplierGui {
             int finalI = i;
             submit[i].setOnAction(actionEvent ->{
                 if (GuiManager.acceptPopUp(labels[finalI], "Apply this shift?")) {
-                    pushAppliance(shift, graphic);
+                    pushAppliance(shift, controller);
+
                 }
             });
             this.vBox.getChildren().add(hBoxes[i]);
@@ -69,10 +70,11 @@ public class JobApplierGui {
         }
     }
 
-    void pushAppliance(Shift shift, JobApplierGraphic graphic){
+    private void pushAppliance(Shift shift, JobApplierGraphic controller){
 
         try {
-            graphic.pushAppliance(shift, GuiStarter.getUser());
+            controller.pushAppliance(shift, GuiStarter.getUser());
+            GuiManager.popUp("SHIFT APPLIED");
         } catch (Exception e) {
             GuiManager.exception(e);
         }

@@ -14,12 +14,6 @@ import org.agnese_dissan.models.users.User;
 public class UiFactory {
 
     private UiFactory(){}
-    private static EmployeeView employeeView = null;
-    private static EmployerView employerView = null;
-    private static LoginView loginView = null;
-    private static StartGuiUi startGuiUi = null;
-    private static AssistantView assistantView = null;
-    private static GuiStarter userGuiStarter = null;
     private static boolean gui = false;
 
 
@@ -28,49 +22,28 @@ public class UiFactory {
     }
 
     public static JobView getUi(Macros type, User user){
-
         if (gui){
                 switch (type){
                     case SIGN_IN, START -> {
                         //START SOME UI
-                        if (startGuiUi == null){
-                            startGuiUi = new StartGuiUi();
-                        }
-                        return startGuiUi;
+                        return new StartGuiUi();
                     }
-
                     case EMPLOYEE, EMPLOYER, ASSISTANT -> {
-                        userGuiStarter = new GuiStarter(user);
-                        return userGuiStarter;
+                        return new GuiStarter(user);
                     }
                 }
-
         }else {
-
             if (type == Macros.START){
-                if (loginView == null){
-                    loginView = new LoginView();
-                }
-                return loginView;
+                return  new LoginView();
             }else if (type == Macros.EMPLOYER) {
-                if (employerView == null) {
-                    employerView = new EmployerView(user);
-                }
-                return employerView;
+                return new EmployerView(user);
             } else if (type == Macros.EMPLOYEE) {
-                if (employeeView == null) {
-                    employeeView = new EmployeeView(user);
-                }
-                return employeeView;
+                return  new EmployeeView(user);
             } else if (type == Macros.ASSISTANT) {
-                if (assistantView == null){
-                    assistantView = new AssistantView(user);
-                }
-                return assistantView;
+                return new AssistantView(user);
             }
         }
         return null;
     }
-
 
 }

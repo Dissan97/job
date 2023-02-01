@@ -267,29 +267,16 @@ public class FileSystem implements DAO {
     }
 
     @Override
-    public void pushAppliance(ShiftApply shiftApply) throws ShiftAlreadyApplied {
+    public void pushAppliance(ShiftApply shiftApply) throws IOException {
 
         String filename = "/appliances.json";
         String employerPath = DAO_PATH + "users/employer/" + shiftApply.getEmployer() + filename;
         String employeePath = DAO_PATH + "users/employee/" + shiftApply.getEmployee() + filename;
 
         List<ShiftApply> shiftApplies;
-        try {
-            shiftApplies = this.getEmployeeApplication(employeePath);
-        } catch (FileNotFoundException e) {
-            throw new ShiftAlreadyApplied();
-        }
 
-        if (shiftApplies != null) {
-            for (ShiftApply apply : shiftApplies
-            ) {
-                if (apply.toString().equals(shiftApply.toString())) {
-                    throw new ShiftAlreadyApplied();
-                }
-            }
-        }  else {
-            shiftApplies = new ArrayList<>();
-        }
+        shiftApplies = this.getEmployeeApplication(employeePath);
+
 
         shiftApplies.add(shiftApply);
 
@@ -301,30 +288,27 @@ public class FileSystem implements DAO {
 
         Gson gson = new Gson();
 
-        try {
-            employeeWriter = new BufferedWriter(
-                new FileWriter(employee)
-            );
+        employeeWriter = new BufferedWriter(
+            new FileWriter(employee)
+        );
 
-            gson.toJson(shiftApplies, employeeWriter);
+        gson.toJson(shiftApplies, employeeWriter);
 
-            employerWriter = new BufferedWriter(
-                    new FileWriter(employer)
-            );
+        employerWriter = new BufferedWriter(
+                new FileWriter(employer)
+        );
 
-            shiftApplies = this.getEmployeeApplication(employerPath);
-            if (shiftApplies == null){
-                shiftApplies = new ArrayList<>();
-            }
-                shiftApplies.add(shiftApply);
-            gson.toJson(shiftApplies, employerWriter);
-
-            employeeWriter.close();
-            employerWriter.close();
-
-        }catch (IOException e){
-            throw new ShiftAlreadyApplied();
+        shiftApplies = this.getEmployeeApplication(employerPath);
+        if (shiftApplies == null){
+            shiftApplies = new ArrayList<>();
         }
+            shiftApplies.add(shiftApply);
+        gson.toJson(shiftApplies, employerWriter);
+
+        employeeWriter.close();
+        employerWriter.close();
+
+
     }
 
     @Override
@@ -374,6 +358,12 @@ public class FileSystem implements DAO {
         gson.toJson(applyList, writer);
 
         writer.close();
+    }
+
+    @Override
+    public void updateAppliance(ShiftApply apply) throws IOException {
+        this.removeAppliance(apply);
+        this.pushAppliance(apply);
     }
 
     private List<ShiftApply> getEmployeeApplication(String path) throws FileNotFoundException {

@@ -14,7 +14,6 @@ public class DAOFactory {
     }
 
     public static DAO getDAO() {
-
         DAO dao;
         if (local) {
 

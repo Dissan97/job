@@ -8,6 +8,7 @@ public class GraphicScheduler {
     private final Employer employer;
     private final ScheduleBean bean;
     private final ShiftScheduler shiftScheduler;
+
     public GraphicScheduler(Employer employer) {
         this.employer = employer;
         this.bean = new ScheduleBean();

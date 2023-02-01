@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.agnese_dissan.Macros;
 import org.agnese_dissan.beans.JobApplierBean;
-import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.graphicControllers.JobApplierGraphic;
 import org.agnese_dissan.models.job.ShiftApply;
 
@@ -185,13 +184,14 @@ public class GuiManager {
         return ret.get();
     }
 
-    public static void showApplies(VBox vBox) {
+  public static void showApplies(VBox vBox) {
         JobApplierGraphic graphic = new JobApplierGraphic();
         JobApplierBean bean = graphic.getBean();
         vBox.getChildren().clear();
         vBox.getStylesheets().add(Objects.requireNonNull(GuiManager.class.getResource("Style.css")).toExternalForm());
         HBox[] hBoxes;
         Button[] buttons;
+        ListItems items = new ListItems();
 
         int boxWidth = 350;
         try {
@@ -236,6 +236,7 @@ public class GuiManager {
                             }
                         }
                     });
+                   
                     hBoxes[i].getChildren().add(information[i]);
                     hBoxes[i].getChildren().add(buttons[i]);
                     vBox.getChildren().add(hBoxes[i]);
@@ -244,5 +245,6 @@ public class GuiManager {
         } catch (FileNotFoundException e) {
             GuiManager.exception(e);
         }
-    }
+
+  }
 }

@@ -2,6 +2,7 @@ package org.agnese_dissan.controllers;
 
 import com.google.common.hash.Hashing;
 import org.agnese_dissan.Macros;
+import org.agnese_dissan.beans.AccountBean;
 import org.agnese_dissan.daos.DaoManager;
 import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
@@ -14,6 +15,7 @@ import org.agnese_dissan.models.users.User;
 
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -98,4 +100,19 @@ public class Login {
                 .toString();
     }
 
+    public void pullEmployee(AccountBean bean) {
+        DAO dao = DaoManager.getDaoManager();
+        List<User> users = dao.getUserList();
+        List<User> listBean = new ArrayList<>();
+        if (users != null){
+            for (User u:
+                 users) {
+                if (u.getUserType() == Macros.EMPLOYEE){
+                    u.setPassword("");
+                    listBean.add(u);
+                }
+            }
+            bean.setEmployeeList(listBean);
+        }
+    }
 }

@@ -9,12 +9,13 @@ import org.agnese_dissan.models.job.ShiftApply;
 import org.agnese_dissan.models.users.User;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 
 public class JobApplierGraphic {
 
-    private JobApplierBean bean;
-    private JobApplier controller;
+    private final JobApplierBean bean;
+    private final JobApplier controller;
 
     public JobApplierGraphic() {
         this.bean = new JobApplierBean();
@@ -29,7 +30,7 @@ public class JobApplierGraphic {
         return this.bean;
     }
 
-    public void pushAppliance(Shift shift, User user) throws InvalidDateException, ShiftAlreadyApplied {
+    public void pushAppliance(Shift shift, User user) throws ShiftAlreadyApplied, IOException {
         this.controller.pushAppliance(shift, user);
     }
 

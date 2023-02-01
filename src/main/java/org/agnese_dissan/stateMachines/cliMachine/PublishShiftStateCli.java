@@ -14,6 +14,7 @@ import java.util.Objects;
 
 import static org.agnese_dissan.Macros.BACK_CALL;
 
+//TODO MODIFY THE BEAN CLASS
 public class PublishShiftStateCli extends JobStateMachine {
 
     private final Employer employer;
@@ -35,7 +36,8 @@ public class PublishShiftStateCli extends JobStateMachine {
      */
     private int publishShift() {
         ShiftPublisherGraphic shiftPublisherGraphic = new ShiftPublisherGraphic();
-        ShiftBean bean = shiftPublisherGraphic.getBean();
+        //TODO CHECK DATA IN THE VIEW
+        ShiftBean bean = new ShiftBean();
         String line;
         String page = "PublishShif@Employer{" + this.employer.getUsername() + "}";
 
@@ -91,7 +93,7 @@ public class PublishShiftStateCli extends JobStateMachine {
             dateTime += " " + line;
             try {
                 //todo add time
-                bean.setDateTime(dateTime, "");
+                shiftPublisherGraphic.setDateTime(dateTime, "");
             } catch (Exception e) {
                 Output.pageMessage(page, e.getMessage(), true);
                 Output.pageMessage(page, "INSERTED {" + line + "}", true);
@@ -108,8 +110,8 @@ public class PublishShiftStateCli extends JobStateMachine {
                 return BACK_CALL.ordinal();
             }
         }
-
-        shiftPublisherGraphic.publishShift();
+        //TODO UPDATE THIS BEAN
+        //shiftPublisherGraphic.publishShift(GuiStarter.getUser().getUsername(), name, place, dateTime.toString(), description);
 
         return 0;
     }

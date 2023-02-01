@@ -14,8 +14,8 @@ public class ShiftApply {
     private final String applianceDateTime;
     private boolean accepted = false;
 
-    public ShiftApply(Employee employee, Shift shift) {
-            this.employee = employee.getUsername();
+    public ShiftApply(String employee, Shift shift) {
+            this.employee = employee;
             this.shift = shift.getCode();
             this.employer = shift.getEmployer();
             this.applianceDateTime = this.getApplyDate();
@@ -60,5 +60,9 @@ public class ShiftApply {
 
     public boolean getState() {
         return this.accepted;
+    }
+
+    public void accept() {
+        this.accepted = true;
     }
 }

@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import org.agnese_dissan.interfaces.JobView;
 
 public class StartGuiUi extends Application implements JobView {
+
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("FAST JOB");

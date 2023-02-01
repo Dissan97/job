@@ -2,7 +2,6 @@ package org.agnese_dissan.cli;
 
 
 import org.agnese_dissan.Macros;
-import org.agnese_dissan.beans.LoginBean;
 import org.agnese_dissan.cli.io.Input;
 import org.agnese_dissan.cli.io.Output;
 import org.agnese_dissan.exceptions.InvalidDateException;
@@ -19,8 +18,7 @@ import static org.agnese_dissan.Macros.*;
 public class LoginView implements JobView{
 
 
-    private final LoginBean bean;
-    private final LoginGraphic graphic;
+    private final LoginGraphic controller;
     private final List<String> commandList = new ArrayList<>();
 
     private String username = null, password = null, name = null,  surname = null, dateOfBirth = null, cityOfBirth = null;
@@ -30,8 +28,7 @@ public class LoginView implements JobView{
         commandList.add("SIGN_UP");
         commandList.add("HELP");
         commandList.add("EXIT");
-        this.bean = new LoginBean();
-        this.graphic = new LoginGraphic();
+        this.controller = new LoginGraphic();
     }
 
     @Override
@@ -92,7 +89,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (this.bean.isGood(line, false)) {
+            if (this.controller.isGood(line, false)) {
                 this.username = line;
             }else {
                 Output.pageMessage(page,"Cannot insert blank username", true);
@@ -105,7 +102,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (this.bean.isGood(line, true)) {
+            if (this.controller.isGood(line, true)) {
                 this.password = line;
             }else {
                 Output.pageMessage(page,"error password must have at least 8 character", true);
@@ -118,7 +115,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (this.bean.isGood(line, false)){
+            if (this.controller.isGood(line, false)){
                 this.name = line;
             }else {
                 Output.pageMessage(page,"name cannot be blank", true);
@@ -131,7 +128,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (this.bean.isGood(line, false)){
+            if (this.controller.isGood(line, false)){
                 this.surname = line;
             }else {
                 Output.pageMessage(page,"surname cannot be blank", true);
@@ -144,7 +141,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (this.bean.isGood(line, false)){
+            if (this.controller.isGood(line, false)){
                 try {
                     JobDate date = new JobDate(line);
                     this.dateOfBirth = date.toString();
@@ -163,7 +160,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (this.bean.isGood(line, false)){
+            if (this.controller.isGood(line, false)){
                 this.cityOfBirth = line;
             }else {
                 Output.pageMessage(page,"city of birth cannot be blank", true);
@@ -181,7 +178,7 @@ public class LoginView implements JobView{
         }
 
         try {
-            this.graphic.signUp(this.username, this.password, this.name, this.surname, this.dateOfBirth, this.cityOfBirth, type);
+            this.controller.signUp(this.username, this.password, this.name, this.surname, this.dateOfBirth, this.cityOfBirth, type);
         } catch (Exception e) {
             e.printStackTrace();
             return Macros.ERROR;
@@ -200,7 +197,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (this.bean.isGood(line, false)) {
+            if (this.controller.isGood(line, false)) {
                 this.username = line;
             }else {
                 Output.pageMessage("SING_IN","Cannot insert blank username", true);
@@ -213,7 +210,7 @@ public class LoginView implements JobView{
             if (exit(line)){
                 return BACK_CALL;
             }
-            if (this.bean.isGood(line, true)) {
+            if (this.controller.isGood(line, true)) {
                 this.password = line;
             }else {
                 Output.pageMessage("SING_IN","error password must have at least 8 character", true);
@@ -229,7 +226,7 @@ public class LoginView implements JobView{
 
 
         try {
-            this.graphic.signIn(this.username, this.password, store);
+            this.controller.signIn(this.username, this.password, store);
         } catch (UserLoginFailedException e) {
             Output.pageMessage("SING_IN", e.getMessage(), true);
             return SIGN_IN_FAILED;

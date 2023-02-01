@@ -4,7 +4,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.agnese_dissan.Macros;
-import org.agnese_dissan.beans.LoginBean;
 import org.agnese_dissan.graphicControllers.LoginGraphic;
 import org.agnese_dissan.gui.GuiManager;
 import org.agnese_dissan.gui.ViewAction;
@@ -41,8 +40,7 @@ public class SignUpGui implements JobView {
     }
 
     public void signUp() {
-        LoginGraphic graphic = new LoginGraphic();
-        LoginBean bean = new LoginBean();
+        LoginGraphic controller = new LoginGraphic();
         String username = this.username.getText();
         String name = this.name.getText();
         String surname = this.surname.getText();
@@ -50,19 +48,19 @@ public class SignUpGui implements JobView {
         String dateOfBirth = this.dateOfBirth.getText();
         String pwd = this.pwd.getText();
         if (
-                bean.isGood(username, false) &&
-                bean.isGood(name, false) &&
-                bean.isGood(surname, false) &&
-                bean.isGood(cityOfBirth, false) &&
-                bean.isGood(dateOfBirth, false) &&
-                (bean.isGood(this.pwd.getText(), true) || this.pwd.getText().equals(pwdTwo.getText()))
+                controller.isGood(username, false) &&
+                controller.isGood(name, false) &&
+                controller.isGood(surname, false) &&
+                controller.isGood(cityOfBirth, false) &&
+                controller.isGood(dateOfBirth, false) &&
+                (controller.isGood(this.pwd.getText(), true) || this.pwd.getText().equals(pwdTwo.getText()))
         ){
             Macros macros = Macros.EMPLOYEE;
             if (checkEmployer.isSelected()){
                 macros = Macros.EMPLOYER;
             }
             try {
-                graphic.signUp(username, pwd, name, surname, dateOfBirth, cityOfBirth, macros);
+                controller.signUp(username, pwd, name, surname, dateOfBirth, cityOfBirth, macros);
                 GuiManager.popUp("SIGN UP SUCCESS");
                 GuiManager.setUp("sign_in.fxml");
             } catch (Exception e) {

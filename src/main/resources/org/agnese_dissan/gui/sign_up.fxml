@@ -17,8 +17,8 @@
    <PasswordField fx:id="pwdTwo" layoutX="436.0" layoutY="512.0" promptText="Renter password" />
    <Label alignment="CENTER" layoutX="435.0" layoutY="133.0" prefHeight="30.0" prefWidth="161.0" styleClass="main-label" text="Sign up" textAlignment="CENTER">
    </Label>
-   <Button layoutX="471.0" layoutY="567.0" mnemonicParsing="false" onAction="#signUp" prefHeight="36.0" prefWidth="97.0" text="SIGN UP" />
+   <Button layoutX="461.0" layoutY="566.0" mnemonicParsing="false" onAction="#signUp" prefHeight="45.0" prefWidth="103.0" text="SIGN UP" />
    <Button layoutX="14.0" layoutY="16.0" mnemonicParsing="false" onAction="#goBack" text="BACK" />
-   <Button layoutX="955.0" layoutY="16.0" mnemonicParsing="false" onAction="#goHome" text="HOME" />
+   <Button layoutX="926.0" layoutY="16.0" mnemonicParsing="false" onAction="#goHome" text="HOME" />
    <CheckBox fx:id="checkEmployer" layoutX="471.0" layoutY="622.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="103.0" text="as Employer" />
 </Pane>

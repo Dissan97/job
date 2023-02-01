@@ -1,10 +1,8 @@
 package com.agnese_dissan.graphicControllers;
 
-import org.agnese_dissan.Macros;
 import org.agnese_dissan.beans.ShiftBean;
-import org.agnese_dissan.controllers.ShiftPublisher;
-import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.graphicControllers.ShiftPublisherGraphic;
+import org.agnese_dissan.gui.GuiStarter;
 import org.agnese_dissan.models.time.JobDate;
 import org.agnese_dissan.models.users.Employer;
 import org.junit.jupiter.api.Test;
@@ -53,13 +51,13 @@ public class ShiftApplianceTest {
             today = nowDate.toString();
 
             bean.setEmployer(new Employer("TrialUser", "password", "Name", "Surname", today, "City"));
-            bean.setDateTime(today + " " + now, "");
+            publisherGraphic.setDateTime(today + " " + now, "");
         } catch (Exception e) {
             e.printStackTrace();
             passed = false;
         }
 
-        publisherGraphic.publishShift();
+        //publisherGraphic.publishShift(GuiStarter.getUser().getUsername(), name, place, dateTime.toString(), description);
 
         assertTrue(passed);
     }

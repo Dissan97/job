@@ -72,19 +72,7 @@ public class ShiftBean implements Refresh {
     }
 
 
-    public void setDateTime(String date, String time) throws InvalidDateException, ParseException {
-        if (date.equals("") || time.equals("")) {
-            throw new InvalidDateException("Date cannot be empty");
-        } else {
-            new JobDateTime(date, time);
 
-            //controlling that this is correct it will throw invalid datetimeException otherwise.
-            JobDate.controlBadDate(date);
-
-            this.jobDate = date;
-            this.jobTime = time;
-        }
-    }
 
 
 

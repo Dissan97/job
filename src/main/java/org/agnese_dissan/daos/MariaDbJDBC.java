@@ -10,6 +10,7 @@ import org.agnese_dissan.models.job.ShiftApply;
 import org.agnese_dissan.models.users.Employer;
 import org.agnese_dissan.models.users.User;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
@@ -72,7 +73,7 @@ public class MariaDbJDBC implements DAO {
     }
 
     @Override
-    public void pushAppliance(ShiftApply shiftApply) throws ShiftAlreadyApplied {
+    public void pushAppliance(ShiftApply shiftApply) throws IOException {
         //Push appliance to the database
     }
 
@@ -83,6 +84,11 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public void removeAppliance(ShiftApply apply) {
+
+    }
+
+    @Override
+    public void updateAppliance(ShiftApply apply) {
 
     }
 }

@@ -32,9 +32,9 @@ public class ViewSchedulingStateCli extends JobStateMachine {
      * Function that show now day candidates for a specific job
      */
     private void viewScheduling(){
-        GraphicScheduler graphicScheduler = new GraphicScheduler(this.employer);
-        ScheduleBean scheduleBean = graphicScheduler.getBean();
-        graphicScheduler.getScheduling();
+        GraphicScheduler controller = new GraphicScheduler(this.employer);
+        ScheduleBean scheduleBean = controller.getBean();
+        controller.getScheduling();
         List<ShiftApply> appliances = scheduleBean.getAppliances();
         //PRINT APPLIANCES
         Output.print(appliances.toString());
