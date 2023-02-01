@@ -1,0 +1,20 @@
+package org.AgneseDissan.gui;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+import org.AgneseDissan.interfaces.JobView;
+
+public class StartGuiUi extends Application implements JobView {
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        stage.setTitle("FAST JOB");
+        GuiManager.setStage(stage);
+        GuiManager.setUp("sign_in.fxml");
+    }
+
+    @Override
+    public void startUi() {
+        launch();
+    }
+}

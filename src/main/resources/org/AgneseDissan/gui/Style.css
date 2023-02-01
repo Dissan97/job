@@ -1,0 +1,75 @@
+.root {
+    -fx-background-color: white;
+    -fx-font-family: 'Comic Sans MS';
+  }
+  
+.label {
+    -fx-background-radius: 5;
+    -fx-background-color: lightpink;
+    -fx-text-fill: white;
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+ }
+ 
+
+  .button {
+    -fx-background-color: #4CAF50; /* Green */
+    -fx-background-radius: 10px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 20px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-cursor: hand;
+}
+  
+  .button:hover {
+    -fx-background-color: #3E8E41; /* Dark green */
+  }
+  
+  .check-box, .scroll-pane, .vbox, .label {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+  }
+  
+  .text-box {
+    -fx-background-radius: 10;
+    -fx-background-color: linear-gradient(to bottom, #FFC107, #FF5733);
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 1);
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .text-field:hover {
+    -fx-background-color: #3E8E41;
+}
+  
+  
+.label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3E8E41;
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-padding: 5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+.main-label{
+    -fx-font-size: 18px;
+}
+
+

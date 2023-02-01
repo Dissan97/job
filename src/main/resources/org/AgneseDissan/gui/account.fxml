@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1024.0" stylesheets="@Style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="org.AgneseDissan.gui.AccountGui">
+   <Label fx:id="username" alignment="CENTER" layoutX="356.0" layoutY="27.0" prefHeight="30.0" prefWidth="313.0" styleClass="main-label" text="ACCOUNT: [" textAlignment="CENTER">
+   </Label>
+   <Button layoutX="906.0" layoutY="17.0" mnemonicParsing="false" onAction="#logout" text="LOG OUT" />
+   <Button layoutX="14.0" layoutY="17.0" mnemonicParsing="false" onAction="#back" text="BACK" />
+   <Label fx:id="name" layoutX="356.0" layoutY="274.0" prefHeight="19.0" prefWidth="313.0" styleClass="account-label" text="Name: " />
+   <Label fx:id="surname" layoutX="356.0" layoutY="318.0" prefHeight="19.0" prefWidth="313.0" styleClass="account-label" text="Surname: " />
+   <Label fx:id="dateOfBirth" layoutX="356.0" layoutY="365.0" prefHeight="19.0" prefWidth="313.0" styleClass="account-label" text="Date of Birth: " />
+   <Label fx:id="cityOfBirth" layoutX="356.0" layoutY="415.0" prefHeight="19.0" prefWidth="313.0" styleClass="account-label" text="City of Birth: " />
+</Pane>

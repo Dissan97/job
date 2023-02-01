@@ -1,10 +1,10 @@
 package com.agnese_dissan.models.job;
 
-import org.agnese_dissan.exceptions.InvalidDateException;
-import org.agnese_dissan.models.job.Shift;
-import org.agnese_dissan.models.job.ShiftApply;
-import org.agnese_dissan.models.job.ShiftScheduling;
-import org.agnese_dissan.models.users.Employee;
+import org.AgneseDissan.exceptions.InvalidDateException;
+import org.AgneseDissan.models.job.Shift;
+import org.AgneseDissan.models.job.ShiftApply;
+import org.AgneseDissan.models.job.ShiftScheduling;
+import org.AgneseDissan.models.users.Employee;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
