@@ -14,7 +14,7 @@
    <Button layoutX="358.0" layoutY="264.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="310.0"
            text="PUBLISH SHIFT" onAction="#publishShift"/>
    <Button layoutX="357.0" layoutY="373.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="310.0"
-           text="VIEW CANDIDATES"/>
+           text="VIEW APPLICANTS" onAction="#viewApplicant"/>
    <Button layoutX="845.0" layoutY="17.0" mnemonicParsing="false" text="ACCOUNT" onAction="#getAccount"/>
    <Button layoutX="358.0" layoutY="319.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="310.0"
            text="VIEW SCHEDULING"/>

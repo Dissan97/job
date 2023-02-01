@@ -80,4 +80,9 @@ public class MariaDbJDBC implements DAO {
     public List<ShiftApply> pullAppliances(User user) {
         return null;
     }
+
+    @Override
+    public void removeAppliance(ShiftApply apply) {
+
+    }
 }

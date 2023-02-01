@@ -6,10 +6,10 @@ import org.agnese_dissan.models.users.User;
 import java.io.IOException;
 import java.util.Locale;
 
-public class UserGuiStarter implements JobView {
+public class GuiStarter implements JobView {
     private static User user;
 
-    public UserGuiStarter(User u) {
+    public GuiStarter(User u) {
         user = u;
     }
 

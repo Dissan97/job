@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.interfaces.Refresh;
+import org.agnese_dissan.models.time.JobDate;
 import org.agnese_dissan.models.users.Employer;
 import org.agnese_dissan.models.time.JobDateTime;
 
@@ -75,26 +76,10 @@ public class ShiftBean implements Refresh {
         if (date.equals("") || time.equals("")) {
             throw new InvalidDateException("Date cannot be empty");
         } else {
-
-            //controlling that this is correct it will throw invalid datetimeException otherwise.
             new JobDateTime(date, time);
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            Date today = new Date();
-            Date input = formatter.parse(date);
-
-            Calendar todayControl = Calendar.getInstance();
-            todayControl.setTime(today);
-
-            Calendar inputControl = Calendar.getInstance();
-            inputControl.setTime(input);
-
-            long diff = inputControl.getTimeInMillis() - todayControl.getTimeInMillis();
-            long diffDays = diff / (24 * 60 * 60 * 1000);
-
-            if (!(diffDays >= 0 && diffDays <= 7)) {
-                throw new InvalidDateException("Date is within a week from today");
-            }
+            //controlling that this is correct it will throw invalid datetimeException otherwise.
+            JobDate.controlBadDate(date);
 
             this.jobDate = date;
             this.jobTime = time;

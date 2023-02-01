@@ -6,7 +6,7 @@ import org.agnese_dissan.beans.ShiftBean;
 import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.graphicControllers.ShiftPublisherGraphic;
 import org.agnese_dissan.gui.GuiManager;
-import org.agnese_dissan.gui.UserGuiStarter;
+import org.agnese_dissan.gui.GuiStarter;
 import org.agnese_dissan.gui.ViewAction;
 import org.agnese_dissan.models.users.Employer;
 
@@ -26,10 +26,10 @@ public class PublishShiftGui {
     }
 
     public void publish() {
-            ShiftPublisherGraphic graphic = new ShiftPublisherGraphic();
-            ShiftBean bean = graphic.getBean();
+        ShiftPublisherGraphic graphic = new ShiftPublisherGraphic();
+        ShiftBean bean = graphic.getBean();
         try {
-            bean.setEmployer(new Employer(UserGuiStarter.getUser()));
+            bean.setEmployer(new Employer(GuiStarter.getUser()));
         } catch (InvalidDateException e) {
             GuiManager.exception(e);
         }

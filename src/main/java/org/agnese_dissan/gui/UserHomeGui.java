@@ -46,4 +46,13 @@ public class UserHomeGui {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    public void viewApplicant() {
+        try {
+            GuiManager.changeScene("view_applicants.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

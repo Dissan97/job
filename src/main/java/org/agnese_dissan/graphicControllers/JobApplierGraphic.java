@@ -5,9 +5,11 @@ import org.agnese_dissan.controllers.JobApplier;
 import org.agnese_dissan.exceptions.InvalidDateException;
 import org.agnese_dissan.exceptions.ShiftAlreadyApplied;
 import org.agnese_dissan.models.job.Shift;
+import org.agnese_dissan.models.job.ShiftApply;
 import org.agnese_dissan.models.users.User;
 
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 
 public class JobApplierGraphic {
 
@@ -33,5 +35,9 @@ public class JobApplierGraphic {
 
     public void pullAppliances(User user) throws FileNotFoundException {
         this.controller.pullAppliances(user);
+    }
+
+    public void removeAppliance(ShiftApply apply, User user) throws InvalidDateException, ParseException {
+        this.controller.removeAppliance(apply, user);
     }
 }

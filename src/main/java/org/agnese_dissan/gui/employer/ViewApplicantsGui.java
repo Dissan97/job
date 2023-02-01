@@ -1,12 +1,13 @@
-package org.agnese_dissan.gui.employee;
+package org.agnese_dissan.gui.employer;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 import org.agnese_dissan.gui.GuiManager;
 import org.agnese_dissan.gui.ViewAction;
 
-public class ViewAppliesGui {
+public class ViewApplicantsGui {
 
+    @FXML
     public VBox vBox;
 
     @FXML
@@ -18,13 +19,16 @@ public class ViewAppliesGui {
     public void goBack() {
         GuiManager.changeScene(ViewAction.BACK);
     }
+
     @FXML
     public void goHome() {
         GuiManager.changeScene(ViewAction.HOME);
     }
+
     @FXML
     public void buildView() {
-        //TODO CHANGE NAME OF THE VIEW FROM APPLY JOB TO APPLIED SHIFTS
-        GuiManager.showApplies(this.vBox);
-    }
+            GuiManager.showApplies(this.vBox);
+        }
+
+
 }

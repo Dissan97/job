@@ -88,6 +88,11 @@ public class DaoManager implements DAO, Runnable {
         return this.fileSystem.pullAppliances(user);
     }
 
+    @Override
+    public void removeAppliance(ShiftApply apply) throws IOException {
+        this.fileSystem.removeAppliance(apply);
+    }
+
 
     @Override
     public void run() {

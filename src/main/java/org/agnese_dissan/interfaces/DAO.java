@@ -10,6 +10,7 @@ import org.agnese_dissan.models.users.Employer;
 import org.agnese_dissan.models.users.User;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public interface DAO {
     void pushAppliance(ShiftApply shiftApply) throws ShiftAlreadyApplied;
 
     List<ShiftApply> pullAppliances(User user) throws FileNotFoundException;
+
+    void removeAppliance(ShiftApply apply) throws IOException;
 
     //TODO add exception to all the processes throw ioException
     //TODO add function removeShift candidateShift

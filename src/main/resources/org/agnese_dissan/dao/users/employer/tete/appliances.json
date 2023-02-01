@@ -1,1 +1,9 @@
-[{"employee":"ale","shift":"tetewewe2023-2-1::10:10","employer":"tete","applianceDateTime":"2023-01-30"}]
+[
+  {
+    "employee": "ale",
+    "shift": "teteagnese2023-2-4::11:30",
+    "employer": "tete",
+    "applianceDateTime": "2023-01-31",
+    "accepted": false
+  }
+]

@@ -7,7 +7,7 @@ import org.agnese_dissan.cli.EmployerView;
 import org.agnese_dissan.cli.EmployeeView;
 import org.agnese_dissan.cli.LoginView;
 import org.agnese_dissan.gui.StartGuiUi;
-import org.agnese_dissan.gui.UserGuiStarter;
+import org.agnese_dissan.gui.GuiStarter;
 import org.agnese_dissan.interfaces.JobView;
 import org.agnese_dissan.models.users.User;
 
@@ -19,7 +19,7 @@ public class UiFactory {
     private static LoginView loginView = null;
     private static StartGuiUi startGuiUi = null;
     private static AssistantView assistantView = null;
-    private static UserGuiStarter userGuiStarter = null;
+    private static GuiStarter userGuiStarter = null;
     private static boolean gui = false;
 
 
@@ -40,7 +40,7 @@ public class UiFactory {
                     }
 
                     case EMPLOYEE, EMPLOYER, ASSISTANT -> {
-                        userGuiStarter = new UserGuiStarter(user);
+                        userGuiStarter = new GuiStarter(user);
                         return userGuiStarter;
                     }
                 }

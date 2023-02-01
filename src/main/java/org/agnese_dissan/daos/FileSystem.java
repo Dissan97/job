@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import org.agnese_dissan.Macros;
 import org.agnese_dissan.exceptions.ShiftAlreadyApplied;
 import org.agnese_dissan.exceptions.UserAlreadyExistException;
 import org.agnese_dissan.interfaces.DAO;
@@ -328,8 +329,51 @@ public class FileSystem implements DAO {
 
     @Override
     public List<ShiftApply> pullAppliances(User user) throws FileNotFoundException {
-        String employeePath = DAO_PATH + "users/employee/" + user.getUsername() + "/appliances.json";
-        return this.getEmployeeApplication(employeePath);
+        String applyPath = "";
+
+        if (user.getUserType() == Macros.EMPLOYEE){
+            applyPath = DAO_PATH + "users/employee/" + user.getUsername() + "/appliances.json";
+        }else if (user.getUserType() == Macros.EMPLOYER){
+            applyPath = DAO_PATH + "users/employer/" + user.getUsername() + "/appliances.json";
+        }
+        return this.getEmployeeApplication(applyPath);
+    }
+
+    @Override
+    public void removeAppliance(ShiftApply apply) throws IOException {
+        String employeePath = DAO_PATH + "users/employee/" + apply.getEmployee() + "/appliances.json";
+        String employerPath = DAO_PATH + "users/employer/" + apply.getEmployer() + "/appliances.json";
+
+        List<ShiftApply> applyList = this.getEmployeeApplication(employeePath);
+
+
+        applyList.removeIf(a->
+            a.toString().equals(apply.toString())
+         );
+
+        Gson gson = new Gson();
+
+        BufferedWriter writer = new BufferedWriter(
+                new FileWriter(employeePath)
+        );
+
+        gson.toJson(applyList, writer);
+
+        writer.close();
+
+        applyList = this.getEmployeeApplication(employerPath);
+
+        applyList.removeIf(a->
+                a.toString().equals(apply.toString())
+        );
+
+        writer = new BufferedWriter(
+                new FileWriter(employerPath)
+        );
+
+        gson.toJson(applyList, writer);
+
+        writer.close();
     }
 
     private List<ShiftApply> getEmployeeApplication(String path) throws FileNotFoundException {

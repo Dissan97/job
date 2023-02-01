@@ -10,6 +10,7 @@ public class ShiftApply {
     private final String employee;
     private final String shift;
     private final String employer;
+    private final String shiftDate;
     private final String applianceDateTime;
     private boolean accepted = false;
 
@@ -18,6 +19,7 @@ public class ShiftApply {
             this.shift = shift.getCode();
             this.employer = shift.getEmployer();
             this.applianceDateTime = this.getApplyDate();
+            this.shiftDate = shift.getDateTime();
     }
 
     public String getApplyDate(){
@@ -47,8 +49,16 @@ public class ShiftApply {
         this.accepted = accepted;
     }
 
+    public String getShiftDate() {
+        return shiftDate;
+    }
+
     @Override
     public String toString(){
         return this.employer+this.shift+this.employee;
+    }
+
+    public boolean getState() {
+        return this.accepted;
     }
 }

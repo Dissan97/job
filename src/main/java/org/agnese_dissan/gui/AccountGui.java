@@ -1,11 +1,7 @@
 package org.agnese_dissan.gui;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import org.agnese_dissan.gui.GuiManager;
-import org.agnese_dissan.gui.UserGuiStarter;
-import org.agnese_dissan.gui.ViewAction;
 
 public class AccountGui {
     public Label username;
@@ -17,11 +13,11 @@ public class AccountGui {
 
     @FXML
     public void initialize(){
-        username.setText(username.getText() + UserGuiStarter.getUser().getUsername()+"]");
-        name.setText(name.getText() + UserGuiStarter.getUser().getName());
-        surname.setText(surname.getText() + UserGuiStarter.getUser().getSurname());
-        dateOfBirth.setText(dateOfBirth.getText() + UserGuiStarter.getUser().getDateOfBirth());
-        cityOfBirth.setText(cityOfBirth.getText() + UserGuiStarter.getUser().getCityOfBirth());
+        username.setText(username.getText() + GuiStarter.getUser().getUsername()+"]");
+        name.setText(name.getText() + GuiStarter.getUser().getName());
+        surname.setText(surname.getText() + GuiStarter.getUser().getSurname());
+        dateOfBirth.setText(dateOfBirth.getText() + GuiStarter.getUser().getDateOfBirth());
+        cityOfBirth.setText(cityOfBirth.getText() + GuiStarter.getUser().getCityOfBirth());
     }
 
 

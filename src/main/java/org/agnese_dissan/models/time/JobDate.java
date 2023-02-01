@@ -3,6 +3,11 @@ package org.agnese_dissan.models.time;
 import org.agnese_dissan.exceptions.InvalidDateException;
 import org.jetbrains.annotations.NotNull;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class JobDate {
 
     private final String [] MONTHS = {"January","February", "March", "April", "May" ,"June", "July", "August", "September", "October", "November", "December"};
@@ -161,5 +166,37 @@ public class JobDate {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public static void controlBadDate(String date) throws InvalidDateException, ParseException {
+        controlBadDate(date, 7, false);
+    }
+
+    public static void controlBadDate(String date, int days, boolean major) throws InvalidDateException, ParseException {
+
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date today = new Date();
+        Date input = formatter.parse(date);
+
+        Calendar todayControl = Calendar.getInstance();
+        todayControl.setTime(today);
+
+        Calendar inputControl = Calendar.getInstance();
+        inputControl.setTime(input);
+
+        long diff = inputControl.getTimeInMillis() - todayControl.getTimeInMillis();
+        long diffDays = diff / (24 * 60 * 60 * 1000);
+
+        if (major){
+            if ((diffDays >= 0 && diffDays <= days)) {
+                System.out.println("less than a day: " + date );
+                throw new InvalidDateException();
+            }
+        }else {
+            if (!(diffDays >= 0 && diffDays <= days)) {
+                throw new InvalidDateException("Date is within a week from today");
+            }
+        }
     }
 }
