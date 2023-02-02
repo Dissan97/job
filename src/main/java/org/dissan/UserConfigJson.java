@@ -4,12 +4,12 @@ import org.dissan.factories.DAOFactory;
 import org.dissan.interfaces.DAO;
 import org.dissan.models.users.User;
 
-public class ConfigurationJson {
+public class UserConfigJson {
     private boolean config = false;
     private User user;
     DAO dao;
 
-    public ConfigurationJson() {
+    public UserConfigJson() {
         this.dao = DAOFactory.getDAO();
     }
 

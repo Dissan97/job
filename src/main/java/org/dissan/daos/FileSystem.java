@@ -6,12 +6,12 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.dissan.Macros;
+import org.dissan.cli.io.Output;
 import org.dissan.exceptions.UserAlreadyExistException;
 import org.dissan.interfaces.DAO;
-import org.dissan.models.job.DemiseMessages;
+import org.dissan.models.job.Demise;
 import org.dissan.models.job.Shift;
 import org.dissan.models.job.ShiftApply;
-import org.dissan.models.users.Employer;
 import org.dissan.models.users.User;
 
 import java.io.*;
@@ -22,13 +22,15 @@ import java.util.Locale;
 
 public class FileSystem implements DAO {
 
-    private final String daoPath = "src/main/resources/org/agnese_dissan/dao/";
+    private final String daoPath = "src/main/resources/org/dissan/dao/";
     private final String userPath = daoPath + "user.json";
     private final String configPath = daoPath + "/config.json";
     private final String shiftPath = daoPath + "/shifts.json";
 
+    private final String demisePath = daoPath + "/demises.json";
+
     @Override
-    public void putUser(User user) throws UserAlreadyExistException {
+    public void pushUser(User user) throws UserAlreadyExistException {
 
         //GIVE THE CONTROL TO THE CONTROLLER
 
@@ -38,28 +40,31 @@ public class FileSystem implements DAO {
 
         List<User> users = this.getUserList();
 
-        if (users == null){
-            users = new ArrayList<>();
-        }else {
-            for (User u: users
-                 ) {
-                if (u.getUsername().equals(user.getUsername())){
-                    throw new UserAlreadyExistException();
-                }
-            }
-        }
-
         String folder = user.getUserType().name().toLowerCase(Locale.ROOT) + "/";
-        String userPath = "src/main/resources/org/agnese_dissan/dao/users/" + folder + user.getUsername();
-        File dir = new File(userPath);
+        String path = this.daoPath + "users/" + folder + user.getUsername();
+
+        File dir = new File(path);
+
+        Output.println(path);
 
         if (!dir.mkdir()){
             throw new UserAlreadyExistException();
         }
 
-        userPath += "/";
-        String path = userPath + "schedules.json";
-        File neededFiles = new File(path);
+        try {
+
+
+            this.initFile(path + "/schedules.json");
+            this.initFile(path + "/appliances.json");
+            Macros types = user.getUserType();
+            if (types == Macros.EMPLOYER) {
+                this.initFile(path + "/shifts.json");
+            } else if (types == Macros.EMPLOYEE) {
+                this.initFile("/demises.json");
+            }
+        }catch (IOException e){
+            throw  new UserAlreadyExistException(e.getMessage());
+        }
 
         try {
 
@@ -74,37 +79,19 @@ public class FileSystem implements DAO {
             writer.flush();
             writer.close();
 
-
-            if (!neededFiles.createNewFile()) {
-                throw new IOException();
-            }
-            if (user.getUserType() == Macros.EMPLOYEE) {
-                path = userPath + "appliances.json";
-                neededFiles = new File(path);
-
-                if (!neededFiles.createNewFile()) {
-                    throw new IOException();
-                }
-            } else if (user.getUserType() == Macros.EMPLOYER) {
-                path = userPath + "shifts.json";
-                neededFiles = new File(path);
-                if (!neededFiles.createNewFile()) {
-                    throw new IOException();
-                }
-
-                path = userPath + "candidates.json";
-                neededFiles = new File(path);
-                if (!neededFiles.createNewFile()) {
-                    throw new IOException();
-                }
-            }
             } catch (IOException e) {
-                    e.printStackTrace();
-                    throw new UserAlreadyExistException(e.getMessage());
+                    throw new UserAlreadyExistException();
             }
+    }
 
 
+    private void initFile(String path) throws IOException {
+        BufferedWriter writer = new BufferedWriter(
+                new FileWriter(path)
+        );
 
+        writer.write("[]");
+        writer.close();
     }
 
     @Override
@@ -175,7 +162,7 @@ public class FileSystem implements DAO {
         BufferedWriter writer;
         BufferedWriter localWriter;
 
-        List<Shift> shifts = this.getShiftList();
+        List<Shift> shifts = this.pullShifts();
         if (shifts == null){
             shifts = new ArrayList<>();
         }
@@ -209,7 +196,7 @@ public class FileSystem implements DAO {
     }
 
     @Override
-    public List<Shift> getShiftList() {
+    public List<Shift> pullShifts() {
         JsonElement reader;
 
         try {
@@ -231,13 +218,9 @@ public class FileSystem implements DAO {
     }
 
     @Override
-    public List<ShiftApply> getSchedules(Employer employer) {
-        return null;
-    }
-
-    @Override
-    public List<DemiseMessages> checkMessage(User user) {
-        String path = daoPath + user.getUsername()+"/issues.json";
+    public List<ShiftApply> pullSchedules(User user) {
+        String type = user.getUserType().name().toLowerCase();
+        String path = this.daoPath + "users/" + type + "/" + user.getUsername() + "/schedules.json";
 
         JsonElement reader;
 
@@ -250,15 +233,122 @@ public class FileSystem implements DAO {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
-        Type reviewType = new TypeToken<List<DemiseMessages>>() {
+        Type REVIEW_TYPE = new TypeToken<List<ShiftApply>>() {
         }.getType();
 
         Gson gson = new Gson();
 
-        return gson.fromJson(reader, reviewType);
+        return gson.fromJson(reader, REVIEW_TYPE);
 
     }
+
+    @Override
+    public void pushSchedule(ShiftApply apply, User user) throws IOException {
+        String employeePath = this.daoPath + "users/employee/" + apply.getEmployee();
+        String employerPath = this.daoPath + "users/employer/" + apply.getEmployer();
+        this.setSchedule(apply, employeePath, user);
+        this.setSchedule(apply, employerPath, user);
+    }
+
+    @Override
+    public void pushEmployeeDemise(Demise apply) throws IOException {
+        String employee = apply.getEmployee();
+        String path = this.daoPath + "users/employee/" + employee + "/demises.json";
+        List<Demise> demiseList = this.pullEmployeeDemise(employee);
+        demiseList.add(apply);
+        BufferedWriter writer;
+
+        writer = new BufferedWriter(
+                new FileWriter(path)
+        );
+
+        Gson gson = new Gson();
+
+        gson.toJson(demiseList, writer);
+        writer.close();
+
+    }
+
+    @Override
+    public List<Demise> pullEmployeeDemise(String employee) {
+
+        String path = this.daoPath + "users/employee/" + employee + "/demises.json";
+
+        JsonElement reader;
+
+        try {
+            reader = JsonParser.parseReader(
+                    new JsonReader(
+                            new FileReader(path)
+                    )
+            );
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        Type REVIEW_TYPE = new TypeToken<List<Demise>>() {
+        }.getType();
+
+        Gson gson = new Gson();
+
+        return gson.fromJson(reader, REVIEW_TYPE);
+    }
+
+    @Override
+    public List<Demise> pullDemises() {
+
+        JsonElement reader;
+
+        try {
+            reader = JsonParser.parseReader(
+                    new JsonReader(
+                            new FileReader(this.demisePath)
+                    )
+            );
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        Type REVIEW_TYPE = new TypeToken<List<Demise>>() {
+        }.getType();
+
+        Gson gson = new Gson();
+
+        return gson.fromJson(reader, REVIEW_TYPE);
+    }
+
+    @Override
+    public void pushDemise(Demise demise) throws IOException {
+        List<Demise> demiseList = this.pullDemises();
+        demiseList.add(demise);
+
+        BufferedWriter writer;
+
+        writer = new BufferedWriter(
+                new FileWriter(this.demisePath)
+        );
+
+        Gson gson = new Gson();
+
+        gson.toJson(demiseList, writer);
+        writer.close();
+
+    }
+
+    private void setSchedule(ShiftApply apply, String path, User user) throws IOException {
+        path += "/schedules.json";
+        List<ShiftApply> schedules = this.pullSchedules(user);
+        schedules.add(apply);
+
+        BufferedWriter writer = new BufferedWriter(
+                new FileWriter(path)
+        );
+
+        Gson gson = new Gson();
+
+        gson.toJson(schedules, writer);
+        writer.close();
+
+    }
+
 
     @Override
     public void pushAppliance(ShiftApply shiftApply) throws IOException {
@@ -324,7 +414,6 @@ public class FileSystem implements DAO {
 
         List<ShiftApply> applyList = this.getEmployeeApplication(employeePath);
 
-
         applyList.removeIf(a->
             a.toString().equals(apply.toString())
          );
@@ -385,6 +474,5 @@ public class FileSystem implements DAO {
         }
         return local;
     }
-
 
 }

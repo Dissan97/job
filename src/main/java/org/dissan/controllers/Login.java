@@ -48,7 +48,7 @@ public class Login {
             throw new UserAlreadyExistException(username);
         }
         password = shaPassword(password);
-        this.dao.putUser(new User(username, password, name, surname, dateOfBirth, cityOfBirth, type));
+        this.dao.pushUser(new User(username, password, name, surname, dateOfBirth, cityOfBirth, type));
 
     }
     //TODO move this method to controller

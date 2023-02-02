@@ -1,5 +1,6 @@
 package org.dissan.gui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class UserHomeGui {
         try {
             GuiManager.changeScene("view_applies.fxml");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            GuiManager.exception(e);
         }
     }
 
@@ -52,7 +53,16 @@ public class UserHomeGui {
         try {
             GuiManager.changeScene("view_applicants.fxml");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            GuiManager.exception(e);
+        }
+    }
+
+    @FXML
+    public void pendingDemise() {
+        try {
+            GuiManager.changeScene("view_demise.fxml");
+        } catch (IOException e) {
+            GuiManager.exception(e);
         }
     }
 }

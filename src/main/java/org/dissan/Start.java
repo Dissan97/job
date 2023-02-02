@@ -31,7 +31,7 @@ public class Start {
         UiFactory.setGui(gui);
         DAOFactory.setStorageMethod(local);
 
-        ConfigurationJson configurationJson = new ConfigurationJson();
+        UserConfigJson configurationJson = new UserConfigJson();
 
         Macros starter = Macros.START;
         User user = null;

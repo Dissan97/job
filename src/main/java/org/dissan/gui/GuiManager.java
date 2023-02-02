@@ -126,7 +126,8 @@ public class GuiManager {
     public static void popUp(String s, int i) {
         Stage stage = new Stage();
         stage.setTitle("ALERT");
-        Scene scene = new Scene(new StackPane(new Label(s)), i, 100);
+        Scene scene = new Scene(new StackPane(new Label(s)), i + 200, 400);
+        scene.getStylesheets().add(Objects.requireNonNull(GuiManager.class.getResource("Style.css")).toExternalForm());
         stage.setScene(scene);
         stage.show();
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), e -> stage.close()));
@@ -184,67 +185,4 @@ public class GuiManager {
         return ret.get();
     }
 
-  public static void showApplies(VBox vBox) {
-        JobApplierGraphic graphic = new JobApplierGraphic();
-        JobApplierBean bean = graphic.getBean();
-        vBox.getChildren().clear();
-        vBox.getStylesheets().add(Objects.requireNonNull(GuiManager.class.getResource("Style.css")).toExternalForm());
-        HBox[] hBoxes;
-        Button[] buttons;
-        ListItems items = new ListItems();
-
-        int boxWidth = 350;
-        try {
-            graphic.pullAppliances(GuiStarter.getUser());
-            List<ShiftApply> applyList = bean.getShiftApplyList();
-            if (applyList != null){
-                int size = applyList.size();
-                Label[] information = new Label[size];
-                hBoxes = new HBox[size];
-                buttons = new Button[size];
-                int i = 0;
-                for (ShiftApply apply:
-                        applyList) {
-                    hBoxes[i] = new HBox();
-                    if (GuiStarter.getUser().getUserType() == Macros.EMPLOYER){
-                        information[i] = new Label("[SHIFT]: " + apply.getShift()+"\n[EMPLOYEE]: " + apply.getEmployee());
-                        buttons[i] = new Button("MANAGE");
-                    }else {
-                        information[i] = new Label("[SHIFT]: " + apply.getShift() + "\n[EMPLOYER]: " + apply.getEmployer());
-                        buttons[i] = new Button("DEMISE");
-                    }
-                    information[i].setPrefHeight(BUTTON_HEIGHT);
-                    information[i].setPrefWidth(boxWidth);
-                    information[i].setAlignment(Pos.CENTER_LEFT);
-                    information[i].setContentDisplay(ContentDisplay.LEFT);
-                    information[i].setStyle(
-                            "-fx-border-color: #C7C7CC;\n" +
-                                    "-fx-border-width: 1;"
-                    );
-                    buttons[i].setPrefHeight(BUTTON_HEIGHT);
-                    buttons[i].setPrefWidth(BUTTON_WIDTH - boxWidth);
-                    //ADDING CONTROL
-
-                    Label finalLabel = information[i];
-                    buttons[i].setOnAction(e -> {
-                        if (acceptPopUp(finalLabel, "Want to remove?")){
-                            try {
-                                graphic.removeAppliance(apply, GuiStarter.getUser());
-                                popUp("Application removed");
-                            } catch (Exception ex) {
-                                popUp("The application is sent to Assistant");
-                            }
-                        }
-                    });
-                   
-                    hBoxes[i].getChildren().add(information[i]);
-                    hBoxes[i].getChildren().add(buttons[i]);
-                    vBox.getChildren().add(hBoxes[i]);
-                }
-            }
-        } catch (FileNotFoundException e) {
-            GuiManager.exception(e);
-        }
-
-  }
 }

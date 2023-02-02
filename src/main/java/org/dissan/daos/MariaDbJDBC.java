@@ -1,12 +1,10 @@
 package org.dissan.daos;
 
-
-
+import org.dissan.DBConfigJson;
 import org.dissan.interfaces.DAO;
-import org.dissan.models.job.DemiseMessages;
+import org.dissan.models.job.Demise;
 import org.dissan.models.job.Shift;
 import org.dissan.models.job.ShiftApply;
-import org.dissan.models.users.Employer;
 import org.dissan.models.users.User;
 
 import java.io.IOException;
@@ -15,10 +13,42 @@ import java.util.List;
 
 public class MariaDbJDBC implements DAO {
 
+    private final String driver;
+    private final String host;
+    private final String port;
+    private final String database;
+    private final String user;
+    private final String password;
+    private String url;
+
+    public MariaDbJDBC() {
+        DBConfigJson configJson = new DBConfigJson();
+        this.driver = configJson.getDriver();
+        this.host = configJson.getHost();
+        this.port = configJson.getPort();
+        this.database = configJson.getDatabase();
+        this.user = configJson.getUser();
+        this.password = configJson.getPassword();
+        this.configUrl();
+    }
+
+    private void configUrl() {
+        String driverHost = this.driver + "://" + this.host + ":" + this.port +"/";
+        String dataBaseUser = this.database + "?user=" + this.user + "&password=" + this.password;
+        this.url = driverHost + dataBaseUser;
+        System.out.println(this.url);
+    }
+
+    public Connection getConnection() throws SQLException {
+        this.configUrl();
+        return DriverManager.getConnection(this.url);
+    }
+
+
     @Override
-    public void putUser(User user) throws SQLException {
-       /**
-        Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/Job?user=root&password=password");
+    public void pushUser(User user) throws SQLException {
+
+        Connection connection = this.getConnection();
         CallableStatement statement = connection.prepareCall("{ call new_user(?,?,?,?,?,?,?) }");
         statement.setString(1, user.getUsername());
         statement.setString(2, user.getPassword());
@@ -32,7 +62,7 @@ public class MariaDbJDBC implements DAO {
         }
         statement.close();
         connection.close();
-        */
+
     }
 
     @Override
@@ -56,18 +86,12 @@ public class MariaDbJDBC implements DAO {
     }
 
     @Override
-    public List<Shift> getShiftList() {
+    public List<Shift> pullShifts() {
         return null;
     }
 
     @Override
-    public List<ShiftApply> getSchedules(Employer employer) {
-        return null;
-    }
-
-    @Override
-    public List<DemiseMessages> checkMessage(User user) {
-
+    public List<ShiftApply> pullSchedules(User user) {
         return null;
     }
 
@@ -88,6 +112,31 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public void updateAppliance(ShiftApply apply) {
+
+    }
+
+    @Override
+    public void pushSchedule(ShiftApply apply, User user) {
+
+    }
+
+    @Override
+    public void pushEmployeeDemise(Demise apply) {
+
+    }
+
+    @Override
+    public List<Demise> pullEmployeeDemise(String employee) {
+        return null;
+    }
+
+    @Override
+    public List<Demise> pullDemises() {
+        return null;
+    }
+
+    @Override
+    public void pushDemise(Demise demise) {
 
     }
 }

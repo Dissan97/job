@@ -4,6 +4,7 @@ import org.dissan.beans.AccountBean;
 import org.dissan.beans.JobApplierBean;
 import org.dissan.controllers.ApplicationAcceptor;
 import org.dissan.exceptions.ApplyNotExistException;
+import org.dissan.exceptions.ShiftAlreadyScheduledException;
 import org.dissan.models.job.ShiftApply;
 import org.dissan.models.users.User;
 
@@ -16,7 +17,7 @@ public class ApplicationAcceptorGraphic {
 
     private final AccountBean accountBean;
     private JobApplierBean applierBean;
-    private ApplicationAcceptor controller;
+    private final ApplicationAcceptor controller;
 
     public ApplicationAcceptorGraphic() {
         this.controller = new ApplicationAcceptor();
@@ -58,7 +59,7 @@ public class ApplicationAcceptorGraphic {
         return this.applierBean;
     }
 
-    public void manageCandidate(User employee, User employer, ShiftApply apply, boolean accept) throws IOException, ApplyNotExistException {
+    public void manageCandidate(User employee, User employer, ShiftApply apply, boolean accept) throws IOException, ApplyNotExistException, ShiftAlreadyScheduledException {
         if (employee != null){
             this.controller.manageCandidate(employee, employer, apply, accept);
         }

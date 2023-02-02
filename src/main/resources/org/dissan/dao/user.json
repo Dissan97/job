@@ -18,30 +18,12 @@
     "userType": "EMPLOYEE"
   },
   {
-    "username": "test",
+    "username": "hassan",
     "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "test",
-    "surname": "test",
-    "dateOfBirth": "1999-11-11",
-    "cityOfBirth": "test",
-    "userType": "EMPLOYER"
-  },
-  {
-    "username": "tete",
-    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "pass",
-    "surname": "pass",
-    "dateOfBirth": "1980-10-12",
-    "cityOfBirth": "pass",
-    "userType": "EMPLOYER"
-  },
-  {
-    "username": "ale",
-    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "Alessio",
-    "surname": "De Marco",
-    "dateOfBirth": "2000-7-8",
-    "cityOfBirth": "Rome",
+    "name": "name",
+    "surname": "surname",
+    "dateOfBirth": "1965-10-16",
+    "cityOfBirth": "testCity",
     "userType": "EMPLOYEE"
   }
 ]

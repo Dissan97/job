@@ -38,7 +38,7 @@ public class JobApplierGraphic {
         this.controller.pullAppliances(user);
     }
 
-    public void removeAppliance(ShiftApply apply, User user) throws InvalidDateException, ParseException {
-        this.controller.removeAppliance(apply, user);
+    public void removeAppliance(ShiftApply apply) throws InvalidDateException, ParseException, IOException {
+        this.controller.removeAppliance(apply);
     }
 }

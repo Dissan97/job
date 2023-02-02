@@ -2,24 +2,31 @@ package org.dissan.graphicControllers;
 
 
 import org.dissan.beans.DemiseBean;
-import org.dissan.cli.io.Output;
 import org.dissan.controllers.DemiseController;
-import org.dissan.models.users.Employee;
+import org.dissan.models.job.Demise;
+import org.dissan.models.users.User;
+
+import java.io.IOException;
 
 public class DemiseGraphicController {
 
+    private final DemiseBean demiseBean;
+    private final DemiseController controller;
     public DemiseGraphicController(){
-
-        //TODO Add this parameters
-        DemiseBean demiseBean = new DemiseBean();
-        Output.println(demiseBean.toString());
-        DemiseController controller = new DemiseController(this);
-        Output.println(controller.toString());
+        this.demiseBean = new DemiseBean();
+        this.controller = new DemiseController(this.demiseBean);
     }
 
 
-    public void getApplication(Employee employee) {
-        Output.println(employee.toString());
+    public DemiseBean getBean() {
+        return this.demiseBean;
     }
 
+    public void pullDemises(User user) {
+        this.controller.pullDemises(user);
+    }
+
+    public void pushDemise(Demise choosenDemise) throws IOException {
+        controller.sendDemise(choosenDemise);
+    }
 }

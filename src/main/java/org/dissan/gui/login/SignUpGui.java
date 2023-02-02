@@ -64,7 +64,8 @@ public class SignUpGui implements JobView {
                 GuiManager.popUp("SIGN UP SUCCESS");
                 GuiManager.setUp("sign_in.fxml");
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
+                GuiManager.exception(e);
             }
 
         }

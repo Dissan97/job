@@ -4,10 +4,9 @@ import org.dissan.cli.io.Output;
 import org.dissan.exceptions.UserAlreadyExistException;
 import org.dissan.factories.DAOState;
 import org.dissan.interfaces.DAO;
-import org.dissan.models.job.DemiseMessages;
+import org.dissan.models.job.Demise;
 import org.dissan.models.job.Shift;
 import org.dissan.models.job.ShiftApply;
-import org.dissan.models.users.Employer;
 import org.dissan.models.users.User;
 
 import java.io.*;
@@ -33,9 +32,9 @@ public class DaoManager implements DAO, Runnable {
     }
 
     @Override
-    public void putUser(User user) throws UserAlreadyExistException {
+    public void pushUser(User user) throws UserAlreadyExistException {
             this.user = user;
-            this.fileSystem.putUser(this.user);
+            this.fileSystem.pushUser(this.user);
             this.state = DAOState.PUT_USER;
             //this.thread.start();
     }
@@ -61,20 +60,14 @@ public class DaoManager implements DAO, Runnable {
     }
 
     @Override
-    public List<Shift> getShiftList() {
-        return this.fileSystem.getShiftList();
+    public List<Shift> pullShifts() {
+        return this.fileSystem.pullShifts();
     }
 
     @Override
-    public List<ShiftApply> getSchedules(Employer employer) {
+    public List<ShiftApply> pullSchedules(User user) {
         //needed to show demises don't know why is empty
-        return null;
-    }
-
-    @Override
-    public List<DemiseMessages> checkMessage(User user) {
-        //needed to show demises
-        return null;
+        return this.fileSystem.pullSchedules(user);
     }
 
     @Override
@@ -97,13 +90,39 @@ public class DaoManager implements DAO, Runnable {
         this.fileSystem.updateAppliance(apply);
     }
 
+    @Override
+    public void pushSchedule(ShiftApply apply, User user) throws IOException {
+        this.fileSystem.pushSchedule(apply, user);
+    }
+
+    @Override
+    public List<Demise> pullEmployeeDemise(String employee) {
+        return this.fileSystem.pullEmployeeDemise(employee);
+    }
+
+    @Override
+    public void pushEmployeeDemise(Demise apply) throws IOException {
+        this.fileSystem.pushEmployeeDemise(apply);
+    }
+
+
+    @Override
+    public List<Demise> pullDemises() {
+        return this.fileSystem.pullDemises();
+    }
+
+    @Override
+    public void pushDemise(Demise demise) throws IOException {
+        this.fileSystem.pushDemise(demise);
+    }
+
 
     @Override
     public void run() {
         switch (this.state){
             case PUT_USER -> {
                 try {
-                    this.mariaDbJDBC.putUser(this.user);
+                    this.mariaDbJDBC.pushUser(this.user);
                     Output.pageMessage(thread.getName(), "user inserted", true);
                 } catch (SQLException e) {
                     e.printStackTrace();

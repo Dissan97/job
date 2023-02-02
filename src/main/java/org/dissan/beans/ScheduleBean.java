@@ -1,7 +1,7 @@
 package org.dissan.beans;
 
 import org.dissan.models.job.ShiftApply;
-import org.dissan.models.job.ShiftScheduling;
+
 import java.util.List;
 
 public class ScheduleBean {
@@ -13,7 +13,7 @@ public class ScheduleBean {
         }
         return null;
     }
-    public void addScheduling(ShiftScheduling scheduling) {
-        this.appliances = scheduling.getAppliances();
+    public void addScheduling(List<ShiftApply> appliances) {
+        this.appliances = appliances;
     }
 }

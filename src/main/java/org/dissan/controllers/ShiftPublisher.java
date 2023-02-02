@@ -13,7 +13,7 @@ public class ShiftPublisher {
     public void publish(String employer, String name, String jobPlace, String jobDateTime,String description) throws ShiftAlreadyExists {
         Shift shift = new Shift(employer, name, jobPlace, jobDateTime, description);
         DAO dao = DAOFactory.getDAO();
-        List<Shift> shiftList = dao.getShiftList();
+        List<Shift> shiftList = dao.pullShifts();
         this.verify(shiftList, shift);
         dao.pushShift(shift);
     }

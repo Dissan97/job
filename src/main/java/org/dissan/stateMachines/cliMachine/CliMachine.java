@@ -14,7 +14,6 @@ public class CliMachine extends JobStateMachine {
     private ViewSchedulingStateCli schedulingState = null;
     private HandleCandidateStateCli handleCandidateState = null;
     private ShiftManagerStateCli shiftManagerState = null;
-    private DemiseMangerStateCli demiseMangerState = null;
     public CliMachine(User user) {
         this.user = user;
         String type = "{"+user.getUserType().toString().toLowerCase() + "@";
@@ -68,12 +67,7 @@ public class CliMachine extends JobStateMachine {
                 }
                 this.shiftManagerState.nextState(state);
             }
-            case DEMISE_SHIFT -> {
-                if (this.demiseMangerState == null){
-                    this.demiseMangerState = new DemiseMangerStateCli(user);
-                }
-                this.demiseMangerState.nextState(state);
-            }
+
         }
     }
 
