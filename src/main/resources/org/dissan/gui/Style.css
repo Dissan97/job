@@ -72,4 +72,33 @@
     -fx-font-size: 18px;
 }
 
+.menu-button{
+    -fx-background-color: white;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px ;
+    -fx-border-color: black;
+    -fx-font-size: 14px;
+    -fx-spacing: 13px;
+    -fx-min-width: 125px;
+    -fx-cursor: hand;
+}
+
+.menu-item {
+    -fx-border-color: black;
+    -fx-background-color: white; /* Green */
+    -fx-font-size: 14px;
+    -fx-padding: 5px 30px;
+    -fx-spacing: 10px;
+    -fx-min-width: 125px;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-cursor: hand;
+}
+
+.menu-label {
+    -fx-text-fill: white;
+}
+
+.menu-item:hover {
+    -fx-background-color: #3E8E41;
+}
 

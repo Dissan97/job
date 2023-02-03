@@ -1,9 +1,9 @@
 package org.dissan.stateMachines.cliMachine;
 
-import org.dissan.beans.ScheduleBean;
+import org.dissan.beans.ShiftSchedulerBean;
 import org.dissan.cli.io.Output;
 import org.dissan.exceptions.InvalidDateException;
-import org.dissan.graphicControllers.GraphicScheduler;
+import org.dissan.graphicControllers.ShiftSchedulerGraphic;
 import org.dissan.models.job.ShiftApply;
 import org.dissan.models.users.Employer;
 import org.dissan.models.users.User;
@@ -32,10 +32,10 @@ public class ViewSchedulingStateCli extends JobStateMachine {
      * Function that show now day candidates for a specific job
      */
     private void viewScheduling(){
-        GraphicScheduler controller = new GraphicScheduler(this.employer);
-        ScheduleBean scheduleBean = controller.getBean();
+        ShiftSchedulerGraphic controller = new ShiftSchedulerGraphic(this.employer);
+        ShiftSchedulerBean scheduleBean = controller.getBean();
         controller.getScheduling();
-        List<ShiftApply> appliances = scheduleBean.getAppliances();
+        List<ShiftApply> appliances = scheduleBean.getSchedules();
         //PRINT APPLIANCES
         Output.print(appliances.toString());
     }

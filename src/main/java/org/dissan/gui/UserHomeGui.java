@@ -65,4 +65,13 @@ public class UserHomeGui {
             GuiManager.exception(e);
         }
     }
+
+    @FXML
+    public void viewScheduling() {
+        try {
+            GuiManager.changeScene("scheduling.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -25,5 +25,14 @@
     "dateOfBirth": "1965-10-16",
     "cityOfBirth": "testCity",
     "userType": "EMPLOYEE"
+  },
+  {
+    "username": "assistant",
+    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "name": "testAssistantName",
+    "surname": "testAssistantSurname",
+    "dateOfBirth": "1997-10-10",
+    "cityOfBirth": "testAssistantCity",
+    "userType": "ASSISTANT"
   }
 ]

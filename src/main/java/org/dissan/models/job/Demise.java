@@ -31,8 +31,8 @@ public class Demise {
         return sent;
     }
 
-    public void setSent(boolean sent) {
-        this.sent = sent;
+    public void sent() {
+        this.sent = true;
     }
 
     public boolean isAccepted() {

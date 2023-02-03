@@ -8,8 +8,6 @@ import org.dissan.models.users.User;
 public class Start {
 
 
-    //TODO if found configuration file the start home menu
-    //TODO add a state machine to handle GUI
     public static void main(String [] args) {
 
         boolean gui = true;
@@ -36,7 +34,7 @@ public class Start {
         Macros starter = Macros.START;
         User user = null;
 
-        if (configurationJson.hasConfig()){
+        if (configurationJson.hasConfig() && !gui){
             starter = configurationJson.getUserType();
             user = configurationJson.getUser();
         }
@@ -44,7 +42,6 @@ public class Start {
         startView = UiFactory.getUi(starter, user);
         assert startView != null;
         startView.startUi();
-        //TODO if not found configuration file the start login menu
 
 
     }

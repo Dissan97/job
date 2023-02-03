@@ -221,7 +221,7 @@ public class FileSystem implements DAO {
     public List<ShiftApply> pullSchedules(User user) {
         String type = user.getUserType().name().toLowerCase();
         String path = this.daoPath + "users/" + type + "/" + user.getUsername() + "/schedules.json";
-
+        System.out.println("I' m here");
         JsonElement reader;
 
         try {
@@ -320,6 +320,7 @@ public class FileSystem implements DAO {
         List<Demise> demiseList = this.pullDemises();
         demiseList.add(demise);
 
+
         BufferedWriter writer;
 
         writer = new BufferedWriter(
@@ -330,6 +331,26 @@ public class FileSystem implements DAO {
 
         gson.toJson(demiseList, writer);
         writer.close();
+
+    }
+
+    @Override
+    public void updateDemise(Demise demise) throws IOException {
+        List <Demise> listDemise = pullEmployeeDemise(demise.getEmployee());
+        listDemise.removeIf(d ->
+            d.getApplication().equals(demise.getApplication())
+        );
+
+        Gson gson = new Gson();
+
+        BufferedWriter writer = new BufferedWriter(
+                new FileWriter(daoPath + "users/employee/"+demise.getEmployee() + "/demises.json")
+        );
+
+        gson.toJson(listDemise);
+        writer.close();
+
+        pushEmployeeDemise(demise);
 
     }
 

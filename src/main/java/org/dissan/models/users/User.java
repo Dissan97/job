@@ -6,7 +6,6 @@ import org.dissan.models.time.JobDate;
 
 public class User {
     //ATTRIBUTES
-    //TODO reach polymorphism adding a correct concrete userline
     private String username;
     private String password;
     private String name;
@@ -33,7 +32,7 @@ public class User {
         this.setUserType(userType);
     }
     public User() throws InvalidDateException {
-        this(null, null, null, null, "1900-01-01", null,Macros.ERROR);
+        this(null, null, null, null, "1900-01-01", null,Macros.ASSISTANT);
     }
     //GETTERS
     public String getUsername() {

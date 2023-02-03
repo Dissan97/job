@@ -6,6 +6,7 @@ import org.dissan.cli.AssistantView;
 import org.dissan.cli.EmployerView;
 import org.dissan.cli.EmployeeView;
 import org.dissan.cli.LoginView;
+import org.dissan.gui.GuiManager;
 import org.dissan.gui.StartGuiUi;
 import org.dissan.gui.GuiStarter;
 import org.dissan.interfaces.JobView;
@@ -16,7 +17,7 @@ public class UiFactory {
     private UiFactory(){}
     private static boolean gui = false;
 
-
+    private static StartGuiUi startGuiUi = null;
     public static void setGui(boolean g) {
         gui = g;
     }
@@ -25,7 +26,6 @@ public class UiFactory {
         if (gui){
                 switch (type){
                     case SIGN_IN, START -> {
-                        //START SOME UI
                         return new StartGuiUi();
                     }
                     case EMPLOYEE, EMPLOYER, ASSISTANT -> {

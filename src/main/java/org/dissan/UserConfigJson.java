@@ -1,5 +1,6 @@
 package org.dissan;
 
+import org.dissan.daos.DaoManager;
 import org.dissan.factories.DAOFactory;
 import org.dissan.interfaces.DAO;
 import org.dissan.models.users.User;
@@ -10,7 +11,7 @@ public class UserConfigJson {
     DAO dao;
 
     public UserConfigJson() {
-        this.dao = DAOFactory.getDAO();
+        this.dao = DaoManager.getDaoManager();
     }
 
     public boolean hasConfig(){

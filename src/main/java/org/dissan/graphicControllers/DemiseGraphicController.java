@@ -3,6 +3,7 @@ package org.dissan.graphicControllers;
 
 import org.dissan.beans.DemiseBean;
 import org.dissan.controllers.DemiseController;
+import org.dissan.exceptions.ElementAlreadyComputedException;
 import org.dissan.models.job.Demise;
 import org.dissan.models.users.User;
 
@@ -26,7 +27,7 @@ public class DemiseGraphicController {
         this.controller.pullDemises(user);
     }
 
-    public void pushDemise(Demise choosenDemise) throws IOException {
+    public void pushDemise(Demise choosenDemise) throws IOException, ElementAlreadyComputedException {
         controller.sendDemise(choosenDemise);
     }
 }

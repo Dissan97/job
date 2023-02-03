@@ -72,11 +72,13 @@ public class DemiseManagerGui {
             buttons[i].setPrefHeight(GuiManager.BUTTON_HEIGHT);
             buttons[i].setPrefWidth(GuiManager.BUTTON_WIDTH - boxWidth);
 
+            //Adding event listener to manage demise
             buttons[i].setOnAction(e ->{
                 if (this.buildMessagePopup(demise)){
                     try {
                         controller.pushDemise(choosenDemise);
-                    } catch (IOException ex) {
+                        GuiManager.popUp("Demise sent");
+                    } catch (Exception ex) {
                         GuiManager.exception(ex);
                     }
                 }
@@ -108,6 +110,7 @@ public class DemiseManagerGui {
             if (!motivation.equals("")){
                 ret.set(true);
                 this.choosenDemise.setMotivation(motivation);
+                popup.close();
             }
         });
 

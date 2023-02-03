@@ -18,7 +18,7 @@ public interface DAO {
     void saveConfig(User user);
 
     User loadConfig();
-    //TODO ADJUST TO JSON ARRAY
+
     List<User> getUserList();
 
     void pushShift(Shift shift);
@@ -44,6 +44,9 @@ public interface DAO {
     List<Demise> pullDemises();
 
     void pushDemise(Demise demise) throws IOException;
+
+
+    void updateDemise(Demise demise) throws IOException;
 
     //TODO add exception to all the processes throw ioException
     //TODO add function removeShift candidateShift

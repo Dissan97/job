@@ -1,6 +1,6 @@
 package org.dissan.controllers;
 
-import org.dissan.beans.ScheduleBean;
+import org.dissan.beans.ShiftSchedulerBean;
 import org.dissan.daos.DaoManager;
 import org.dissan.exceptions.ShiftAlreadyScheduledException;
 import org.dissan.interfaces.DAO;
@@ -13,14 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShiftScheduler {
-    private final ScheduleBean bean;
+    private final ShiftSchedulerBean bean;
 
     public ShiftScheduler() {
-        this(new ScheduleBean());
+        this(new ShiftSchedulerBean());
         //Needed void
     }
 
-    public ShiftScheduler(ScheduleBean bean) {
+    public ShiftScheduler(ShiftSchedulerBean bean) {
         this.bean = bean;
     }
 
@@ -38,7 +38,7 @@ public class ShiftScheduler {
             }
         }
         //TODO CONTROL IF IS NOW DAY SCHEDULING
-        this.bean.addScheduling(updatedApplyList);
+        this.bean.setSchedules(updatedApplyList);
 
     }
 
@@ -63,7 +63,7 @@ public class ShiftScheduler {
 
     }
 
-    public ScheduleBean getBean() {
+    public ShiftSchedulerBean getBean() {
         return this.bean;
     }
 }

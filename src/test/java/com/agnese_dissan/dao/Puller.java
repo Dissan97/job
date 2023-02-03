@@ -1,14 +1,12 @@
 package com.agnese_dissan.dao;
 
 import org.dissan.Macros;
-import org.dissan.beans.ScheduleBean;
+import org.dissan.beans.ShiftSchedulerBean;
 import org.dissan.cli.io.Output;
 import org.dissan.controllers.ApplicationAcceptor;
 import org.dissan.controllers.ShiftScheduler;
-import org.dissan.daos.FileSystem;
 import org.dissan.exceptions.InvalidDateException;
 import org.dissan.exceptions.ShiftAlreadyScheduledException;
-import org.dissan.graphicControllers.ApplicationAcceptorGraphic;
 import org.dissan.models.job.Shift;
 import org.dissan.models.job.ShiftApply;
 import org.dissan.models.users.User;
@@ -31,9 +29,9 @@ class Puller {
         shiftApply.accept();
         applicationAcceptor.pushScheduling(shiftApply, user);
         ShiftScheduler scheduler = new ShiftScheduler();
-        ScheduleBean bean = scheduler.getBean();
+        ShiftSchedulerBean bean = scheduler.getBean();
         scheduler.getSchedules(user);
-        List<ShiftApply> shiftApplies = bean.getAppliances();
+        List<ShiftApply> shiftApplies = bean.getSchedules();
         if (shiftApplies != null){
             for (ShiftApply apply:
                  shiftApplies) {

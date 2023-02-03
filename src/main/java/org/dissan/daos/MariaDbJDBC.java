@@ -7,7 +7,6 @@ import org.dissan.models.job.Shift;
 import org.dissan.models.job.ShiftApply;
 import org.dissan.models.users.User;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.List;
 
@@ -36,7 +35,6 @@ public class MariaDbJDBC implements DAO {
         String driverHost = this.driver + "://" + this.host + ":" + this.port +"/";
         String dataBaseUser = this.database + "?user=" + this.user + "&password=" + this.password;
         this.url = driverHost + dataBaseUser;
-        System.out.println(this.url);
     }
 
     public Connection getConnection() throws SQLException {
@@ -67,7 +65,7 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public void saveConfig(User user) {
-
+        //comment need to avoid code smell
     }
 
     @Override
@@ -82,7 +80,7 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public void pushShift(Shift shift) {
-
+        //Database will be added later
     }
 
     @Override
@@ -96,7 +94,7 @@ public class MariaDbJDBC implements DAO {
     }
 
     @Override
-    public void pushAppliance(ShiftApply shiftApply) throws IOException {
+    public void pushAppliance(ShiftApply shiftApply) {
         //Push appliance to the database
     }
 
@@ -107,22 +105,22 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public void removeAppliance(ShiftApply apply) {
-
+        //will remove appliances
     }
 
     @Override
     public void updateAppliance(ShiftApply apply) {
-
+        //new implementation
     }
 
     @Override
     public void pushSchedule(ShiftApply apply, User user) {
-
+        //it will push
     }
 
     @Override
     public void pushEmployeeDemise(Demise apply) {
-
+        //shall be implemented
     }
 
     @Override
@@ -137,6 +135,11 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public void pushDemise(Demise demise) {
+        //It will be handled
+    }
 
+    @Override
+    public void updateDemise(Demise demise) {
+        //Must be coded
     }
 }

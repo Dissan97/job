@@ -3,7 +3,10 @@ package org.dissan.controllers;
 
 import org.dissan.Macros;
 import org.dissan.beans.DemiseBean;
+import org.dissan.cli.io.Output;
 import org.dissan.daos.DaoManager;
+import org.dissan.exceptions.ElementAlreadyComputedException;
+import org.dissan.exceptions.InvalidDateException;
 import org.dissan.interfaces.DAO;
 import org.dissan.models.job.Demise;
 import org.dissan.models.users.User;
@@ -22,9 +25,27 @@ public class DemiseController {
         //this.bean = this.graphic.getDemiseBean();
     }
 
-    public void sendDemise(Demise demise) throws IOException {
+    public void sendDemise(Demise demise) throws IOException, ElementAlreadyComputedException {
         //Should be applied extra control to view if that demise is already sent
         DAO dao = DaoManager.getDaoManager();
+        try {
+            this.pullDemises(new User());
+        } catch (InvalidDateException e) {
+            Output.println("Something wrong");
+        }
+
+        List<Demise> demiseList;
+
+        demiseList = this.bean.getDemiseList();
+
+        for (Demise d:
+             demiseList) {
+            if (demise.getApplication().equals(d.getApplication())){
+                throw new ElementAlreadyComputedException();
+            }
+        }
+        demise.sent();
+        dao.updateDemise(demise);
         dao.pushDemise(demise);
     }
 

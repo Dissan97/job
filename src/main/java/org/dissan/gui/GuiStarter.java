@@ -13,6 +13,7 @@ public class GuiStarter implements JobView {
         user = u;
     }
 
+
     @Override
     public void startUi() {
         try {

@@ -41,12 +41,12 @@ public class DaoManager implements DAO, Runnable {
 
     @Override
     public void saveConfig(User user) {
-
+        this.fileSystem.saveConfig(user);
     }
 
     @Override
     public User loadConfig() {
-        return null;
+        return this.fileSystem.loadConfig();
     }
 
     @Override
@@ -114,6 +114,11 @@ public class DaoManager implements DAO, Runnable {
     @Override
     public void pushDemise(Demise demise) throws IOException {
         this.fileSystem.pushDemise(demise);
+    }
+
+    @Override
+    public void updateDemise(Demise demise) throws IOException {
+        this.fileSystem.updateDemise(demise);
     }
 
 

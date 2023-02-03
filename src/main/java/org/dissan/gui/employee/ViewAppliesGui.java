@@ -43,34 +43,34 @@ public class ViewAppliesGui {
         vBox.getStylesheets().add(Objects.requireNonNull(GuiManager.class.getResource("Style.css")).toExternalForm());
         HBox[] hBoxes;
         Button[] buttons;
-        int boxWidth = 350;
+        int boxWidth = 325;
         try {
             graphic.pullAppliances(GuiStarter.getUser());
             List<ShiftApply> applyList = bean.getShiftApplyList();
             if (applyList != null){
                 int size = applyList.size();
-                Label[] information = new Label[size];
+                Label[] labels = new Label[size];
                 hBoxes = new HBox[size];
                 buttons = new Button[size];
                 int i = 0;
                 for (ShiftApply apply:
                         applyList) {
                     hBoxes[i] = new HBox();
-                    information[i] = new Label("[SHIFT]: " + apply.getShift()+"\n[EMPLOYEE]: " + apply.getEmployee());
+                    labels[i] = new Label("[SHIFT]: " + apply.getShift()+"\n[EMPLOYEE]: " + apply.getEmployee());
                     buttons[i] = new Button("MANAGE");
-                    information[i].setPrefHeight(GuiManager.BUTTON_HEIGHT);
-                    information[i].setPrefWidth(boxWidth);
-                    information[i].setAlignment(Pos.CENTER_LEFT);
-                    information[i].setContentDisplay(ContentDisplay.LEFT);
-                    information[i].setStyle(
+                    labels[i].setPrefHeight(GuiManager.BUTTON_HEIGHT);
+                    labels[i].setPrefWidth(boxWidth);
+                    labels[i].setAlignment(Pos.CENTER_LEFT);
+                    labels[i].setContentDisplay(ContentDisplay.LEFT);
+                    labels[i].setStyle(
                             "-fx-border-color: #C7C7CC;\n" +
                                     "-fx-border-width: 1;"
                     );
                     buttons[i].setPrefHeight(GuiManager.BUTTON_HEIGHT);
                     buttons[i].setPrefWidth(GuiManager.BUTTON_WIDTH - boxWidth);
-                    //ADDING CONTROL
 
-                    Label finalLabel = information[i];
+                    Label finalLabel = labels[i];
+                    //ADDING EVENT CONTROL TO THE BUTTON
                     buttons[i].setOnAction(e -> {
                         if (GuiManager.acceptPopUp(finalLabel, "Want to remove?")){
                             try {
@@ -83,7 +83,7 @@ public class ViewAppliesGui {
                         }
                     });
 
-                    hBoxes[i].getChildren().add(information[i]);
+                    hBoxes[i].getChildren().add(labels[i]);
                     hBoxes[i].getChildren().add(buttons[i]);
                     vBox.getChildren().add(hBoxes[i]);
                 }

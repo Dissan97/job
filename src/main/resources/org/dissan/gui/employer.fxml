@@ -9,8 +9,7 @@
    </Label>
    <Button layoutX="906.0" layoutY="17.0" mnemonicParsing="false" onAction="#logout" text="LOG OUT" />
    <Button layoutX="358.0" layoutY="250.0" mnemonicParsing="false" onAction="#publishShift" prefHeight="29.0" prefWidth="310.0" text="PUBLISH SHIFT" />
-   <Button layoutX="357.0" layoutY="370.0" mnemonicParsing="false" onAction="#viewApplicant" prefHeight="29.0" prefWidth="310.0" text="VIEW APPLICANTS" />
+   <Button layoutX="357.0" layoutY="370.0" mnemonicParsing="false" onAction="#viewApplicant" prefHeight="29.0" prefWidth="310.0" text="MANAGE APPLICANTS" />
    <Button layoutX="775.0" layoutY="17.0" mnemonicParsing="false" onAction="#getAccount" text="ACCOUNT" />
-   <Button layoutX="358.0" layoutY="310.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="310.0" text="VIEW SCHEDULING" />
-   <Button layoutX="357.0" layoutY="430.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="310.0" text="HANDLE CANDIDATES" />
+   <Button layoutX="358.0" layoutY="310.0" mnemonicParsing="false" onAction="#viewScheduling" prefHeight="29.0" prefWidth="310.0" text="VIEW SCHEDULING" />
 </Pane>
