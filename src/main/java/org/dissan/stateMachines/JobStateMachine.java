@@ -2,6 +2,7 @@ package org.dissan.stateMachines;
 
 import org.dissan.cli.io.Output;
 import org.dissan.interfaces.Refresh;
+import org.dissan.models.users.User;
 
 public abstract class JobStateMachine {
 
@@ -24,8 +25,8 @@ public abstract class JobStateMachine {
         return false;
     }
 
-    public void setAccountInfo(String account){
-        this.account = account;
+    public void setAccountInfo(User user){
+        this.account = "{"+user.getUserType().toString().toLowerCase() + "@";
     }
 
     public String getAccount() {

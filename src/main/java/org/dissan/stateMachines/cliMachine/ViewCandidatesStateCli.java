@@ -15,7 +15,7 @@ public class ViewCandidatesStateCli extends JobStateMachine {
 
     @Override
     public void nextState(JobStates state) {
-        if (Objects.requireNonNull(state) == JobStates.VIEW_CANDIDATES) {
+        if (Objects.requireNonNull(state) == JobStates.MANAGE_APPLICANTS) {
             this.viewCandidates();
         }
     }

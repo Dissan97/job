@@ -11,6 +11,7 @@ import org.dissan.interfaces.DAO;
 import org.dissan.models.job.Demise;
 import org.dissan.models.users.User;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class DemiseController {
         dao.pushDemise(demise);
     }
 
-    public void pullDemises(User user){
+    public void pullDemises(User user) throws FileNotFoundException {
         DAO dao = DaoManager.getDaoManager();
         List<Demise> demiseList;
         Macros type = user.getUserType();
@@ -75,4 +76,36 @@ public class DemiseController {
         this.bean.setDemises(updatedDemiseList);
     }
 
+    public void acceptDemise() throws IOException {
+        DAO dao = DaoManager.getDaoManager();
+        List<Demise> demiseList = dao.pullDemises();
+        Demise demise = this.bean.getPendingDemise();
+        for (Demise d:
+             demiseList) {
+            if (d.getApplication().equals(demise.getApplication()) && d.isAccepted()){
+                //return
+                Output.println("already accepted");
+            }
+        }
+        dao.updateDemise(demise);
+    }
+
+    public void refuseDemise() throws Exception {
+        DAO dao = DaoManager.getDaoManager();
+        Demise demise = this.bean.getPendingDemise();
+        if (checkDemiseInList(demise, dao)){
+            dao.removeDemise(demise);
+        }
+    }
+
+    private boolean checkDemiseInList(Demise demise, DAO dao) throws FileNotFoundException {
+        List<Demise> demiseList = dao.pullDemises();
+        for (Demise d:
+             demiseList) {
+            if (d.getApplication().equals(demise.getApplication())){
+                return true;
+            }
+        }
+        return false;
+    }
 }

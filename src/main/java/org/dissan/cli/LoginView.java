@@ -9,8 +9,7 @@ import org.dissan.exceptions.UserLoginFailedException;
 import org.dissan.graphicControllers.LoginGraphic;
 import org.dissan.interfaces.JobView;
 import org.dissan.models.time.JobDate;
-
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import static org.dissan.Macros.*;
@@ -19,7 +18,7 @@ public class LoginView implements JobView{
 
     //todo change this... make more simpler by eliminating some control
     private final LoginGraphic controller;
-    private final List<String> commandList = new ArrayList<>();
+    private List<String> commandList;
 
     private String username = null;
     private String password = null;
@@ -29,10 +28,12 @@ public class LoginView implements JobView{
     private String cityOfBirth = null;
 
     public LoginView() {
-        commandList.add("SIGN_IN");
-        commandList.add("SIGN_UP");
-        commandList.add("HELP");
-        commandList.add("EXIT");
+        try {
+            CommandLoader commandLoader = new CommandLoader("LOGIN");
+            this.commandList = commandLoader.getCommandList();
+        } catch (FileNotFoundException e) {
+            Output.pageMessage("LOGIN", e.getMessage(), true);
+        }
         this.controller = new LoginGraphic();
     }
 
@@ -63,7 +64,9 @@ public class LoginView implements JobView{
                     System.out.println("LOGIN: Bye...");
                     System.exit(0);
                 }
-                case "" ->{}
+                case "" ->{
+                    //DO NO OP CONTINUE
+                }
                 case "INVALID_NUMBER" ->
                     Output.pageMessage(page, line + " VALUES ALLOWED 0.." + (this.commandList.size() - 1), true);
 
@@ -221,7 +224,7 @@ public class LoginView implements JobView{
                 this.username = line;
             }else {
                 Output.pageMessage(page,"Cannot insert blank username", true);
-                return signUp();
+                return BACK_CALL;
             }
         }
 
@@ -234,7 +237,7 @@ public class LoginView implements JobView{
                 this.password = line;
             }else {
                 Output.pageMessage(page,"error password must have at least 8 character", true);
-                return signUp();
+                return BACK_CALL;
             }
         }
         return START;

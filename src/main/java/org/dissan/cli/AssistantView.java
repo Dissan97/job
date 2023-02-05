@@ -8,24 +8,25 @@ import org.dissan.cli.io.Output;
 import org.dissan.interfaces.JobView;
 import org.dissan.models.users.User;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AssistantView implements JobView {
 
     private final String pageMsg;
-    private final List<String> commandList = new ArrayList<>();
+    private List<String> commandList;
     private final JobStateMachine stateMachine;
 
     public AssistantView(User user) {
         this.pageMsg = "@Assistant{" + user.getUsername() + "}";
-        commandList.add("ACCOUNT");
-        commandList.add("CONTROL_DEMISE");
-        commandList.add("HANDLE_DEMISE");
-        commandList.add("HELP");
-        commandList.add("LOG_OUT");
-        commandList.add("EXIT");
         this.stateMachine = new CliMachine(user);
+        try {
+            CommandLoader commandLoader = new CommandLoader("ASSISTANT");
+            this.commandList = commandLoader.getCommandList();
+        } catch (FileNotFoundException e) {
+            Output.pageMessage(this.pageMsg, e.getMessage(), true);
+        }
     }
 
     @Override

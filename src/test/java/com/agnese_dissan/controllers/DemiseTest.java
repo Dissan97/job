@@ -12,6 +12,7 @@ import org.dissan.models.job.ShiftApply;
 import org.dissan.models.users.User;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 class DemiseTest {
 
     @Test
-    void pullDemiseTest() throws InvalidDateException {
+    void pullDemiseTest() throws InvalidDateException, FileNotFoundException {
         DemiseGraphicController controller = new DemiseGraphicController();
         DemiseBean bean = controller.getBean();
         User user = new User("hassan", "test", "test", "test", "1997-12-12","test",Macros.EMPLOYEE);

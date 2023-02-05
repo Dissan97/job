@@ -15,16 +15,17 @@ import org.dissan.beans.DemiseBean;
 import org.dissan.graphicControllers.DemiseGraphicController;
 import org.dissan.gui.GuiManager;
 import org.dissan.gui.GuiStarter;
+import org.dissan.gui.ViewAction;
 import org.dissan.models.job.Demise;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DemiseManagerGui {
 
-    private Demise choosenDemise;
+    private Demise chooseDemise;
     @FXML
     public VBox vBox;
 
@@ -34,16 +35,22 @@ public class DemiseManagerGui {
     }
     @FXML
     public void goBack() {
+        GuiManager.changeScene(ViewAction.BACK);
     }
     @FXML
     public void goHome() {
+        GuiManager.changeScene(ViewAction.HOME);
     }
     @FXML
     public void buildView() {
         this.vBox.getChildren().clear();
         DemiseGraphicController controller = new DemiseGraphicController();
         DemiseBean bean = controller.getBean();
-        controller.pullDemises(GuiStarter.getUser());
+        try {
+            controller.pullDemises(GuiStarter.getUser());
+        } catch (FileNotFoundException e) {
+            GuiManager.exception(e);
+        }
         List<Demise> demiseList = bean.getDemiseList();
 
 
@@ -62,7 +69,7 @@ public class DemiseManagerGui {
             labels[i].setContentDisplay(ContentDisplay.LEFT);
             labels[i].setStyle(
                     "-fx-border-color: #C7C7CC;\n" +
-                            "-fx-border-width: 1;"
+                    "-fx-border-width: 1;"
             );
             buttons[i] = new Button("SET MOTIVATION");
             hBoxes[i] = new HBox();
@@ -74,12 +81,12 @@ public class DemiseManagerGui {
 
             //Adding event listener to manage demise
             buttons[i].setOnAction(e ->{
-                if (this.buildMessagePopup(demise)){
+                if (this.buildMessagePopup(demise, controller, bean)){
                     try {
-                        controller.pushDemise(choosenDemise);
+                        controller.pushPendingDemise();
                         GuiManager.popUp("Demise sent");
                     } catch (Exception ex) {
-                        GuiManager.exception(ex);
+                        ex.printStackTrace();
                     }
                 }
             });
@@ -90,8 +97,8 @@ public class DemiseManagerGui {
 
     }
 
-    private boolean buildMessagePopup(Demise finalDemise) {
-        this.choosenDemise = finalDemise;
+    private boolean buildMessagePopup(Demise finalDemise, DemiseGraphicController controller, DemiseBean bean) {
+        this.chooseDemise = finalDemise;
 
         Label label = new Label("Write something");
         label.setStyle("-fx-font-size: 18px");
@@ -107,9 +114,9 @@ public class DemiseManagerGui {
 
         submit.setOnAction(e->{
             String motivation = textField.getText();
-            if (!motivation.equals("")){
+            if (controller.setMotivation(this.chooseDemise, motivation)){
                 ret.set(true);
-                this.choosenDemise.setMotivation(motivation);
+                this.chooseDemise = bean.getPendingDemise();
                 popup.close();
             }
         });

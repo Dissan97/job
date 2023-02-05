@@ -1,5 +1,7 @@
 package org.dissan.cli.io;
 
+import org.dissan.exceptions.InvalidDateException;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -88,4 +90,7 @@ public class Output{
 
     }
 
+    public static void exception(Exception e) {
+        println("Error: " + e.getMessage());
+    }
 }

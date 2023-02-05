@@ -107,7 +107,7 @@ public class DaoManager implements DAO, Runnable {
 
 
     @Override
-    public List<Demise> pullDemises() {
+    public List<Demise> pullDemises() throws FileNotFoundException {
         return this.fileSystem.pullDemises();
     }
 
@@ -119,6 +119,11 @@ public class DaoManager implements DAO, Runnable {
     @Override
     public void updateDemise(Demise demise) throws IOException {
         this.fileSystem.updateDemise(demise);
+    }
+
+    @Override
+    public void removeDemise(Demise demise) throws IOException {
+        this.fileSystem.removeDemise(demise);
     }
 
 

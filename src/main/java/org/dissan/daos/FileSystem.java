@@ -251,25 +251,6 @@ public class FileSystem implements DAO {
     }
 
     @Override
-    public void pushEmployeeDemise(Demise apply) throws IOException {
-        String employee = apply.getEmployee();
-        String path = this.daoPath + "users/employee/" + employee + "/demises.json";
-        List<Demise> demiseList = this.pullEmployeeDemise(employee);
-        demiseList.add(apply);
-        BufferedWriter writer;
-
-        writer = new BufferedWriter(
-                new FileWriter(path)
-        );
-
-        Gson gson = new Gson();
-
-        gson.toJson(demiseList, writer);
-        writer.close();
-
-    }
-
-    @Override
     public List<Demise> pullEmployeeDemise(String employee) {
 
         String path = this.daoPath + "users/employee/" + employee + "/demises.json";
@@ -294,19 +275,36 @@ public class FileSystem implements DAO {
     }
 
     @Override
-    public List<Demise> pullDemises() {
+    public void pushEmployeeDemise(Demise apply) throws IOException {
+        String employee = apply.getEmployee();
+        String path = this.daoPath + "users/employee/" + employee + "/demises.json";
+        List<Demise> demiseList = this.pullEmployeeDemise(employee);
+        demiseList.add(apply);
+        BufferedWriter writer;
+
+        writer = new BufferedWriter(
+                new FileWriter(path)
+        );
+
+        Gson gson = new Gson();
+
+        gson.toJson(demiseList, writer);
+        writer.close();
+
+    }
+
+    @Override
+    public List<Demise> pullDemises() throws FileNotFoundException {
 
         JsonElement reader;
 
-        try {
+
             reader = JsonParser.parseReader(
                     new JsonReader(
                             new FileReader(this.demisePath)
                     )
             );
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
         Type REVIEW_TYPE = new TypeToken<List<Demise>>() {
         }.getType();
 
@@ -341,16 +339,38 @@ public class FileSystem implements DAO {
             d.getApplication().equals(demise.getApplication())
         );
 
+        listDemise.add(demise);
         Gson gson = new Gson();
 
         BufferedWriter writer = new BufferedWriter(
                 new FileWriter(daoPath + "users/employee/"+demise.getEmployee() + "/demises.json")
         );
 
-        gson.toJson(listDemise);
+        gson.toJson(listDemise, writer);
         writer.close();
 
-        pushEmployeeDemise(demise);
+
+    }
+
+    @Override
+    public void removeDemise(Demise demise) throws IOException {
+        List<Demise> demiseList = this.pullDemises();
+
+        demiseList.removeIf(d ->
+           d.getApplication().equals(demise.getApplication())
+        );
+
+        BufferedWriter writer;
+
+        writer = new BufferedWriter(
+                new FileWriter(this.demisePath)
+        );
+
+        Gson gson = new Gson();
+
+        gson.toJson(demiseList, writer);
+        writer.close();
+
 
     }
 

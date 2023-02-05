@@ -9,26 +9,24 @@ import org.dissan.controllers.Login;
 import org.dissan.interfaces.JobView;
 import org.dissan.models.users.User;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class EmployerView implements JobView {
 
-    private final List<String> commandList = new ArrayList<>();
+    private List<String> commandList;
     private final String pageMsg;
     private final JobStateMachine stateMachine;
 
     public EmployerView(User user) {
         pageMsg = "@EMPLOYER{" + user.getUsername() + "}";
-        commandList.add("ACCOUNT");
-        commandList.add("PUBLISH_SHIFT");
-        commandList.add("VIEW_SCHEDULING");
-        commandList.add("VIEW_CANDIDATES");
-        commandList.add("HANDLE_CANDIDATE");
-        commandList.add("HELP");
-        commandList.add("LOG_OUT");
-        commandList.add("EXIT");
         this.stateMachine = new CliMachine(user);
+        try {
+            CommandLoader commandLoader = new CommandLoader("EMPLOYER");
+            this.commandList = commandLoader.getCommandList();
+        } catch (FileNotFoundException e) {
+            Output.pageMessage(this.pageMsg, e.getMessage(), true);
+        }
     }
     /**
      * Function common to all view that start the view
@@ -36,9 +34,8 @@ public class EmployerView implements JobView {
     @Override
     public void startUi() {
         String page = "HOME" + pageMsg;
-        Output.pageMessage(page, "type help to command list", true);
         while (true) {
-            Output.pageMessage(page,"",false);
+            Output.pageMessage(page, "type help to command list", true);
             String line = Input.getCmd(this.commandList);
             switch (line) {
                 case "ACCOUNT":
@@ -50,11 +47,8 @@ public class EmployerView implements JobView {
                 case "VIEW_SCHEDULING":
                     this.stateMachine.nextState(JobStates.VIEW_SCHEDULING);
                     break;
-                case "VIEW_CANDIDATES":
-                    this.stateMachine.nextState(JobStates.VIEW_CANDIDATES);
-                    break;
-                case "HANDLE_CANDIDATE":
-                    this.stateMachine.nextState(JobStates.HANDLE_CANDIDATE);
+                case "MANAGE_APPLICANTS":
+                    this.stateMachine.nextState(JobStates.MANAGE_APPLICANTS);
                     break;
                 case "HELP":
                     Output.printList("HELP" + pageMsg, this.commandList);

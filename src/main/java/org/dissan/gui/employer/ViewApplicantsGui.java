@@ -19,6 +19,7 @@ import org.dissan.models.users.User;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Objects;
 
 public class ViewApplicantsGui {
 
@@ -153,6 +154,7 @@ public class ViewApplicantsGui {
         root.getChildren().add(hBox);
 
         Scene scene = new Scene(root,700, 700);
+        scene.getStylesheets().add(Objects.requireNonNull(GuiManager.class.getResource("Style.css")).toExternalForm());
         popup.setScene(scene);
         popup.showAndWait();
 

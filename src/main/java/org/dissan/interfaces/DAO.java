@@ -41,12 +41,14 @@ public interface DAO {
 
     List<Demise> pullEmployeeDemise(String employee);
 
-    List<Demise> pullDemises();
+    List<Demise> pullDemises() throws FileNotFoundException;
 
     void pushDemise(Demise demise) throws IOException;
 
 
     void updateDemise(Demise demise) throws IOException;
+
+    void removeDemise(Demise demise) throws IOException;
 
     //TODO add exception to all the processes throw ioException
     //TODO add function removeShift candidateShift

@@ -62,7 +62,7 @@ public class UserHomeGui {
         try {
             GuiManager.changeScene("view_demise.fxml");
         } catch (IOException e) {
-            GuiManager.exception(e);
+            e.printStackTrace();
         }
     }
 

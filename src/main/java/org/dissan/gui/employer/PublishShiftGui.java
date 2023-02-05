@@ -68,7 +68,6 @@ public class PublishShiftGui {
         this.jobDate.setText("");
         this.jobTime.setText("");
         this.description.setText("");
-
     }
 
 }

@@ -14,6 +14,8 @@ import org.dissan.gui.GuiStarter;
 import org.dissan.gui.ViewAction;
 import org.dissan.models.job.Shift;
 
+import java.io.FileNotFoundException;
+
 public class JobApplierGui {
 
     @FXML
@@ -27,7 +29,11 @@ public class JobApplierGui {
     public void buildView() {
         JobApplierGraphic controller = new JobApplierGraphic();
         JobApplierBean bean = controller.getBean();
-        controller.pullShifts();
+        try {
+            controller.pullShifts(GuiStarter.getUser());
+        } catch (FileNotFoundException e) {
+            GuiManager.exception(e);
+        }
         this.vBox.getChildren().clear();
         Label[] labels;
         Button[] submit;
@@ -62,7 +68,7 @@ public class JobApplierGui {
             submit[i].setOnAction(actionEvent ->{
                 if (GuiManager.acceptPopUp(labels[finalI], "Apply this shift?")) {
                     pushAppliance(shift, controller);
-
+                    this.buildView();
                 }
             });
             this.vBox.getChildren().add(hBoxes[i]);

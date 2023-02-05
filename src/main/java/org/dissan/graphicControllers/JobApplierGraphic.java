@@ -22,8 +22,8 @@ public class JobApplierGraphic {
         this.controller = new JobApplier(this.bean);
     }
 
-    public void pullShifts(){
-        this.controller.pullShifts();
+    public void pullShifts(User user) throws FileNotFoundException {
+        this.controller.pullShifts(user);
     }
 
     public JobApplierBean getBean() {

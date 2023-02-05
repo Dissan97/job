@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -44,10 +45,10 @@ class TestPutNewUser {
 
     //todo remove this test
     @Test
-    void pullShiftList(){
+    void pullShiftList() throws FileNotFoundException {
         JobApplierGraphic controller = new JobApplierGraphic();
         JobApplierBean bean = controller.getBean();
-        controller.pullShifts();
+        controller.pullShifts(null);
 
         List<Shift> shiftList = bean.getShiftList();
         for (Shift shift:

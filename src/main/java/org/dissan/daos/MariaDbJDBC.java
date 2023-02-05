@@ -142,4 +142,9 @@ public class MariaDbJDBC implements DAO {
     public void updateDemise(Demise demise) {
         //Must be coded
     }
+
+    @Override
+    public void removeDemise(Demise demise) {
+        //Must be applied
+    }
 }

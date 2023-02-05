@@ -1,5 +1,6 @@
 package org.dissan.stateMachines.cliMachine;
 
+import org.dissan.cli.io.Output;
 import org.dissan.exceptions.InvalidDateException;
 import org.dissan.models.users.User;
 import org.dissan.stateMachines.JobStateMachine;
@@ -8,64 +9,52 @@ import org.dissan.stateMachines.JobStates;
 public class CliMachine extends JobStateMachine {
 
     private final User user;
-    private AccountStateCli accountState = null;
-    private PublishShiftStateCli shiftState = null;
-    private ViewCandidatesStateCli viewCandidatesState = null;
-    private ViewSchedulingStateCli schedulingState = null;
-    private HandleCandidateStateCli handleCandidateState = null;
-    private ShiftManagerStateCli shiftManagerState = null;
     public CliMachine(User user) {
         this.user = user;
-        String type = "{"+user.getUserType().toString().toLowerCase() + "@";
-        super.setAccountInfo(type + user.getUsername() + "}") ;
+        super.setAccountInfo(user) ;
     }
 
     @Override
     public void nextState(JobStates state) {
         switch (state){
             case ACCOUNT -> {
-                if (this.accountState == null) {
-                    this.accountState = new AccountStateCli(this.user);
-                }
-                this.accountState.nextState(state);
+                AccountStateCli accountState = new AccountStateCli(this.user);
+                accountState.nextState(state);
             }
             case PUBLISH_SHIFT ->{
-                if (this.shiftState == null){
-                    try {
-                        this.shiftState = new PublishShiftStateCli(user);
-                    } catch (InvalidDateException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    PublishShiftStateCli publishShift = new PublishShiftStateCli(user);
+                    publishShift.nextState(state);
+                } catch (InvalidDateException e) {
+                    Output.exception(e);
                 }
-                this.shiftState.nextState(state);
             }
-            case VIEW_CANDIDATES -> {
-                if (this.viewCandidatesState == null){
-                    this.viewCandidatesState = new ViewCandidatesStateCli(this.user);
-                }
-                this.viewCandidatesState.nextState(state);
+            case MANAGE_APPLICANTS -> {
+                ViewCandidatesStateCli viewCandidatesState = new ViewCandidatesStateCli(this.user);
+                viewCandidatesState.nextState(state);
             }
             case VIEW_SCHEDULING -> {
-                if (this.schedulingState == null){
-                    try {
-                        this.schedulingState = new ViewSchedulingStateCli(this.user);
-                    } catch (InvalidDateException e) {
-                        e.printStackTrace();
-                    }
+                try {
+                    ViewSchedulingStateCli schedulingState = new ViewSchedulingStateCli(this.user);
+                    schedulingState.nextState(state);
+                } catch (InvalidDateException e) {
+                    e.printStackTrace();
                 }
-                this.schedulingState.nextState(state);
             }
+
+            case MANAGE_DEMISE -> {
+                DemiseManagerStateCli demiseManagerStateCli = new DemiseManagerStateCli(this.user);
+                demiseManagerStateCli.nextState(state);
+            }
+
             case HANDLE_CANDIDATE -> {
-                if (this.handleCandidateState == null){
-                    this.handleCandidateState = new HandleCandidateStateCli();
-                }
-                this.handleCandidateState.nextState(state);
+                HandleCandidateStateCli handleCandidateState = new HandleCandidateStateCli();
+                handleCandidateState.nextState(state);
             }
+
             case APPLY_SHIFT, VIEW_APPLIES -> {
-                if (this.shiftManagerState == null){
-                    this.shiftManagerState = new ShiftManagerStateCli(user);
-                }
-                this.shiftManagerState.nextState(state);
+                ShiftManagerStateCli shiftManagerState = new ShiftManagerStateCli(user);
+                shiftManagerState.nextState(state);
             }
 
         }

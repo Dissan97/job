@@ -1,9 +1,12 @@
 package org.dissan.controllers;
 
+import org.dissan.beans.DemiseBean;
 import org.dissan.beans.JobApplierBean;
+import org.dissan.cli.io.Output;
 import org.dissan.daos.DaoManager;
 import org.dissan.exceptions.InvalidDateException;
 import org.dissan.exceptions.ShiftAlreadyApplied;
+import org.dissan.graphicControllers.DemiseGraphicController;
 import org.dissan.interfaces.DAO;
 import org.dissan.models.job.Demise;
 import org.dissan.models.job.Shift;
@@ -30,12 +33,11 @@ public class JobApplier {
     /**
      * pull shift list that is available...
      */
-    public void pullShifts(){
+    public void pullShifts(User user) throws FileNotFoundException {
         DAO dao = DaoManager.getDaoManager();
         List<Shift> oldShiftList = dao.pullShifts();
         List<Shift> updatedList = new ArrayList<>();
         for (Shift shift: oldShiftList){
-            Shift old = null;
             String dateTime = shift.getDateTime();
             try {
                 JobDate.controlBadDate(dateTime);
@@ -45,8 +47,16 @@ public class JobApplier {
             }
         }
 
+        List<ShiftApply> applyList = dao.pullAppliances(user);
+
+        for (ShiftApply apply:
+             applyList) {
+            updatedList.removeIf(s -> s.getCode().equals(apply.getShift()));
+        }
+
         this.bean.setShiftList(updatedList);
     }
+
 
     public void pushAppliance(Shift shift, User user) throws IOException, ShiftAlreadyApplied {
         DAO dao = DaoManager.getDaoManager();
@@ -58,23 +68,35 @@ public class JobApplier {
     public void pullAppliances(User user) throws FileNotFoundException {
         DAO dao = DaoManager.getDaoManager();
         applyList = dao.pullAppliances(user);
-        this.checkList();
+        this.checkList(user);
         this.bean.setAppliances(this.applyList);
     }
 
-    private void checkList() {
+    private void checkList(User user) throws FileNotFoundException {
         this.applyList.removeIf(ShiftApply::getState);
+        DemiseGraphicController demiseController = new DemiseGraphicController();
+        DemiseBean demiseBean = demiseController.getBean();
 
-        ShiftApply finaLI = null;
+        demiseController.pullDemises(user);
+        List<ShiftApply> applyList = new ArrayList<>();
+        List<Demise> demiseList = demiseBean.getDemiseList();
+
         try{
             for (ShiftApply apply:
                  this.applyList) {
-                finaLI = apply;
                 JobDate.controlBadDate(apply.getApplyDate());
+                applyList.add(apply);
             }
         } catch (Exception e) {
-           this.applyList.remove(finaLI);
+            Output.println(e.getMessage());
         }
+
+        for (Demise d:
+             demiseList) {
+            applyList.removeIf(a -> a.toString().equals(d.getApplication()));
+        }
+
+        this.applyList = applyList;
 
     }
 
@@ -94,8 +116,9 @@ public class JobApplier {
         DAO dao = DaoManager.getDaoManager();
 
         try {
-            dao.removeAppliance(apply);
+
             JobDate.controlBadDate(apply.getShiftDate(), 1, true);
+            dao.removeAppliance(apply);
 
         }catch (InvalidDateException e){
             if (this.checkDemises(apply)){

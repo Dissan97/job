@@ -37,15 +37,15 @@ public class ViewAppliesGui {
     }
     @FXML
     public void buildView() {
-        JobApplierGraphic graphic = new JobApplierGraphic();
-        JobApplierBean bean = graphic.getBean();
+        JobApplierGraphic controller = new JobApplierGraphic();
+        JobApplierBean bean = controller.getBean();
         vBox.getChildren().clear();
         vBox.getStylesheets().add(Objects.requireNonNull(GuiManager.class.getResource("Style.css")).toExternalForm());
         HBox[] hBoxes;
         Button[] buttons;
         int boxWidth = 325;
         try {
-            graphic.pullAppliances(GuiStarter.getUser());
+            controller.pullAppliances(GuiStarter.getUser());
             List<ShiftApply> applyList = bean.getShiftApplyList();
             if (applyList != null){
                 int size = applyList.size();
@@ -74,11 +74,13 @@ public class ViewAppliesGui {
                     buttons[i].setOnAction(e -> {
                         if (GuiManager.acceptPopUp(finalLabel, "Want to remove?")){
                             try {
-                                graphic.removeAppliance(apply);
+                                controller.removeAppliance(apply);
                                 GuiManager.popUp("Application removed");
-                                this.buildView();
+
                             } catch (Exception ex) {
                                 GuiManager.popUp("The application is inserted to demise state");
+                            }finally {
+                                this.buildView();
                             }
                         }
                     });
