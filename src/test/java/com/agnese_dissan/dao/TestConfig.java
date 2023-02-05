@@ -1,15 +1,12 @@
 package com.agnese_dissan.dao;
 
-import org.dissan.DBConfigJson;
-import org.dissan.UserConfigJson;
-import org.dissan.cli.io.Output;
-import org.dissan.daos.MariaDbJDBC;
+import org.disagn.DBConfigJson;
+import org.disagn.cli.io.Output;
+import org.disagn.daos.MariaDbJDBC;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Collection;
 
 public class TestConfig {
 

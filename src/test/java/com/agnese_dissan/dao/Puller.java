@@ -1,15 +1,15 @@
 package com.agnese_dissan.dao;
 
-import org.dissan.Macros;
-import org.dissan.beans.ShiftSchedulerBean;
-import org.dissan.cli.io.Output;
-import org.dissan.controllers.ApplicationAcceptor;
-import org.dissan.controllers.ShiftScheduler;
-import org.dissan.exceptions.InvalidDateException;
-import org.dissan.exceptions.ShiftAlreadyScheduledException;
-import org.dissan.models.job.Shift;
-import org.dissan.models.job.ShiftApply;
-import org.dissan.models.users.User;
+import org.disagn.Macros;
+import org.disagn.beans.ShiftSchedulerBean;
+import org.disagn.cli.io.Output;
+import org.disagn.controllers.ApplicationAcceptor;
+import org.disagn.controllers.ShiftScheduler;
+import org.disagn.exceptions.InvalidDateException;
+import org.disagn.exceptions.ShiftAlreadyScheduledException;
+import org.disagn.models.job.Shift;
+import org.disagn.models.job.ShiftApply;
+import org.disagn.models.users.User;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

@@ -1,15 +1,15 @@
 package com.agnese_dissan.controllers;
 
-import org.dissan.Macros;
-import org.dissan.beans.DemiseBean;
-import org.dissan.cli.io.Output;
-import org.dissan.exceptions.InvalidDateException;
-import org.dissan.graphicControllers.DemiseGraphicController;
-import org.dissan.graphicControllers.JobApplierGraphic;
-import org.dissan.models.job.Demise;
-import org.dissan.models.job.Shift;
-import org.dissan.models.job.ShiftApply;
-import org.dissan.models.users.User;
+import org.disagn.Macros;
+import org.disagn.beans.DemiseBean;
+import org.disagn.cli.io.Output;
+import org.disagn.exceptions.InvalidDateException;
+import org.disagn.graphicControllers.DemiseGraphicController;
+import org.disagn.graphicControllers.JobApplierGraphic;
+import org.disagn.models.job.Demise;
+import org.disagn.models.job.Shift;
+import org.disagn.models.job.ShiftApply;
+import org.disagn.models.users.User;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
