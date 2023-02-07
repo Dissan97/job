@@ -1,17 +1,16 @@
 package org.disagn.cli;
 
-import org.disagn.stateMachines.cliMachine.CliMachine;
-import org.disagn.stateMachines.JobStateMachine;
-import org.disagn.stateMachines.JobStates;
-import org.disagn.cli.io.Input;
+
 import org.disagn.cli.io.Output;
-import org.disagn.interfaces.JobView;
+import org.disagn.interfaces.JobStateMachine;
 import org.disagn.models.users.User;
+import org.disagn.stateMachines.JobAbstractState;
+import org.disagn.stateMachines.cliMachine.CliMachine;
 
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class AssistantView implements JobView {
+public class AssistantView extends JobAbstractState {
 
     private final String pageMsg;
     private List<String> commandList;
@@ -29,16 +28,17 @@ public class AssistantView implements JobView {
     }
 
     @Override
-    public void startUi() {
-        String page = "HOME" + pageMsg;
+    public void entry(CliMachine stateMachine) {
+
+       /* String page = "HOME" + pageMsg;
         Output.pageMessage(page, "type help to command list", true);
         while (true) {
             Output.pageMessage(page, "", false);
             String line = Input.getCmd(this.commandList);
             switch (line) {
-                case "ACCOUNT" -> this.stateMachine.nextState(JobStates.ACCOUNT);
-                case "CONTROL_DEMISE" -> this.stateMachine.nextState(JobStates.CONTROL_DEMISE);
-                case "HANDLE_DEMISE" -> this.stateMachine.nextState(JobStates.HANDLE_CANDIDATE);
+                case "ACCOUNT" -> this.stateMachine.goState(JobStates.ACCOUNT);
+                case "CONTROL_DEMISE" -> this.stateMachine.goState(JobStates.CONTROL_DEMISE);
+                case "HANDLE_DEMISE" -> this.stateMachine.goState(JobStates.HANDLE_CANDIDATE);
                 case "HELP" -> Output.printList("HELP" + pageMsg, this.commandList);
                 case "EXIT" -> {
                     return;
@@ -49,5 +49,7 @@ public class AssistantView implements JobView {
                 }
             }
         }
+
+        */
     }
 }

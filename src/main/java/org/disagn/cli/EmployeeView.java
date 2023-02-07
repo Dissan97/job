@@ -1,25 +1,27 @@
 package org.disagn.cli;
 
-import org.disagn.controllers.Login;
-import org.disagn.stateMachines.cliMachine.CliMachine;
-import org.disagn.stateMachines.JobStateMachine;
-import org.disagn.stateMachines.JobStates;
+
 import org.disagn.cli.io.Input;
 import org.disagn.cli.io.Output;
+import org.disagn.controllers.Login;
 import org.disagn.exceptions.InvalidDateException;
-import org.disagn.interfaces.JobView;
 import org.disagn.models.users.Employee;
 import org.disagn.models.users.User;
+import org.disagn.stateMachines.JobAbstractState;
+import org.disagn.stateMachines.cliMachine.AccountStateCli;
+import org.disagn.stateMachines.cliMachine.CliMachine;
+import org.disagn.stateMachines.cliMachine.employee.ApplyShift;
+import org.disagn.stateMachines.cliMachine.employee.DemiseManagerStateCli;
+import org.disagn.stateMachines.cliMachine.employee.ViewAppliesStateCli;
 
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public class EmployeeView implements JobView {
+public class EmployeeView extends JobAbstractState {
 
 
     private Employee employee;
     private List<String> commandList;
-    private final JobStateMachine stateMachine;
     private final String pageMsg;
 
     public EmployeeView(User user) {
@@ -29,7 +31,6 @@ public class EmployeeView implements JobView {
             e.printStackTrace();
         }
 
-        this.stateMachine = new CliMachine(user);
         this.pageMsg = "@EMPLOYEE{"+user.getUsername()+"}";
         try {
             CommandLoader commandLoader = new CommandLoader("EMPLOYEE");
@@ -40,28 +41,27 @@ public class EmployeeView implements JobView {
     }
 
     @Override
-    public void startUi() {
+    public void entry(CliMachine stateMachine) {
         String page = "HOME" + this.pageMsg;
 
         while (true) {
             Output.pageMessage(page, "Type help to get list", false);
             String line = Input.getCmd(this.commandList);
+            JobAbstractState newState = null;
             switch (line) {
-                case "ACCOUNT" ->
-                    this.stateMachine.nextState(JobStates.ACCOUNT);
-                case "APPLY_SHIFT" ->
-                    this.stateMachine.nextState(JobStates.APPLY_SHIFT);
-                case "VIEW_APPLIES" ->
-                    this.stateMachine.nextState(JobStates.VIEW_APPLIES);
-                case "MANAGE_DEMISE" ->
-                    this.stateMachine.nextState(JobStates.MANAGE_DEMISE);
-                case "HELP" ->
-                    Output.printList("HOME", this.commandList);
-                case "LOGOUT" ->  Login.LogOut();
-
+                case "ACCOUNT" -> newState = new AccountStateCli(this.employee);
+                case "APPLY_SHIFT" -> newState = new ApplyShift(this.employee);
+                case "VIEW_APPLIES" -> newState = new ViewAppliesStateCli(this.employee);
+                case "MANAGE_DEMISE" -> newState = new DemiseManagerStateCli(this.employee);
+                case "HELP" -> Output.printList("HOME", this.commandList);
+                case "LOGOUT" ->  {
+                    this.exit(stateMachine);
+                    Login.LogOut();
+                }
                 case "EXIT" -> {
                     Output.pageMessage("HOME", employee.getUsername() + " Bye...", true);
-                    System.exit(0);
+                    this.exit(stateMachine);
+                    return;
                 }
                 case "" -> {
                     //no op
@@ -70,6 +70,11 @@ public class EmployeeView implements JobView {
                     Output.pageMessage("HOME", "PLEASE TYPE THIS COMMAND", true);
                     Output.printList("HOME", this.commandList);
                 }
+
+            }
+
+            if (newState != null){
+                stateMachine.changeState(newState);
             }
 
         }

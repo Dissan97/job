@@ -1,63 +1,62 @@
 package org.disagn.stateMachines.cliMachine;
 
+
 import org.disagn.cli.io.Output;
-import org.disagn.exceptions.InvalidDateException;
+import org.disagn.interfaces.JobStateMachine;
 import org.disagn.models.users.User;
-import org.disagn.stateMachines.JobStateMachine;
+import org.disagn.stateMachines.JobAbstractState;
 import org.disagn.stateMachines.JobStates;
 
-public class CliMachine extends JobStateMachine {
 
+public class CliMachine implements JobStateMachine {
+
+    private JobAbstractState currentState;
+    private JobAbstractState previousState;
     private final User user;
+    private JobAbstractState home;
+
     public CliMachine(User user) {
         this.user = user;
-        super.setAccountInfo(user) ;
     }
 
     @Override
-    public void nextState(JobStates state) {
-        switch (state){
-            case ACCOUNT -> {
-                AccountStateCli accountState = new AccountStateCli(this.user);
-                accountState.nextState(state);
-            }
-            case PUBLISH_SHIFT ->{
-                try {
-                    PublishShiftStateCli publishShift = new PublishShiftStateCli(user);
-                    publishShift.nextState(state);
-                } catch (InvalidDateException e) {
-                    Output.exception(e);
-                }
-            }
-            case MANAGE_APPLICANTS -> {
-                ViewCandidatesStateCli viewCandidatesState = new ViewCandidatesStateCli(this.user);
-                viewCandidatesState.nextState(state);
-            }
-            case VIEW_SCHEDULING -> {
-                try {
-                    ViewSchedulingStateCli schedulingState = new ViewSchedulingStateCli(this.user);
-                    schedulingState.nextState(state);
-                } catch (InvalidDateException e) {
-                    e.printStackTrace();
-                }
-            }
+    public void goState(JobStates state) {
+        this.currentState = JobAbstractState.getInitializer(user);
+        this.setHome();
+    }
 
-            case MANAGE_DEMISE -> {
-                DemiseManagerStateCli demiseManagerStateCli = new DemiseManagerStateCli(this.user);
-                demiseManagerStateCli.nextState(state);
-            }
+    /**
+       setup home state of the machine
+     */
 
-            case HANDLE_CANDIDATE -> {
-                HandleCandidateStateCli handleCandidateState = new HandleCandidateStateCli();
-                handleCandidateState.nextState(state);
-            }
+    private void setHome(){
+        this.home = this.currentState;
+        this.previousState = this.currentState;
+        this.changeState(this.home);
+    }
 
-            case APPLY_SHIFT, VIEW_APPLIES -> {
-                ShiftManagerStateCli shiftManagerState = new ShiftManagerStateCli(user);
-                shiftManagerState.nextState(state);
-            }
-
+    /**
+     * function to change state
+     * @param state the state that we want to go
+     */
+    public void changeState(JobAbstractState state){
+        if (state != this.currentState) {
+            Output.println("Machine: changing state " + this.currentState.getClass().getSimpleName() + "  -> " + state.getClass().getSimpleName());
         }
+
+        this.previousState = this.currentState;
+        this.currentState.exit(this);
+        this.currentState = state;
+        this.currentState.entry(this);
+    }
+
+    public void getBack(){
+        this.changeState(this.previousState);
+    }
+
+    public void goHome() {
+        this.previousState = this.home;
+        this.changeState(this.home);
     }
 
 }
