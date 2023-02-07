@@ -1,17 +1,13 @@
 package org.disagn.models.job;
 
-import org.disagn.exceptions.InvalidDateException;
-import org.disagn.models.time.JobDateTime;
-
-
 public class Shift {
 
-    private String code = null;
-    private String name = null;
-    private String jobPlace = null;
-    private String employer = null;
-    private String dateTime = null;
-    private String description = null;
+    private String code;
+    private String name;
+    private final String jobPlace;
+    private final String employer;
+    private final String dateTime;
+    private final String description;
 
     public Shift(String employer, String jobName, String jobPlace, String dateTime, String description) {
         this.name = jobName;
@@ -43,17 +39,15 @@ public class Shift {
         return dateTime;
     }
 
-    public void setDateTime(String jobDate, String jobTime) throws InvalidDateException {
-
-        JobDateTime dateTime = new JobDateTime(jobDate, jobTime);
-        this.dateTime = dateTime.toString();
-    }
-
     public String getEmployer() {
         return this.employer;
     }
 
     public String getPlace() {
         return this.jobPlace;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

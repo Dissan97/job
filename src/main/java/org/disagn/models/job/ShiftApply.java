@@ -39,14 +39,6 @@ public class ShiftApply {
         return this.employer;
     }
 
-    public String getApplianceDateTime() {
-        return applianceDateTime;
-    }
-
-    private void isAccepted(boolean accepted){
-        this.accepted = accepted;
-    }
-
     public String getShiftDate() {
         return shiftDate;
     }

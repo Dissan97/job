@@ -19,11 +19,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class FileSystem implements DAO {
 
-    private final String daoPath = "src/main/resources/org/dissan/dao/";
-    private final String userPath = daoPath + "user.json";
+    private final String daoPath = "src/main/resources/org/disagn/dao/";
+    private final String userPath = daoPath + "/user.json";
     private final String configPath = daoPath + "/config.json";
     private final String shiftPath = daoPath + "/shifts.json";
 

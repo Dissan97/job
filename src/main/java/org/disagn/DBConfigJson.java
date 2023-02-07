@@ -22,7 +22,7 @@ public class DBConfigJson {
 
 
     private void loadConfig() {
-        String path = "src/main/resources/org/dissan/dao/configDataBase.json";
+        String path = "src/main/resources/org/disagn/dao/configDataBase.json";
         JsonElement reader;
 
         try {

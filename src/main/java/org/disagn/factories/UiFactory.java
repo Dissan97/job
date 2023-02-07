@@ -16,7 +16,6 @@ public class UiFactory {
     private UiFactory(){}
     private static boolean gui = false;
 
-    private static StartGuiUi startGuiUi = null;
     public static void setGui(boolean g) {
         gui = g;
     }
