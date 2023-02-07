@@ -2,17 +2,19 @@ package org.disagn.stateMachines.cliMachine;
 
 
 import org.disagn.cli.io.Output;
+import org.disagn.decorator.PageContainer;
 import org.disagn.models.users.User;
 import org.disagn.stateMachines.JobAbstractState;
 
 public class AccountStateCli extends JobAbstractState {
 
     private final User user;
-    private final String pageMsg;
+    private final String page;
 
     public AccountStateCli(User user) {
         this.user = user;
-        this.pageMsg = "Account@Employer{" + user.getUsername() + "}";
+        PageContainer container = new PageContainer("ACCOUNT", this.user);
+        this.page = container.display();
     }
 
     /**
@@ -20,7 +22,7 @@ public class AccountStateCli extends JobAbstractState {
      */
     @Override
     public void entry (CliMachine stateMachine) {
-        String page = this.pageMsg;
+        String page = this.page;
         Output.println("[ACCOUNT INFORMATION]");
         Output.pageMessage(page, "NAME: " + this.user.getName(), true);
         Output.pageMessage(page, "SURNAME: " + this.user.getSurname(), true);

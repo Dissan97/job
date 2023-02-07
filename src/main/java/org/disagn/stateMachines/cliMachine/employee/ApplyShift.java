@@ -4,6 +4,7 @@ package org.disagn.stateMachines.cliMachine.employee;
 import org.disagn.beans.JobApplierBean;
 import org.disagn.cli.io.Input;
 import org.disagn.cli.io.Output;
+import org.disagn.decorator.PageContainer;
 import org.disagn.graphicControllers.JobApplierGraphic;
 import org.disagn.models.job.Shift;
 import org.disagn.models.users.Employee;
@@ -19,10 +20,13 @@ import java.util.List;
 public class ApplyShift extends JobAbstractState {
 
     private final Employee user;
+    private String page;
 
     public ApplyShift(Employee employee) {
         super();
         this.user = employee;
+        PageContainer container = new PageContainer("DEMISE MANAGER", this.user);
+        this.page = container.display();
     }
 
     @Override
@@ -37,7 +41,7 @@ public class ApplyShift extends JobAbstractState {
         } catch (FileNotFoundException e) {
             Output.exception(e);
         }
-        String page = "Apply shift: " + this.user.getUsername();
+        this.page = "Apply shift: " + this.user.getUsername();
         List<String> availableShifts = new ArrayList<>();
 
         for (Shift s :

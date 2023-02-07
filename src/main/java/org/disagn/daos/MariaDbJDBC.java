@@ -56,7 +56,7 @@ public class MariaDbJDBC implements DAO {
         statement.setString(6, user.getDateOfBirth());
         statement.setString(7, user.getUserType().name());
         if (statement.execute()){
-            System.out.println("EXECUTED");
+            throw new SQLException();
         }
         statement.close();
         connection.close();
@@ -79,8 +79,21 @@ public class MariaDbJDBC implements DAO {
     }
 
     @Override
-    public void pushShift(Shift shift) {
-        //Database will be added later
+    public void pushShift(Shift shift) throws SQLException {
+        Connection connection = this.getConnection();
+        CallableStatement statement = connection.prepareCall("{call pushShift(?,?,?,?,?,?)}");
+        statement.setString(1, shift.getCode());
+        statement.setString(2, shift.getName());
+        statement.setString(3, shift.getPlace());
+        statement.setString(4, shift.getDateTime());
+        statement.setString(5, shift.getDescription());
+        statement.setString(6, shift.getEmployer());
+
+        if (statement.execute()){
+            throw new SQLException();
+        }
+        statement.close();
+        connection.close();
     }
 
     @Override
@@ -94,8 +107,21 @@ public class MariaDbJDBC implements DAO {
     }
 
     @Override
-    public void pushAppliance(ShiftApply shiftApply) {
-        //Push appliance to the database
+    public void pushAppliance(ShiftApply shiftApply) throws SQLException {
+        Connection connection = this.getConnection();
+        CallableStatement statement = connection.prepareCall("{call pushAppliance(?,?,?,?,?,?)}");
+        statement.setString(1, shiftApply.toString());
+        statement.setString(2, shiftApply.getApplyDate());
+        statement.setString(3, shiftApply.getShiftDate());
+        statement.setBoolean(4, false);
+        statement.setString(5, shiftApply.getEmployer());
+        statement.setString(6, shiftApply.getEmployee());
+
+        if (statement.execute()){
+            throw new SQLException();
+        }
+        statement.close();
+        connection.close();
     }
 
     @Override
@@ -119,8 +145,21 @@ public class MariaDbJDBC implements DAO {
     }
 
     @Override
-    public void pushEmployeeDemise(Demise apply) {
-        //shall be implemented
+    public void pushEmployeeDemise(Demise apply) throws SQLException {
+
+        Connection connection = this.getConnection();
+        CallableStatement statement = connection.prepareCall("{call pushDemise(?,?,?,?,?)}");
+        statement.setString(1, apply.getApplication());
+        statement.setString(2, apply.getMotivation());
+        statement.setString(3, apply.getEmployee());
+        statement.setBoolean(4, false);
+        statement.setBoolean(5, false);
+
+        if (statement.execute()){
+            throw new SQLException();
+        }
+        statement.close();
+        connection.close();
     }
 
     @Override

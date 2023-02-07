@@ -2,7 +2,6 @@ package org.disagn.daos;
 
 import org.disagn.cli.io.Output;
 import org.disagn.exceptions.UserAlreadyExistException;
-import org.disagn.factories.DAOState;
 import org.disagn.interfaces.DAO;
 import org.disagn.models.job.Demise;
 import org.disagn.models.job.Shift;
@@ -24,6 +23,9 @@ public class DaoManager implements DAO, Runnable {
 
     private DAOState state = null;
     private static DaoManager daoManager = null;
+    private Shift shift;
+    private ShiftApply appliance;
+    private Demise demise;
 
     private DaoManager() {
         this.fileSystem = new FileSystem();
@@ -35,8 +37,8 @@ public class DaoManager implements DAO, Runnable {
     public void pushUser(User user) throws UserAlreadyExistException {
             this.user = user;
             this.fileSystem.pushUser(this.user);
-            this.state = DAOState.PUT_USER;
-            //this.thread.start();
+            this.state = DAOState.POST_USER;
+            this.thread.start();
     }
 
     @Override
@@ -56,7 +58,10 @@ public class DaoManager implements DAO, Runnable {
 
     @Override
     public void pushShift(Shift shift) {
-    //needed to show demises should be used to push shift
+        this.fileSystem.pushShift(shift);
+        this.shift = shift;
+        this.state = DAOState.POST_SHIFT;
+        this.thread.start();
     }
 
     @Override
@@ -73,6 +78,9 @@ public class DaoManager implements DAO, Runnable {
     @Override
     public void pushAppliance(ShiftApply shiftApply) throws IOException {
         this.fileSystem.pushAppliance(shiftApply);
+        this.appliance = shiftApply;
+        this.state = DAOState.POST_APPLIANCE;
+        this.thread.start();
     }
 
     @Override
@@ -103,6 +111,9 @@ public class DaoManager implements DAO, Runnable {
     @Override
     public void pushEmployeeDemise(Demise apply) throws IOException {
         this.fileSystem.pushEmployeeDemise(apply);
+        this.state = DAOState.POST_DEMISE;
+        this.demise = apply;
+        this.thread.start();
     }
 
 
@@ -130,14 +141,38 @@ public class DaoManager implements DAO, Runnable {
     @Override
     public void run() {
         switch (this.state){
-            case PUT_USER -> {
+            case POST_USER -> {
                 try {
                     this.mariaDbJDBC.pushUser(this.user);
                     Output.pageMessage(thread.getName(), "user inserted", true);
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    Output.exception(e);
                 }
-                this.state = null;
+
+            }
+
+            case POST_SHIFT -> {
+                try {
+                    this.mariaDbJDBC.pushShift(this.shift);
+                } catch (SQLException e) {
+                    Output.exception(e);
+                }
+            }
+
+            case POST_APPLIANCE ->{
+                try {
+                    this.mariaDbJDBC.pushAppliance(this.appliance);
+                } catch (SQLException e) {
+                    Output.exception(e);
+                }
+            }
+
+            case POST_DEMISE -> {
+                try {
+                    this.mariaDbJDBC.pushEmployeeDemise(this.demise);
+                } catch (SQLException e) {
+                    Output.exception(e);
+                }
             }
 
             case LOAD_CONFIG -> {
@@ -145,6 +180,7 @@ public class DaoManager implements DAO, Runnable {
                 Output.println(userList.toString());
             }
         }
+        this.state = null;
     }
 
     public static DaoManager getDaoManager(){

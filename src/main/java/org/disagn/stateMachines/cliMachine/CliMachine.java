@@ -23,16 +23,22 @@ public class CliMachine implements JobStateMachine {
     public void goState(JobStates state) {
         this.currentState = JobAbstractState.getInitializer(user);
         this.setHome();
+        this.changeState(this.currentState);
+    }
+
+    public void setCurrentState(JobAbstractState currentState) {
+        this.currentState = currentState;
     }
 
     /**
        setup home state of the machine
      */
 
-    private void setHome(){
+
+
+    public void setHome(){
         this.home = this.currentState;
-        this.previousState = this.currentState;
-        this.changeState(this.home);
+        this.previousState = null;
     }
 
     /**

@@ -21,13 +21,13 @@ public interface DAO {
 
     List<User> getUserList();
 
-    void pushShift(Shift shift);
+    void pushShift(Shift shift) throws SQLException;
 
     List<Shift> pullShifts();
 
     List<ShiftApply> pullSchedules(User employer);
 
-    void pushAppliance(ShiftApply shiftApply) throws IOException;
+    void pushAppliance(ShiftApply shiftApply) throws IOException, SQLException;
 
     List<ShiftApply> pullAppliances(User user) throws FileNotFoundException;
 
@@ -37,7 +37,7 @@ public interface DAO {
 
     void pushSchedule(ShiftApply apply, User user) throws IOException;
 
-    void pushEmployeeDemise(Demise apply) throws IOException;
+    void pushEmployeeDemise(Demise apply) throws IOException, SQLException;
 
     List<Demise> pullEmployeeDemise(String employee);
 

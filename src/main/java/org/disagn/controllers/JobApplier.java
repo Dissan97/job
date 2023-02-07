@@ -16,6 +16,7 @@ import org.disagn.models.users.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +59,7 @@ public class JobApplier {
     }
 
 
-    public void pushAppliance(Shift shift, User user) throws IOException, ShiftAlreadyApplied {
+    public void pushAppliance(Shift shift, User user) throws IOException, ShiftAlreadyApplied, SQLException {
         DAO dao = DaoManager.getDaoManager();
         ShiftApply shiftApply = new ShiftApply(user.getUsername(), shift);
         this.verifyAppliance(shiftApply, user);
@@ -112,7 +113,7 @@ public class JobApplier {
 
     }
 
-    public void removeAppliance(ShiftApply apply) throws InvalidDateException, ParseException, IOException {
+    public void removeAppliance(ShiftApply apply) throws InvalidDateException, ParseException, IOException, SQLException {
         DAO dao = DaoManager.getDaoManager();
 
         try {

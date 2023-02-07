@@ -4,6 +4,7 @@ package org.disagn.cli;
 import org.disagn.Macros;
 import org.disagn.cli.io.Input;
 import org.disagn.cli.io.Output;
+import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.InvalidDateException;
 import org.disagn.exceptions.UserLoginFailedException;
 import org.disagn.graphicControllers.LoginGraphic;
@@ -41,10 +42,11 @@ public class LoginView implements JobView{
     public void startUi() {
 
         String line;
-        String page = "LOGIN";
+        PageContainer container = new PageContainer("LOGIN");
+        String page = container.display();
         while (true) {
 
-            Output.pageMessage(page, "insert a command type help to get command list", false);
+            Output.pageMessage(page, CommandLoader.helpMessage, false);
             line = Input.getCmd(this.commandList);
 
             Macros ret = Macros.START;

@@ -4,6 +4,7 @@ package org.disagn.cli;
 import org.disagn.cli.io.Input;
 import org.disagn.cli.io.Output;
 import org.disagn.controllers.Login;
+import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.InvalidDateException;
 import org.disagn.models.users.Employee;
 import org.disagn.models.users.User;
@@ -22,7 +23,7 @@ public class EmployeeView extends JobAbstractState {
 
     private Employee employee;
     private List<String> commandList;
-    private final String pageMsg;
+    private final String page;
 
     public EmployeeView(User user) {
         try {
@@ -31,21 +32,22 @@ public class EmployeeView extends JobAbstractState {
             e.printStackTrace();
         }
 
-        this.pageMsg = "@EMPLOYEE{"+user.getUsername()+"}";
+        PageContainer container = new PageContainer("HOME", user);
+        this.page = container.display();
         try {
             CommandLoader commandLoader = new CommandLoader("EMPLOYEE");
             this.commandList = commandLoader.getCommandList();
         } catch (FileNotFoundException e) {
-            Output.pageMessage(this.pageMsg, e.getMessage(), true);
+            Output.pageMessage(this.page, e.getMessage(), true);
         }
     }
 
     @Override
     public void entry(CliMachine stateMachine) {
-        String page = "HOME" + this.pageMsg;
+
 
         while (true) {
-            Output.pageMessage(page, "Type help to get list", false);
+            Output.pageMessage(page, CommandLoader.helpMessage, false);
             String line = Input.getCmd(this.commandList);
             JobAbstractState newState = null;
             switch (line) {
@@ -53,13 +55,14 @@ public class EmployeeView extends JobAbstractState {
                 case "APPLY_SHIFT" -> newState = new ApplyShift(this.employee);
                 case "VIEW_APPLIES" -> newState = new ViewAppliesStateCli(this.employee);
                 case "MANAGE_DEMISE" -> newState = new DemiseManagerStateCli(this.employee);
-                case "HELP" -> Output.printList("HOME", this.commandList);
+                case "HELP" -> Output.printList(this.page, this.commandList);
                 case "LOGOUT" ->  {
                     this.exit(stateMachine);
                     Login.LogOut();
+                    return;
                 }
                 case "EXIT" -> {
-                    Output.pageMessage("HOME", employee.getUsername() + " Bye...", true);
+                    Output.pageMessage(this.page, employee.getUsername() + " Bye...", true);
                     this.exit(stateMachine);
                     return;
                 }
@@ -67,8 +70,8 @@ public class EmployeeView extends JobAbstractState {
                     //no op
                 }
                 default -> {
-                    Output.pageMessage("HOME", "PLEASE TYPE THIS COMMAND", true);
-                    Output.printList("HOME", this.commandList);
+                    Output.pageMessage(this.page, "PLEASE TYPE THIS COMMAND", true);
+                    Output.printList(this.page, this.commandList);
                 }
 
             }

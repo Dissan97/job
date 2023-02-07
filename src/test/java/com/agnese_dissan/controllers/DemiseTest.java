@@ -40,7 +40,7 @@ class DemiseTest {
         ShiftApply shiftApply = new ShiftApply("hassan", new Shift("salem", "jobTest", "placeTest", "2023-2-3", "hello world!"));
         try {
             controller.removeAppliance(shiftApply);
-        } catch (InvalidDateException e) {
+        } catch (Exception e) {
             Output.println("System: added to demise");
         }
 

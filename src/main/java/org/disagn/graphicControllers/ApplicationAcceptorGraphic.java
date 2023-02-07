@@ -60,7 +60,7 @@ public class ApplicationAcceptorGraphic {
     }
 
     public void manageCandidate(User employee, User employer, ShiftApply apply, boolean accept) throws IOException, ApplyNotExistException, ShiftAlreadyScheduledException {
-        if (employee != null){
+        if (employee != null && employer != null && apply != null){
             this.controller.manageCandidate(employee, employer, apply, accept);
         }
     }

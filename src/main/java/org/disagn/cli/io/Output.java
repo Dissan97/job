@@ -36,11 +36,10 @@ public class Output{
     }
 
     public static void pageMessage(String page, String s, boolean line){
-        page = "[" + page;
         if (line)
-            page += ("]: " + s + "\n");
+            page += " " + s + "\n";
         else
-            page += ("] " + s + "\n>> ");
+            page += " " +  s + "\n>> ";
         Output.print(page);
     }
 
@@ -89,6 +88,6 @@ public class Output{
     }
 
     public static void exception(Exception e) {
-        println("Error: " + e.getMessage());
+        println("Exception: " + e.getMessage());
     }
 }

@@ -10,6 +10,7 @@ import org.disagn.models.users.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 
 public class JobApplierGraphic {
@@ -30,7 +31,7 @@ public class JobApplierGraphic {
         return this.bean;
     }
 
-    public void pushAppliance(Shift shift, User user) throws ShiftAlreadyApplied, IOException {
+    public void pushAppliance(Shift shift, User user) throws ShiftAlreadyApplied, IOException, SQLException {
         this.controller.pushAppliance(shift, user);
     }
 
@@ -38,7 +39,7 @@ public class JobApplierGraphic {
         this.controller.pullAppliances(user);
     }
 
-    public void removeAppliance(ShiftApply apply) throws InvalidDateException, ParseException, IOException {
+    public void removeAppliance(ShiftApply apply) throws InvalidDateException, ParseException, IOException, SQLException {
         this.controller.removeAppliance(apply);
     }
 }

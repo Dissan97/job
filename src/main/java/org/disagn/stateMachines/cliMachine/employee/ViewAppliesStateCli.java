@@ -4,6 +4,7 @@ package org.disagn.stateMachines.cliMachine.employee;
 import org.disagn.beans.JobApplierBean;
 import org.disagn.cli.io.Input;
 import org.disagn.cli.io.Output;
+import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.InvalidDateException;
 import org.disagn.graphicControllers.JobApplierGraphic;
 import org.disagn.models.job.ShiftApply;
@@ -13,6 +14,7 @@ import org.disagn.stateMachines.cliMachine.CliMachine;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,18 +22,19 @@ import java.util.List;
 
 public class ViewAppliesStateCli extends JobAbstractState {
     private final Employee user;
+    private final String page;
     private JobApplierGraphic controller;
 
     public ViewAppliesStateCli(Employee employee) {
         this.user = employee;
+        PageContainer container = new PageContainer("DEMISE MANAGER", this.user);
+        this.page = container.display();
     }
 
     @Override
     public void entry(CliMachine stateMachine) {
         this.controller = new JobApplierGraphic();
         JobApplierBean bean = this.controller.getBean();
-
-        String page = "View applies: " + this.user.getUsername();
 
         try {
             this.controller.pullAppliances(user);
@@ -57,7 +60,8 @@ public class ViewAppliesStateCli extends JobAbstractState {
     private void demiseAppliance(List<ShiftApply> applyList) {
         List<String> appliances = new ArrayList<>();
 
-        String page = "Demise appliance: " + this.user.getUsername();
+        PageContainer container = new PageContainer("DEMISE APPLIANCE", this.user);
+        String page = container.display();
 
         for (ShiftApply a:
                 applyList) {
@@ -79,9 +83,9 @@ public class ViewAppliesStateCli extends JobAbstractState {
                         Output.pageMessage(page, "appliance removed", true);
                     } catch (InvalidDateException e) {
                         Output.pageMessage(page, "Application in demise pending state" , true);
-                    } catch (ParseException | IOException e) {
-                        e.printStackTrace();
-                    }finally {
+                    } catch (ParseException | IOException | SQLException e) {
+                        Output.exception(e);
+                    } finally {
                         cmd = "quit";
                     }
                 }

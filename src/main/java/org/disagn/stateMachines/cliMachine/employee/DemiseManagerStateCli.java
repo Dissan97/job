@@ -4,6 +4,7 @@ package org.disagn.stateMachines.cliMachine.employee;
 import org.disagn.beans.DemiseBean;
 import org.disagn.cli.io.Input;
 import org.disagn.cli.io.Output;
+import org.disagn.decorator.PageContainer;
 import org.disagn.graphicControllers.DemiseGraphicController;
 import org.disagn.models.job.Demise;
 import org.disagn.models.users.User;
@@ -24,7 +25,8 @@ public class DemiseManagerStateCli extends JobAbstractState {
 
     public DemiseManagerStateCli(User user) {
         this.user = user;
-        this.page = "Demise manager: " +  user.getUsername();
+        PageContainer container = new PageContainer("DEMISE MANAGER", this.user);
+        this.page = container.display();
     }
 
     @Override
