@@ -45,7 +45,7 @@ public class Input{
     public static String getCmd(List<String> command){
         String cmd = getCmd();
         String ret;
-        int num = 0;
+        int num;
         try{
             num = Integer.parseInt(cmd);
 
@@ -61,9 +61,6 @@ public class Input{
         return ret;
     }
 
-    public static void close() throws IOException {
-        in.close();
-    }
 
     public static String getInfo(String page, String msg) {
         Output.pageMessage(page,"Insert " +  msg, false);

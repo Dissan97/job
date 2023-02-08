@@ -14,9 +14,9 @@ public class ManageApplicantStateCli extends JobAbstractState {
 
 
     private final User user;
-    private String page;
-    private ShiftApply apply;
-    private User employee;
+    private final String page;
+    private final ShiftApply apply;
+    private final User employee;
     protected ManageApplicantStateCli(User user, ShiftApply apply, User employee) {
         this.user = user;
         this.apply = apply;

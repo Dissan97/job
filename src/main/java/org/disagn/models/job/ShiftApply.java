@@ -55,4 +55,8 @@ public class ShiftApply {
     public void accept() {
         this.accepted = true;
     }
+
+    public boolean isAccepted() {
+        return this.accepted;
+    }
 }

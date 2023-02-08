@@ -9,7 +9,6 @@ import org.disagn.graphicControllers.ApplicationAcceptorGraphic;
 import org.disagn.models.job.ShiftApply;
 import org.disagn.models.users.User;
 import org.disagn.stateMachines.JobAbstractState;
-import org.disagn.stateMachines.cliMachine.AccountStateCli;
 import org.disagn.stateMachines.cliMachine.CliMachine;
 
 
@@ -23,7 +22,7 @@ public class ViewApplicantsStateCli extends JobAbstractState {
     private List<ShiftApply> applyList;
     private final String page;
     private User chooseUser;
-    private ApplicationAcceptorGraphic acceptorController;
+
     public ViewApplicantsStateCli(User user) {
         this.user = user;
         PageContainer container = new PageContainer("MANAGE APPLICANTS", this.user);
@@ -33,32 +32,50 @@ public class ViewApplicantsStateCli extends JobAbstractState {
     @Override
     public void entry(CliMachine stateMachine) {
 
-        this.acceptorController = new ApplicationAcceptorGraphic();
+        ApplicationAcceptorGraphic acceptorController = new ApplicationAcceptorGraphic();
         try {
-            this.acceptorController.getUserData(this.user);
+            acceptorController.getUserData(this.user);
         } catch (FileNotFoundException e) {
             Output.exception(e);
         }
 
-        AccountBean accountBean = this.acceptorController.getAccountBean();
-        JobApplierBean applierBean = this.acceptorController.getApplierBean();
+        AccountBean accountBean = acceptorController.getAccountBean();
+        JobApplierBean applierBean = acceptorController.getApplierBean();
         this.applyList = applierBean.getShiftApplyList();
         this.userList = accountBean.getListEmployees();
 
         List<String> applies = new ArrayList<>();
 
+        int rows = applyList.size();
+        String[] columnNames = new String[5];
+        columnNames[0] = "num";
+        columnNames[1] = "shift";
+        columnNames[2] = "employee";
+        columnNames[3] = "shift date";
+        columnNames[4] = "accepted";
+        String[][] rowEntries = new String[rows][5];
+        int i = 0;
+
         for (ShiftApply apply:
              applyList) {
             applies.add(apply.toString());
+            rowEntries[i][0] = String.valueOf(i);
+            rowEntries[i][1] = apply.getShift();
+            rowEntries[i][2] = apply.getEmployee();
+            rowEntries[i][3] = apply.getShiftDate();
+            rowEntries[i][4] = String.valueOf(apply.isAccepted());
+            i++;
         }
         if (applies.size() < 1){
             Output.pageMessage(page, "There is no appliances yet", false);
             stateMachine.getBack();
         }
+
+        Output.printTable(this.page, "Applicants", columnNames, rowEntries);
+
         String cmd;
 
         while (true){
-            Output.printList(page, applies);
             Output.pageMessage(page, "select an apply or quit or exit to leave the procedure", false);
             cmd = Input.getCmd(applies);
 

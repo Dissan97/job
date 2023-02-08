@@ -10,8 +10,6 @@ import org.disagn.models.job.Demise;
 import org.disagn.models.users.User;
 import org.disagn.stateMachines.JobAbstractState;
 import org.disagn.stateMachines.cliMachine.CliMachine;
-
-
 import java.util.ArrayList;
 import java.util.List;
 

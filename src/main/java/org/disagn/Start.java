@@ -5,16 +5,13 @@ import org.disagn.factories.UiFactory;
 import org.disagn.interfaces.JobView;
 import org.disagn.models.users.User;
 
-public class Start {
-
+public class Start{
 
     public static void main(String [] args) {
 
         boolean gui = true;
         boolean local = true;
         JobView startView;
-
-
 
         try {
             if (args[0].equalsIgnoreCase("CLI")){
@@ -45,8 +42,6 @@ public class Start {
         assert startView != null;
         startView.startUi();
 
-
     }
-
 
 }

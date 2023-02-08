@@ -56,14 +56,12 @@ public class EmployeeView extends JobAbstractState {
                 case "VIEW_APPLIES" -> newState = new ViewAppliesStateCli(this.employee);
                 case "MANAGE_DEMISE" -> newState = new DemiseManagerStateCli(this.employee);
                 case "HELP" -> Output.printList(this.page, this.commandList);
-                case "LOGOUT" ->  {
-                    this.exit(stateMachine);
+                case "LOG_OUT" ->  {
                     Login.LogOut();
                     return;
                 }
                 case "EXIT" -> {
                     Output.pageMessage(this.page, employee.getUsername() + " Bye...", true);
-                    this.exit(stateMachine);
                     return;
                 }
                 case "" -> {

@@ -1,10 +1,1 @@
-[
-  {
-    "employee": "hassan",
-    "shift": "dissanariete2023-2-9::21:30",
-    "employer": "dissan",
-    "shiftDate": "2023-2-9::21:30",
-    "applianceDateTime": "2023-02-07",
-    "accepted": false
-  }
-]
+[{"employee":"hassan","shift":"dissanariete2023-2-9::21:30","employer":"dissan","shiftDate":"2023-2-9::21:30","applianceDateTime":"2023-02-07","accepted":false}]

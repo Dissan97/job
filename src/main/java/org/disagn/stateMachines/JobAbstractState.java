@@ -10,7 +10,7 @@ import org.disagn.stateMachines.cliMachine.CliMachine;
 public abstract class JobAbstractState{
 
     public abstract void entry(CliMachine stateMachine);
-    public void exit(CliMachine context){};
+    public void exit(){}
 
     public static JobAbstractState getInitializer(User user){
         JobAbstractState initialState = null;
@@ -23,11 +23,7 @@ public abstract class JobAbstractState{
         return initialState;
     }
 
-    public void account(CliMachine cliMachine) {}
     public void home(CliMachine cliMachine){
         cliMachine.goHome();
-    }
-    public void setBack(){
-
     }
 }

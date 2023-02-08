@@ -60,7 +60,7 @@ public class FileSystem implements DAO {
             if (types == Macros.EMPLOYER) {
                 this.initFile(path + "/shifts.json");
             } else if (types == Macros.EMPLOYEE) {
-                this.initFile("/demises.json");
+                this.initFile(path + "/demises.json");
             }
         }catch (IOException e){
             throw  new UserAlreadyExistException(e.getMessage());

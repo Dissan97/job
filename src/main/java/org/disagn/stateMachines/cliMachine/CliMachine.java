@@ -51,7 +51,7 @@ public class CliMachine implements JobStateMachine {
         }
 
         this.previousState = this.currentState;
-        this.currentState.exit(this);
+        this.currentState.exit();
         this.currentState = state;
         this.currentState.entry(this);
     }

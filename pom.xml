@@ -80,6 +80,16 @@
             <artifactId>uriutility</artifactId>
             <version>1.0.1</version>
         </dependency>
+
+        <!-- SELENIUM -->
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>4.4.0</version>
+
+        </dependency>
+
     </dependencies>
 
 </project>

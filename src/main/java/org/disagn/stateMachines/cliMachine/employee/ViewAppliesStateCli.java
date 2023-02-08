@@ -23,6 +23,9 @@ import java.util.List;
 public class ViewAppliesStateCli extends JobAbstractState {
     private final Employee user;
     private final String page;
+    private String[] columnNames;
+    private String[][] rowEntries;
+    private String tableName;
     private JobApplierGraphic controller;
 
     public ViewAppliesStateCli(Employee employee) {
@@ -43,10 +46,27 @@ public class ViewAppliesStateCli extends JobAbstractState {
         }
         List<ShiftApply> applyList = bean.getShiftApplyList();
         Output.pageMessage(page, "apply list", true);
+        int rows = applyList.size();
+        this.columnNames = new String[5];
+        this.columnNames[0] = "num";
+        this.columnNames[1] = "shift";
+        this.columnNames[2] = "employer";
+        this.columnNames[3] = "shift date";
+        this.columnNames[4] = "accepted";
+        this.rowEntries = new String[rows][5];
+        int i = 0;
         for (ShiftApply apply:
                 applyList) {
-            Output.println("Apply: " + apply.toString() + "\nEmployer: " + apply.getEmployer() + "\nShift date: " + apply.getShiftDate());
+            this.rowEntries[i][0] = String.valueOf(i);
+            this.rowEntries[i][1] = apply.getShift();
+            this.rowEntries[i][2] = apply.getEmployer();
+            this.rowEntries[i][3] = apply.getShiftDate();
+            this.rowEntries[i][4] = String.valueOf(apply.isAccepted());
+            i++;
+            //Output.println("Apply: " + apply.toString() + "\nEmployer: " + apply.getEmployer() + "\nShift date: " + apply.getShiftDate());
         }
+        this.tableName = "Applies";
+        Output.printTable(this.page, this.tableName, this.columnNames, this.rowEntries);
 
         Output.pageMessage(page, "Want to demise some appliance yes to continue", false);
         String line = Input.line();
@@ -71,7 +91,7 @@ public class ViewAppliesStateCli extends JobAbstractState {
         String cmd;
 
         do {
-            Output.printList(page, appliances);
+            Output.printTable(page, this.tableName, this.columnNames, this.rowEntries);
             Output.pageMessage(page, "Choose an appliance", false);
             cmd = Input.getCmd(appliances);
             if (appliances.contains(cmd)){

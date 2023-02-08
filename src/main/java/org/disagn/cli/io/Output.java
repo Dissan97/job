@@ -3,6 +3,7 @@ package org.disagn.cli.io;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.List;
 
 public class Output{
@@ -43,48 +44,51 @@ public class Output{
         Output.print(page);
     }
 
-    public static void printRow(String page, List<String> values, List<String> columnName){
-        page = "[" + page;
-        int max = 0;
+    public static void printTable(String page, String tableName, String[] columnNames, String[][] rowEntries) {
+        int[] columnWidths = new int[columnNames.length];
+        Arrays.fill(columnWidths, 0);
 
-        for (String column: values
-             ) {
-            if (max < column.length()){
-                max = column.length();
+        for (int i = 0; i < columnNames.length; i++) {
+            columnWidths[i] = Math.max(columnWidths[i], columnNames[i].length());
+        }
+
+        for (String[] row : rowEntries) {
+            for (int i = 0; i < row.length; i++) {
+                columnWidths[i] = Math.max(columnWidths[i], row[i].length());
             }
         }
 
-        for (String column: columnName
-        ) {
-            if (max < column.length()){
-                max = column.length();
-            }
+        StringBuilder sb = new StringBuilder();
+        //the top border
+        for (int width : columnWidths) {
+            sb.append("+");
+            sb.append("-".repeat(Math.max(0, width + 2)));
+        }
+        sb.append("+\n");
+        // Add the column names
+        appender(columnWidths, sb, columnNames);
+
+        // Add the row entries
+        for (String[] row : rowEntries) {
+            appender(columnWidths, sb, row);
         }
 
-        StringBuilder lines = new StringBuilder("___");
+        Output.pageMessage(page, tableName + "\n" + sb, true);
 
-        lines.append("_".repeat(Math.max(0, (max) * (values.size()))));
+    }
 
-        lines.append("___");
-        String line = lines.toString();
-
-
-        StringBuilder builder = new StringBuilder();
-
-
-        builder.append(line).append("\n| ");
-        for (String column: values
-        ) {
-            builder.append(column);
-            builder.append(" | ");
+    private static void appender(int[] columnWidths, StringBuilder sb, String[] row) {
+        for (int i = 0; i < row.length; i++) {
+            sb.append("| ");
+            sb.append(row[i]);
+            sb.append(" ".repeat(Math.max(0, columnWidths[i] - row[i].length() + 1)));
         }
-        builder.append(" |\n").append(line);
-
-
-        String output = builder.toString();
-
-        Output.print(output);
-
+        sb.append("|\n");
+        for (int width : columnWidths) {
+            sb.append("+");
+            sb.append("-".repeat(Math.max(0, width + 2)));
+        }
+        sb.append("+\n");
     }
 
     public static void exception(Exception e) {

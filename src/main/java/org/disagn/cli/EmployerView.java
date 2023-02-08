@@ -20,17 +20,17 @@ import java.util.List;
 public class EmployerView extends JobAbstractState {
 
     private List<String> commandList;
-    private final String pageMsg;
+    private final String page;
     private final User user;
     public EmployerView(User user) {
         this.user = user;
         PageContainer container = new PageContainer("HOME", this.user);
-        this.pageMsg = container.display();
+        this.page = container.display();
         try {
             CommandLoader commandLoader = new CommandLoader("EMPLOYER");
             this.commandList = commandLoader.getCommandList();
         } catch (FileNotFoundException e) {
-            Output.pageMessage(this.pageMsg, e.getMessage(), true);
+            Output.pageMessage(this.page, e.getMessage(), true);
         }
     }
     /**
@@ -40,12 +40,11 @@ public class EmployerView extends JobAbstractState {
     public void entry(CliMachine stateMachine) {
 
         while (true) {
-            Output.pageMessage(this.pageMsg, CommandLoader.helpMessage, false);
+            Output.pageMessage(this.page, CommandLoader.helpMessage, false);
             String line = Input.getCmd(this.commandList);
             JobAbstractState newState = null;
             switch (line) {
                 case "ACCOUNT" -> newState = new AccountStateCli(this.user);
-
 
                 case "PUBLISH_SHIFT" -> newState = new PublishShiftStateCli(this.user);
 
@@ -53,20 +52,21 @@ public class EmployerView extends JobAbstractState {
 
                 case "MANAGE_APPLICANTS" -> newState = new ViewApplicantsStateCli(this.user);
 
-                case "HELP" -> Output.printList(pageMsg + ": HELP", this.commandList);
+                case "HELP" -> Output.printList(page + ": HELP", this.commandList);
                 case "LOG_OUT" -> {
                     Login.LogOut();
                     return;
                 }
                 case "EXIT" -> {
+                    Output.pageMessage(page, this.user.getUsername() + " Bye...", true);
                     return;
                 }
                 case ""->{}
 
-                case "INVALID_NUMBER"-> Output.pageMessage(this.pageMsg, line + " VALUES ALLOWED 0.." + (this.commandList.size() - 1), true);
+                case "INVALID_NUMBER"-> Output.pageMessage(this.page, line + " VALUES ALLOWED 0.." + (this.commandList.size() - 1), true);
                 default -> {
-                    Output.pageMessage(this.pageMsg, "PLEASE TYPE THIS COMMAND", true);
-                    Output.printList("HELP" + pageMsg, this.commandList);
+                    Output.pageMessage(this.page, "PLEASE TYPE THIS COMMAND", true);
+                    Output.printList("HELP" + page, this.commandList);
                 }
             }
 
