@@ -61,7 +61,7 @@ public class UserHomeGui {
         try {
             GuiManager.changeScene("view_demise.fxml");
         } catch (IOException e) {
-            e.printStackTrace();
+            GuiManager.exception(e);
         }
     }
 
@@ -70,7 +70,7 @@ public class UserHomeGui {
         try {
             GuiManager.changeScene("scheduling.fxml");
         } catch (IOException e) {
-            e.printStackTrace();
+            GuiManager.exception(e);
         }
     }
 }

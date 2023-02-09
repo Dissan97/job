@@ -112,7 +112,7 @@ public class FileSystem implements DAO {
             writer.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Output.exception(e);
         }
 
     }
@@ -128,6 +128,7 @@ public class FileSystem implements DAO {
                     )
             );
         } catch (FileNotFoundException ignored) {
+            //This can be ignored
         }
 
         Type reviewType = new TypeToken<User>() {
@@ -191,7 +192,7 @@ public class FileSystem implements DAO {
             writer.close();
             localWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Output.exception(e);
         }
     }
 

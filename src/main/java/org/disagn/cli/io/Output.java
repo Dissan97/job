@@ -17,7 +17,7 @@ public class Output{
             WRITER.write(msg, 0, msg.length());
             WRITER.flush();
         }catch (IOException e){
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 

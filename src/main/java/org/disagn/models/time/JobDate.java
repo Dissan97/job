@@ -89,10 +89,8 @@ public class JobDate {
                 throw new InvalidDateException("February cannot ha more than 29 days");
             }
 
-            if (num % 4 != 0){
-                if (second > 28){
-                    throw new InvalidDateException("This year is not leap");
-                }
+            if (num % 4 != 0 && second > 28){
+                throw new InvalidDateException("This year is not leap");
             }
 
             secondLeapControl(second, localYear);

@@ -17,7 +17,7 @@ public class Input{
         try {
             line = in.readLine();
         }catch (IOException e){
-            e.printStackTrace();
+            Output.exception(e);
         }
         return line;
     }

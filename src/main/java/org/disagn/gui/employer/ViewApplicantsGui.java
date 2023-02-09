@@ -47,7 +47,7 @@ public class ViewApplicantsGui {
         try {
             acceptorController.getUserData(GuiStarter.user);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            GuiManager.exception(e);
         }
 
         AccountBean accountBean = acceptorController.getAccountBean();

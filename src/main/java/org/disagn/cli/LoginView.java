@@ -117,7 +117,7 @@ public class LoginView implements JobView{
         try {
             this.controller.signUp(this.username, this.password, this.name, this.surname, this.dateOfBirth, this.cityOfBirth, type);
         } catch (Exception e) {
-            e.printStackTrace();
+            Output.exception(e);
             return Macros.ERROR;
         }finally {
             this.refresh();

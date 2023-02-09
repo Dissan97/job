@@ -30,7 +30,7 @@ public class EmployeeView extends JobAbstractState {
         try {
             employee = new Employee(user);
         } catch (InvalidDateException e) {
-            e.printStackTrace();
+            Output.exception(e);
         }
 
         PageContainer container = new PageContainer("HOME", user);
