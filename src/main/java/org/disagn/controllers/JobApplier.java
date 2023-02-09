@@ -79,14 +79,14 @@ public class JobApplier {
         DemiseBean demiseBean = demiseController.getBean();
 
         demiseController.pullDemises(user);
-        List<ShiftApply> applyList = new ArrayList<>();
+        List<ShiftApply> localApplyList = new ArrayList<>();
         List<Demise> demiseList = demiseBean.getDemiseList();
 
         try{
             for (ShiftApply apply:
                  this.applyList) {
                 JobDate.controlBadDate(apply.getApplyDate());
-                applyList.add(apply);
+                localApplyList.add(apply);
             }
         } catch (Exception e) {
             Output.println(e.getMessage());
@@ -94,10 +94,10 @@ public class JobApplier {
 
         for (Demise d:
              demiseList) {
-            applyList.removeIf(a -> a.toString().equals(d.getApplication()));
+            localApplyList.removeIf(a -> a.toString().equals(d.getApplication()));
         }
 
-        this.applyList = applyList;
+        this.applyList = localApplyList;
 
     }
 

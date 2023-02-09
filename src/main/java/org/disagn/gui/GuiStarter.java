@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class GuiStarter implements JobView {
-    private static User user;
+    public static User user;
 
     public GuiStarter(User u) {
         user = u;
@@ -24,7 +24,4 @@ public class GuiStarter implements JobView {
         }
     }
 
-    public static User getUser() {
-        return user;
-    }
 }

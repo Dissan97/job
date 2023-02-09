@@ -6,6 +6,7 @@ import org.disagn.exceptions.ShiftAlreadyExists;
 import org.disagn.models.time.JobDate;
 import org.disagn.models.time.JobDateTime;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -18,7 +19,7 @@ public class ShiftPublisherGraphic {
     }
 
 
-    public void publishShift(String username, String name, String place, String dateTime, String description) throws ShiftAlreadyExists, SQLException {
+    public void publishShift(String username, String name, String place, String dateTime, String description) throws ShiftAlreadyExists, SQLException, IOException {
         shiftPublisher.publish(username, name, place, dateTime, description); //can add something that return an error?
     }
 

@@ -51,7 +51,7 @@ public class DemiseGraphicController {
         }
     }
 
-    public void manageDemise(Demise demise, boolean b) throws Exception {
+    public void manageDemise(Demise demise, boolean b) throws IOException {
         if (demise != null) {
             this.demiseBean.pendingDemiseAcceptance(demise, b);
             if (b) {

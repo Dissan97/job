@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,9 +32,9 @@ class LoginTest {
             login.signUp("test", "testPassword", "test", "test", dateFormat.format(date), "test", Macros.EMPLOYEE);
             LOGGER.info("Login gone");
             isGone = true;
-        } catch (UserAlreadyExistException | InvalidDateException | SQLException e) {
+        } catch (UserAlreadyExistException | InvalidDateException | SQLException | FileNotFoundException e) {
             Output.exception(e);
-        }finally{
+        } finally{
             assertTrue(isGone);
         }
     }

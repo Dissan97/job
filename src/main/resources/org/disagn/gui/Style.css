@@ -4,8 +4,6 @@
   }
   
 .label {
-
-    -fx-background-color: lightpink;
     -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-text-fill: #3E8E41;

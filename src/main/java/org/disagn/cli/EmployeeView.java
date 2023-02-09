@@ -10,11 +10,11 @@ import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.models.users.Employee;
 import org.disagn.models.users.User;
 import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.cliMachine.AccountStateCli;
-import org.disagn.machines.cliMachine.CliMachine;
-import org.disagn.machines.cliMachine.employee.ApplyShift;
-import org.disagn.machines.cliMachine.employee.DemiseManagerStateCli;
-import org.disagn.machines.cliMachine.employee.ViewAppliesStateCli;
+import org.disagn.machines.commandline.AccountStateCli;
+import org.disagn.machines.commandline.CliMachine;
+import org.disagn.machines.commandline.employee.ApplyShift;
+import org.disagn.machines.commandline.employee.DemiseManagerStateCli;
+import org.disagn.machines.commandline.employee.ViewAppliesStateCli;
 
 import java.io.FileNotFoundException;
 import java.util.List;

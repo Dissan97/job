@@ -9,11 +9,11 @@ import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.models.users.User;
 import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.cliMachine.AccountStateCli;
-import org.disagn.machines.cliMachine.CliMachine;
-import org.disagn.machines.cliMachine.ViewSchedulingStateCli;
-import org.disagn.machines.cliMachine.employer.ViewApplicantsStateCli;
-import org.disagn.machines.cliMachine.employer.PublishShiftStateCli;
+import org.disagn.machines.commandline.AccountStateCli;
+import org.disagn.machines.commandline.CliMachine;
+import org.disagn.machines.commandline.ViewSchedulingStateCli;
+import org.disagn.machines.commandline.employer.ViewApplicantsStateCli;
+import org.disagn.machines.commandline.employer.PublishShiftStateCli;
 
 import java.io.FileNotFoundException;
 import java.util.List;

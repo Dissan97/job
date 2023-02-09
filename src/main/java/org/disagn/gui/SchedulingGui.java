@@ -39,7 +39,7 @@ public class SchedulingGui {
     @FXML
     public void buildView() {
 
-        ShiftSchedulerGraphic controller = new ShiftSchedulerGraphic(GuiStarter.getUser());
+        ShiftSchedulerGraphic controller = new ShiftSchedulerGraphic(GuiStarter.user);
         controller.setUpDates();
         ShiftSchedulerBean bean = controller.getBean();
         List<String> dateList = bean.getDateList();
@@ -67,7 +67,7 @@ public class SchedulingGui {
 
 
         String actor = "Employee: ";
-        Macros type = GuiStarter.getUser().getUserType();
+        Macros type = GuiStarter.user.getUserType();
         if (type == Macros.EMPLOYEE){
             actor = "Employer: ";
         }

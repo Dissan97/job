@@ -9,6 +9,7 @@ import org.disagn.graphics.LoginGraphic;
 import org.disagn.gui.GuiManager;
 import org.disagn.interfaces.JobView;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SignInGui implements JobView {
@@ -41,6 +42,8 @@ public class SignInGui implements JobView {
               GuiManager.exception(e);
             } catch (NoInterfaceException e) {
                 Output.println(e.getMessage());
+            } catch (FileNotFoundException e) {
+                Output.exception(e);
             }
         }else{
             GuiManager.popUp("Insert user name and password");

@@ -170,7 +170,6 @@ public class JobDate {
 
         if (major){
             if ((diffDays >= 0 && diffDays <= days)) {
-                System.out.println("less than a day: " + date );
                 throw new InvalidDateException();
             }
         }else {

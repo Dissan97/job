@@ -1,4 +1,4 @@
-package org.disagn.machines.cliMachine.employer;
+package org.disagn.machines.commandline.employer;
 
 import org.disagn.cli.io.Input;
 import org.disagn.cli.io.Output;
@@ -7,8 +7,8 @@ import org.disagn.graphics.ApplicationAcceptorGraphic;
 import org.disagn.models.job.ShiftApply;
 import org.disagn.models.users.User;
 import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.cliMachine.AccountStateCli;
-import org.disagn.machines.cliMachine.CliMachine;
+import org.disagn.machines.commandline.AccountStateCli;
+import org.disagn.machines.commandline.CliMachine;
 
 public class ManageApplicantStateCli extends JobAbstractState {
 

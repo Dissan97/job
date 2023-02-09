@@ -1,4 +1,4 @@
-package org.disagn.machines.cliMachine.employee;
+package org.disagn.machines.commandline.employee;
 
 
 import org.disagn.beans.DemiseBean;
@@ -9,7 +9,7 @@ import org.disagn.graphics.DemiseGraphicController;
 import org.disagn.models.job.Demise;
 import org.disagn.models.users.User;
 import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.cliMachine.CliMachine;
+import org.disagn.machines.commandline.CliMachine;
 import java.util.ArrayList;
 import java.util.List;
 

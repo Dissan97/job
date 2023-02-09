@@ -18,11 +18,11 @@ public class AccountGui {
 
     @FXML
     public void initialize(){
-        username.setText(username.getText() + GuiStarter.getUser().getUsername()+"]");
-        name.setText(name.getText() + GuiStarter.getUser().getName());
-        surname.setText(surname.getText() + GuiStarter.getUser().getSurname());
-        dateOfBirth.setText(dateOfBirth.getText() + GuiStarter.getUser().getDateOfBirth());
-        cityOfBirth.setText(cityOfBirth.getText() + GuiStarter.getUser().getCityOfBirth());
+        username.setText(username.getText() + GuiStarter.user.getUsername()+"]");
+        name.setText(name.getText() + GuiStarter.user.getName());
+        surname.setText(surname.getText() + GuiStarter.user.getSurname());
+        dateOfBirth.setText(dateOfBirth.getText() + GuiStarter.user.getDateOfBirth());
+        cityOfBirth.setText(cityOfBirth.getText() + GuiStarter.user.getCityOfBirth());
     }
 
 

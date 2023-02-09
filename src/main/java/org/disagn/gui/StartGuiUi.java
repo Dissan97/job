@@ -10,7 +10,7 @@ public class StartGuiUi extends Application implements JobView {
     public void start(Stage stage) throws Exception {
         stage.setTitle("FAST JOB");
         GuiManager.setStage(stage);
-        if (GuiStarter.getUser() == null) {
+        if (GuiStarter.user == null) {
             GuiManager.setUp("sign_in.fxml");
         }
     }

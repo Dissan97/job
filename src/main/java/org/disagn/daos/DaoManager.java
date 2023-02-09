@@ -34,7 +34,7 @@ public class DaoManager implements DAO, Runnable {
     }
 
     @Override
-    public void pushUser(User user) throws UserAlreadyExistException {
+    public void pushUser(User user) throws UserAlreadyExistException, FileNotFoundException {
             this.user = user;
             this.fileSystem.pushUser(this.user);
             this.state = DAOState.POST_USER;
@@ -52,12 +52,12 @@ public class DaoManager implements DAO, Runnable {
     }
 
     @Override
-    public List<User> getUserList() {
+    public List<User> getUserList() throws FileNotFoundException {
         return this.fileSystem.getUserList();
     }
 
     @Override
-    public void pushShift(Shift shift) {
+    public void pushShift(Shift shift) throws IOException {
         this.fileSystem.pushShift(shift);
         this.shift = shift;
         this.state = DAOState.POST_SHIFT;
@@ -65,7 +65,7 @@ public class DaoManager implements DAO, Runnable {
     }
 
     @Override
-    public List<Shift> pullShifts() {
+    public List<Shift> pullShifts() throws FileNotFoundException {
         return this.fileSystem.pullShifts();
     }
 

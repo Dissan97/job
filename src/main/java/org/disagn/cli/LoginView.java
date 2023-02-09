@@ -28,14 +28,14 @@ public class LoginView implements JobView{
     private String dateOfBirth = null;
     private String cityOfBirth = null;
 
-    private static final String login = "LOGIN";
+    private static final String LOGIN = "LOGIN";
 
     public LoginView() {
         try {
-            CommandLoader commandLoader = new CommandLoader(login);
+            CommandLoader commandLoader = new CommandLoader(LOGIN);
             this.commandList = commandLoader.getCommandList();
         } catch (FileNotFoundException e) {
-            Output.pageMessage(login, e.getMessage(), true);
+            Output.pageMessage(LOGIN, e.getMessage(), true);
         }
         this.controller = new LoginGraphic();
     }
@@ -44,7 +44,7 @@ public class LoginView implements JobView{
     public void startUi() {
 
         String line;
-        PageContainer container = new PageContainer(login);
+        PageContainer container = new PageContainer(LOGIN);
         String page = container.display();
         while (true) {
 
@@ -65,7 +65,7 @@ public class LoginView implements JobView{
                 }
                 case "HELP" -> Output.printList(page, this.commandList);
                 case "EXIT" -> {
-                    Output.pageMessage(login, "bye...", true);
+                    Output.pageMessage(LOGIN, "bye...", true);
                     return;
                 }
                 case "" ->{
@@ -220,6 +220,8 @@ public class LoginView implements JobView{
             return SIGN_IN_FAILED;
         } catch (NoInterfaceException e) {
             Output.println(e.getMessage());
+        } catch (FileNotFoundException e) {
+            Output.exception(e);
         }
         return SIGN_IN_SUCCESS;
     }
@@ -231,7 +233,7 @@ public class LoginView implements JobView{
         if (s.equalsIgnoreCase("#BACK") || s.equalsIgnoreCase("#EXIT")){
             ret = true;
             this.refresh();
-            Output.pageMessage(login, "EXITING PROCEDURE", true);
+            Output.pageMessage(LOGIN, "EXITING PROCEDURE", true);
         }
         return ret;
     }

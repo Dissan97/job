@@ -5,7 +5,7 @@ import org.disagn.cli.AssistantView;
 import org.disagn.cli.EmployeeView;
 import org.disagn.cli.EmployerView;
 import org.disagn.models.users.User;
-import org.disagn.machines.cliMachine.CliMachine;
+import org.disagn.machines.commandline.CliMachine;
 
 public abstract class JobAbstractState{
 

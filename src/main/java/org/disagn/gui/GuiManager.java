@@ -24,8 +24,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GuiManager {
 
-    public final static int WEIGHT = 1024;
-    public final static int HEIGHT = 720;
+    public static final  int WEIGHT = 1024;
+    public static final int HEIGHT = 720;
     public static final double BUTTON_WIDTH = 500;
     public static final int BUTTON_HEIGHT = 100;
     private static Scene home = null;

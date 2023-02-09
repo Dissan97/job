@@ -4,13 +4,13 @@ import org.disagn.exceptions.ShiftAlreadyExists;
 import org.disagn.factories.DAOFactory;
 import org.disagn.interfaces.DAO;
 import org.disagn.models.job.Shift;
-
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class ShiftPublisher {
 
-    public void publish(String employer, String name, String jobPlace, String jobDateTime,String description) throws ShiftAlreadyExists, SQLException {
+    public void publish(String employer, String name, String jobPlace, String jobDateTime,String description) throws ShiftAlreadyExists, SQLException, IOException {
         Shift shift = new Shift(employer, name, jobPlace, jobDateTime, description);
         DAO dao = DAOFactory.getDAO();
         List<Shift> shiftList = dao.pullShifts();

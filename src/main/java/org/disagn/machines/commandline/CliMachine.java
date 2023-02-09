@@ -1,4 +1,4 @@
-package org.disagn.machines.cliMachine;
+package org.disagn.machines.commandline;
 
 
 import org.disagn.cli.io.Output;

@@ -1,4 +1,4 @@
-package org.disagn.machines.cliMachine.employer;
+package org.disagn.machines.commandline.employer;
 
 import org.disagn.beans.AccountBean;
 import org.disagn.beans.JobApplierBean;
@@ -9,7 +9,7 @@ import org.disagn.graphics.ApplicationAcceptorGraphic;
 import org.disagn.models.job.ShiftApply;
 import org.disagn.models.users.User;
 import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.cliMachine.CliMachine;
+import org.disagn.machines.commandline.CliMachine;
 
 
 import java.io.FileNotFoundException;

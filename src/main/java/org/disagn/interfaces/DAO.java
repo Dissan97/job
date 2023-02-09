@@ -13,17 +13,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface DAO {
-    void pushUser(User user) throws UserAlreadyExistException, SQLException;
+    void pushUser(User user) throws UserAlreadyExistException, SQLException, FileNotFoundException;
 
     void saveConfig(User user);
 
     User loadConfig();
 
-    List<User> getUserList();
+    List<User> getUserList() throws FileNotFoundException;
 
-    void pushShift(Shift shift) throws SQLException;
+    void pushShift(Shift shift) throws SQLException, IOException;
 
-    List<Shift> pullShifts();
+    List<Shift> pullShifts() throws FileNotFoundException;
 
     List<ShiftApply> pullSchedules(User employer) throws FileNotFoundException;
 

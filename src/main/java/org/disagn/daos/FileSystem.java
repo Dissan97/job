@@ -23,31 +23,31 @@ import java.util.Locale;
 
 public class FileSystem implements DAO {
 
-    private static final String daoPath = "src/main/resources/org/disagn/dao/";
-    private static final String userPath = daoPath + "/user.json";
-    private static final String configPath = daoPath + "/config.json";
-    private static final String shifts = "/shifts.json";
-    private static final String demises = "/demises.json";
-    private static final String schedules = "/schedules.json";
-    private static final String appliances = "/appliances.json";
-    private static final String employerPath = "users/employer/";
-    private static final String employeePath = "users/employee/";
-    private static final String shiftPath = daoPath + shifts;
+    private static final String DAO_PATH = "src/main/resources/org/disagn/dao/";
+    private static final String USER_PATH = DAO_PATH + "/user.json";
+    private static final String CONFIG_PATH = DAO_PATH + "/config.json";
+    private static final String SHIFTS = "/shifts.json";
+    private static final String DEMISES = "/demises.json";
+    private static final String SCHEDULES = "/schedules.json";
+    private static final String APPLIANCES = "/appliances.json";
+    private static final String EMPLOYER_PATH = "users/employer/";
+    private static final String EMPLOYEE_PATH = "users/employee/";
+    private static final String SHIFT_PATH = DAO_PATH + SHIFTS;
 
-    private static final String demisePath = daoPath + demises;
+    private static final String DEMISE_PATH = DAO_PATH + DEMISES;
 
 
     @Override
-    public void pushUser(User user) throws UserAlreadyExistException {
+    public void pushUser(User user) throws UserAlreadyExistException, FileNotFoundException {
 
-        File usersFile = new File(userPath);
+        File usersFile = new File(USER_PATH);
 
         BufferedWriter writer;
 
         List<User> users = this.getUserList();
 
         String folder = user.getUserType().name().toLowerCase(Locale.ROOT) + "/";
-        String path = daoPath + "users/" + folder + user.getUsername();
+        String path = DAO_PATH + "users/" + folder + user.getUsername();
 
         File dir = new File(path);
 
@@ -60,13 +60,13 @@ public class FileSystem implements DAO {
         try {
 
 
-            this.initFile(path + schedules);
-            this.initFile(path + appliances);
+            this.initFile(path + SCHEDULES);
+            this.initFile(path + APPLIANCES);
             Macros types = user.getUserType();
             if (types == Macros.EMPLOYER) {
-                this.initFile(path + shifts);
+                this.initFile(path + SHIFTS);
             } else if (types == Macros.EMPLOYEE) {
-                this.initFile(path + demises);
+                this.initFile(path + DEMISES);
             }
         }catch (IOException e){
             throw  new UserAlreadyExistException(e.getMessage());
@@ -105,7 +105,7 @@ public class FileSystem implements DAO {
         BufferedWriter writer;
         try {
              writer = new BufferedWriter(
-                    new FileWriter(configPath)
+                    new FileWriter(CONFIG_PATH)
             );
             Gson gson = new Gson();
             gson.toJson(user, writer);
@@ -124,7 +124,7 @@ public class FileSystem implements DAO {
         try {
             jsonReader = JsonParser.parseReader(
                     new JsonReader(
-                            new FileReader(configPath)
+                            new FileReader(CONFIG_PATH)
                     )
             );
         } catch (FileNotFoundException ignored) {
@@ -138,18 +138,15 @@ public class FileSystem implements DAO {
     }
 
     @Override
-    public List<User> getUserList() {
+    public List<User> getUserList() throws FileNotFoundException {
         JsonElement reader;
 
-        try {
             reader = JsonParser.parseReader(
                     new JsonReader(
-                            new FileReader(userPath)
+                            new FileReader(USER_PATH)
                     )
             );
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
 
         Type reviewType = new TypeToken<List<User>>() {
         }.getType();
@@ -160,21 +157,20 @@ public class FileSystem implements DAO {
     }
 
     @Override
-    public void pushShift(Shift shift) {
+    public void pushShift(Shift shift) throws IOException {
 
-        File file = new File(shiftPath);
-        //todo add a filter to this function
-        File localFile = new File(daoPath + employerPath +shift.getEmployer() + shifts);
+        File file = new File(SHIFT_PATH);
+        File localFile = new File(DAO_PATH + EMPLOYER_PATH +shift.getEmployer() + SHIFTS);
         BufferedWriter writer;
         BufferedWriter localWriter;
 
-        List<Shift> shifts = this.pullShifts();
-        if (shifts == null){
-            shifts = new ArrayList<>();
+        List<Shift> localShifts = this.pullShifts();
+        if (localShifts == null){
+            localShifts = new ArrayList<>();
         }
-        shifts.add(shift);
+        localShifts.add(shift);
 
-        try {
+
             writer = new BufferedWriter(
                     new FileWriter(file, false)
             );
@@ -182,17 +178,15 @@ public class FileSystem implements DAO {
             localWriter = new BufferedWriter(
                     new FileWriter(localFile, false)
             );
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
 
 
         Gson gson = new Gson();
-        gson.toJson(shifts, writer);
+        gson.toJson(localShifts, writer);
 
-        shifts = this.getMineShifts(shifts, shift.getEmployer());
+        localShifts = this.getMineShifts(localShifts, shift.getEmployer());
 
-        gson.toJson(shifts, localWriter);
+        gson.toJson(localShifts, localWriter);
         try {
             writer.close();
             localWriter.close();
@@ -202,18 +196,16 @@ public class FileSystem implements DAO {
     }
 
     @Override
-    public List<Shift> pullShifts() {
+    public List<Shift> pullShifts() throws FileNotFoundException {
         JsonElement reader;
 
-        try {
-            reader = JsonParser.parseReader(
-                    new JsonReader(
-                            new FileReader(shiftPath)
-                    )
-            );
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
+        reader = JsonParser.parseReader(
+                new JsonReader(
+                        new FileReader(SHIFT_PATH)
+                )
+        );
+
 
         Type reviewType = new TypeToken<List<Shift>>() {
         }.getType();
@@ -226,8 +218,8 @@ public class FileSystem implements DAO {
     @Override
     public List<ShiftApply> pullSchedules(User user) throws FileNotFoundException {
         String type = user.getUserType().name().toLowerCase();
-        String path = daoPath + "users/" + type + "/" + user.getUsername() + demises;
-        System.out.println("I' m here");
+        String u = "users";
+        String path = DAO_PATH + u + "/" + type + "/" + user.getUsername() + DEMISES;
         JsonElement reader;
 
 
@@ -248,8 +240,8 @@ public class FileSystem implements DAO {
 
     @Override
     public void pushSchedule(ShiftApply apply, User user) throws IOException {
-        String employer = daoPath + FileSystem.employeePath + apply.getEmployee();
-        String employee = daoPath + FileSystem.employerPath + apply.getEmployer();
+        String employer = DAO_PATH + FileSystem.EMPLOYEE_PATH + apply.getEmployee();
+        String employee = DAO_PATH + FileSystem.EMPLOYER_PATH + apply.getEmployer();
         this.setSchedule(apply, employer, user);
         this.setSchedule(apply, employee, user);
     }
@@ -257,7 +249,7 @@ public class FileSystem implements DAO {
     @Override
     public List<Demise> pullEmployeeDemise(String employee) throws FileNotFoundException {
 
-        String path = daoPath + employeePath + employee + demises;
+        String path = DAO_PATH + EMPLOYEE_PATH + employee + DEMISES;
 
         return getDemises(path);
     }
@@ -284,7 +276,7 @@ public class FileSystem implements DAO {
     @Override
     public void pushEmployeeDemise(Demise apply) throws IOException {
         String employee = apply.getEmployee();
-        String path = daoPath + employeePath + employee + demises;
+        String path = DAO_PATH + EMPLOYEE_PATH + employee + DEMISES;
         List<Demise> demiseList = this.pullEmployeeDemise(employee);
         demiseList.add(apply);
         BufferedWriter writer;
@@ -303,7 +295,7 @@ public class FileSystem implements DAO {
     @Override
     public List<Demise> pullDemises() throws FileNotFoundException {
 
-        return getDemises(demisePath);
+        return getDemises(DEMISE_PATH);
     }
 
     @Override
@@ -315,7 +307,7 @@ public class FileSystem implements DAO {
         BufferedWriter writer;
 
         writer = new BufferedWriter(
-                new FileWriter(demisePath)
+                new FileWriter(DEMISE_PATH)
         );
 
         Gson gson = new Gson();
@@ -336,7 +328,7 @@ public class FileSystem implements DAO {
         Gson gson = new Gson();
 
         BufferedWriter writer = new BufferedWriter(
-                new FileWriter(daoPath + employeePath +demise.getEmployee() + demises)
+                new FileWriter(DAO_PATH + EMPLOYEE_PATH +demise.getEmployee() + DEMISES)
         );
 
         gson.toJson(listDemise, writer);
@@ -356,7 +348,7 @@ public class FileSystem implements DAO {
         BufferedWriter writer;
 
         writer = new BufferedWriter(
-                new FileWriter(demisePath)
+                new FileWriter(DEMISE_PATH)
         );
 
         Gson gson = new Gson();
@@ -366,9 +358,9 @@ public class FileSystem implements DAO {
     }
 
     private void setSchedule(ShiftApply apply, String path, User user) throws IOException {
-        path += schedules;
-        List<ShiftApply> schedules = this.pullSchedules(user);
-        schedules.add(apply);
+        path += SCHEDULES;
+        List<ShiftApply> localSchedules = this.pullSchedules(user);
+        localSchedules.add(apply);
 
         BufferedWriter writer = new BufferedWriter(
                 new FileWriter(path)
@@ -376,7 +368,7 @@ public class FileSystem implements DAO {
 
         Gson gson = new Gson();
 
-        gson.toJson(schedules, writer);
+        gson.toJson(localSchedules, writer);
         writer.close();
 
     }
@@ -385,9 +377,9 @@ public class FileSystem implements DAO {
     @Override
     public void pushAppliance(ShiftApply shiftApply) throws IOException {
 
-        String filename = appliances;
-        String pathEmployee = daoPath + employeePath + shiftApply.getEmployee() + filename;
-        String pathEmployer = daoPath + employerPath + shiftApply.getEmployer() + filename;
+        String filename = APPLIANCES;
+        String pathEmployee = DAO_PATH + EMPLOYEE_PATH + shiftApply.getEmployee() + filename;
+        String pathEmployer = DAO_PATH + EMPLOYER_PATH + shiftApply.getEmployer() + filename;
 
         List<ShiftApply> shiftApplies;
 
@@ -432,17 +424,17 @@ public class FileSystem implements DAO {
         String applyPath = "";
 
         if (user.getUserType() == Macros.EMPLOYEE){
-            applyPath = daoPath + employeePath + user.getUsername() + appliances;
+            applyPath = DAO_PATH + EMPLOYEE_PATH + user.getUsername() + APPLIANCES;
         }else if (user.getUserType() == Macros.EMPLOYER){
-            applyPath = daoPath + employerPath + user.getUsername() + appliances;
+            applyPath = DAO_PATH + EMPLOYER_PATH + user.getUsername() + APPLIANCES;
         }
         return this.getEmployeeApplication(applyPath);
     }
 
     @Override
     public void removeAppliance(ShiftApply apply) throws IOException {
-        String pathEmployee = daoPath + employeePath + apply.getEmployee() + appliances;
-        String pathEmployer = daoPath + employerPath + apply.getEmployer() + appliances;
+        String pathEmployee = DAO_PATH + EMPLOYEE_PATH + apply.getEmployee() + APPLIANCES;
+        String pathEmployer = DAO_PATH + EMPLOYER_PATH + apply.getEmployer() + APPLIANCES;
 
         List<ShiftApply> applyList = this.getEmployeeApplication(pathEmployee);
 

@@ -46,7 +46,7 @@ public class AssistantGui {
         DemiseGraphicController controller = new DemiseGraphicController();
         DemiseBean bean = controller.getBean();
         try {
-            controller.pullDemises(GuiStarter.getUser());
+            controller.pullDemises(GuiStarter.user);
         } catch (FileNotFoundException e) {
             GuiManager.exception(e);
         }

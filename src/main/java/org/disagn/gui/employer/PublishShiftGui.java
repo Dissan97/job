@@ -52,7 +52,7 @@ public class PublishShiftGui {
                 if (describe.equals("")){
                     describe = "Job appliance";
                 }
-                controller.publishShift(GuiStarter.getUser().getUsername(), name, place, dateTime, describe);
+                controller.publishShift(GuiStarter.user.getUsername(), name, place, dateTime, describe);
                 GuiManager.popUp("Shift published");
                 this.clear();
             }

@@ -46,7 +46,7 @@ public class ViewAppliesGui {
         Button[] buttons;
         int boxWidth = 325;
         try {
-            controller.pullAppliances(GuiStarter.getUser());
+            controller.pullAppliances(GuiStarter.user);
             List<ShiftApply> applyList = bean.getShiftApplyList();
             if (applyList != null){
                 int size = applyList.size();

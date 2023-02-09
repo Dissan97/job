@@ -5,7 +5,7 @@ import org.disagn.Macros;
 import org.disagn.interfaces.JobView;
 import org.disagn.models.users.User;
 import org.disagn.machines.JobStates;
-import org.disagn.machines.cliMachine.CliMachine;
+import org.disagn.machines.commandline.CliMachine;
 
 public record UserCliUi(User user) implements JobView {
 

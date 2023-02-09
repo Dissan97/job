@@ -11,6 +11,7 @@ import org.disagn.factories.UiFactory;
 import org.disagn.interfaces.JobView;
 import org.disagn.models.users.User;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
 public class LoginGraphic {
@@ -21,14 +22,14 @@ public class LoginGraphic {
         this.controller = new Login();
     }
 
-    public void signIn(String username, String password, boolean store) throws UserLoginFailedException, NoInterfaceException {
+    public void signIn(String username, String password, boolean store) throws UserLoginFailedException, NoInterfaceException, FileNotFoundException {
             controller.signIn(username, password, store);
             User user = this.controller.getUser();
             JobView view = UiFactory.getUi(user.getUserType(), user);
             view.startUi();
     }
 
-    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, Macros type) throws UserAlreadyExistException, InvalidDateException, SQLException {
+    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, Macros type) throws UserAlreadyExistException, InvalidDateException, SQLException, FileNotFoundException {
             controller.signUp(username, password, name, surname, dateOfBirth, cityOfBirth, type);
     }
 
@@ -36,7 +37,7 @@ public class LoginGraphic {
         return (str != null && !str.equals("")) && (!pwd || str.length() >= 8);
     }
 
-    public void pullEmployee(AccountBean bean){
+    public void pullEmployee(AccountBean bean) throws FileNotFoundException {
         this.controller.pullEmployee(bean);
     }
 

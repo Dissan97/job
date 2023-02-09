@@ -33,15 +33,15 @@ public class JobDateTime extends JobDate {
             throw new InvalidDateException("TIME FORMAT ERROR: " + time);
         }
 
-        int hour = Integer.parseInt(t[0]);
-        int minute = Integer.parseInt(t[1]);
+        int localHour = Integer.parseInt(t[0]);
+        int localMinute = Integer.parseInt(t[1]);
 
-        if (hour > 24 || minute > 60){
+        if (localHour > 24 || localMinute > 60){
             throw new InvalidDateException("TIME FORMAT ERROR: " + time);
         }
 
-        this.hour = hour;
-        this.minute = minute;
+        this.hour = localHour;
+        this.minute = localMinute;
 
     }
 
