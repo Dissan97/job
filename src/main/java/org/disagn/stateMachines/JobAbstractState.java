@@ -13,12 +13,13 @@ public abstract class JobAbstractState{
     public void exit(){}
 
     public static JobAbstractState getInitializer(User user){
-        JobAbstractState initialState = null;
+        JobAbstractState initialState;
         switch (user.getUserType()){
 
             case EMPLOYEE -> initialState = new EmployeeView(user);
             case EMPLOYER -> initialState = new EmployerView(user);
             case ASSISTANT -> initialState = new AssistantView(user);
+            default -> initialState =null;
         }
         return initialState;
     }

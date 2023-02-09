@@ -54,7 +54,12 @@ public class ApplyShift extends JobAbstractState {
             return;
         }
 
+        applyShift(availableShifts, shiftList, controller);
 
+        stateMachine.getBack();
+    }
+
+    private void applyShift(List<String> availableShifts, List<Shift> shiftList, JobApplierGraphic controller) {
         String cmd;
         while (true) {
             Output.printList(page, availableShifts);
@@ -85,8 +90,6 @@ public class ApplyShift extends JobAbstractState {
             }
             Output.pageMessage(page, "[" + cmd + "] not found in the shift list", true);
         }
-
-        stateMachine.getBack();
     }
 
 }

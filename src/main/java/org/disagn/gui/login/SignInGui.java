@@ -2,6 +2,8 @@ package org.disagn.gui.login;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.disagn.cli.io.Output;
+import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.exceptions.UserLoginFailedException;
 import org.disagn.graphicControllers.LoginGraphic;
 import org.disagn.gui.GuiManager;
@@ -36,6 +38,8 @@ public class SignInGui implements JobView {
 
             } catch (UserLoginFailedException e) {
               GuiManager.exception(e);
+            } catch (NoInterfaceException e) {
+                Output.println(e.getMessage());
             }
         }else{
             GuiManager.popUp("Insert user name and password");
@@ -59,7 +63,4 @@ public class SignInGui implements JobView {
         }
     }
 
-    public void getUser(){
-
-    }
 }

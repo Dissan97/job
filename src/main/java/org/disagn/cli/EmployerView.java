@@ -6,6 +6,7 @@ import org.disagn.cli.io.Input;
 import org.disagn.cli.io.Output;
 import org.disagn.controllers.Login;
 import org.disagn.decorator.PageContainer;
+import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.models.users.User;
 import org.disagn.stateMachines.JobAbstractState;
 import org.disagn.stateMachines.cliMachine.AccountStateCli;
@@ -40,7 +41,7 @@ public class EmployerView extends JobAbstractState {
     public void entry(CliMachine stateMachine) {
 
         while (true) {
-            Output.pageMessage(this.page, CommandLoader.helpMessage, false);
+            Output.pageMessage(this.page, CommandLoader.HELP, false);
             String line = Input.getCmd(this.commandList);
             JobAbstractState newState = null;
             switch (line) {
@@ -54,7 +55,11 @@ public class EmployerView extends JobAbstractState {
 
                 case "HELP" -> Output.printList(page + ": HELP", this.commandList);
                 case "LOG_OUT" -> {
-                    Login.LogOut();
+                    try {
+                        Login.LogOut();
+                    } catch (NoInterfaceException e) {
+                        Output.println(e.getMessage());
+                    }
                     return;
                 }
                 case "EXIT" -> {

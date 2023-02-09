@@ -97,20 +97,26 @@ public class ViewAppliesStateCli extends JobAbstractState {
             if (appliances.contains(cmd)){
 
                 ShiftApply apply = this.getApply(cmd, applyList);
-                if (apply != null) {
-                    try {
-                        this.controller.removeAppliance(apply);
-                        Output.pageMessage(page, "appliance removed", true);
-                    } catch (InvalidDateException e) {
-                        Output.pageMessage(page, "Application in demise pending state" , true);
-                    } catch (ParseException | IOException | SQLException e) {
-                        Output.exception(e);
-                    } finally {
-                        cmd = "quit";
-                    }
-                }
+                cmd = removeApply(apply);
             }
         }while (!cmd.equalsIgnoreCase("quit") && !cmd.equalsIgnoreCase("exit"));
+    }
+
+    private String removeApply(ShiftApply apply){
+        String cmd = "";
+        if (apply != null) {
+            try {
+                this.controller.removeAppliance(apply);
+                Output.pageMessage(page, "appliance removed", true);
+            } catch (InvalidDateException e) {
+                Output.pageMessage(page, "Application in demise pending state" , true);
+            } catch (ParseException | IOException | SQLException e) {
+                Output.exception(e);
+            } finally {
+                cmd = "quit";
+            }
+        }
+        return cmd;
     }
 
     private ShiftApply getApply(String cmd, List<ShiftApply> applyList){

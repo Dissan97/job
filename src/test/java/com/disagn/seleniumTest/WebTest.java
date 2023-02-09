@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.Objects;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 class WebTest {
     //Selenium test Dissan Uddin Ahmed
     @Test
@@ -21,7 +23,7 @@ class WebTest {
         driver.get("https://www.xe.com/it/currencyconverter/convert/?Amount=1&From=EUR&To=USD");
         // Get the Xpath elem for the searched value of USD
         WebElement dollarValue = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div[2]/section/div[2]/div/main/div/div[2]/div[1]/p[2]"));
-        assert dollarValue != null;
+        assertNotNull(dollarValue);
         float dollar = getValue(dollarValue);
         driver.quit();
         //closing the window
@@ -30,7 +32,7 @@ class WebTest {
         driver.get("https://www.xe.com/it/currencyconverter/convert/?Amount=1&From=EUR&To=GBP");
         // Get the Xpath elem for the searched value of GBD
         WebElement poundValue = driver.findElement(By.xpath("/html/body/div[1]/div[2]/div[2]/section/div[2]/div/main/div/div[2]/div[1]/p[2]"));
-        assert poundValue != null;
+        assertNotNull(poundValue);
         float pound = getValue(poundValue);
         driver.quit();
         // Close the browser window

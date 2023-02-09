@@ -33,9 +33,6 @@ public class DAOFactory {
         return dao;
     }
 
-    public static boolean isFs(){
-        return local;
-    }
 
     public static void setStorageMethod(boolean isLocal) {
         local = isLocal;

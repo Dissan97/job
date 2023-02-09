@@ -4,6 +4,7 @@ import org.disagn.Macros;
 import org.disagn.beans.AccountBean;
 import org.disagn.controllers.Login;
 import org.disagn.exceptions.InvalidDateException;
+import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.exceptions.UserAlreadyExistException;
 import org.disagn.exceptions.UserLoginFailedException;
 import org.disagn.factories.UiFactory;
@@ -20,11 +21,10 @@ public class LoginGraphic {
         this.controller = new Login();
     }
 
-    public void signIn(String username, String password, boolean store) throws UserLoginFailedException {
+    public void signIn(String username, String password, boolean store) throws UserLoginFailedException, NoInterfaceException {
             controller.signIn(username, password, store);
             User user = this.controller.getUser();
             JobView view = UiFactory.getUi(user.getUserType(), user);
-            assert view != null;
             view.startUi();
     }
 

@@ -1,7 +1,9 @@
 package org.disagn.models.users;
 
 import org.disagn.exceptions.InvalidDateException;
-
+/**
+ * In this class must be added reliability that show how this employer is reliable by payment and treatments
+ */
 public class Employer extends User {
     public Employer() throws InvalidDateException {
         super(null, null, null, null, "1900-01-01", null);

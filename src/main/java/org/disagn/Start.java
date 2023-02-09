@@ -1,5 +1,7 @@
 package org.disagn;
 
+import org.disagn.cli.io.Output;
+import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.factories.DAOFactory;
 import org.disagn.factories.UiFactory;
 import org.disagn.interfaces.JobView;
@@ -11,7 +13,7 @@ public class Start{
 
         boolean gui = true;
         boolean local = true;
-        JobView startView;
+        JobView startView = null;
 
         try {
             if (args[0].equalsIgnoreCase("CLI")){
@@ -38,7 +40,11 @@ public class Start{
             user = configurationJson.getUser();
         }
 
-        startView = UiFactory.getUi(starter, user);
+        try {
+            startView = UiFactory.getUi(starter, user);
+        } catch (NoInterfaceException e) {
+            Output.println(e.getMessage());
+        }
         assert startView != null;
         startView.startUi();
 

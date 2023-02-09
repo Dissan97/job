@@ -6,6 +6,7 @@ import org.disagn.cli.io.Output;
 import org.disagn.controllers.Login;
 import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.InvalidDateException;
+import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.models.users.Employee;
 import org.disagn.models.users.User;
 import org.disagn.stateMachines.JobAbstractState;
@@ -47,7 +48,7 @@ public class EmployeeView extends JobAbstractState {
 
 
         while (true) {
-            Output.pageMessage(page, CommandLoader.helpMessage, false);
+            Output.pageMessage(page, CommandLoader.HELP, false);
             String line = Input.getCmd(this.commandList);
             JobAbstractState newState = null;
             switch (line) {
@@ -57,7 +58,11 @@ public class EmployeeView extends JobAbstractState {
                 case "MANAGE_DEMISE" -> newState = new DemiseManagerStateCli(this.employee);
                 case "HELP" -> Output.printList(this.page, this.commandList);
                 case "LOG_OUT" ->  {
-                    Login.LogOut();
+                    try {
+                        Login.LogOut();
+                    } catch (NoInterfaceException e) {
+                        Output.println(e.getMessage());
+                    }
                     return;
                 }
                 case "EXIT" -> {

@@ -6,6 +6,7 @@ import org.disagn.cli.io.Input;
 import org.disagn.cli.io.Output;
 import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.InvalidDateException;
+import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.exceptions.UserLoginFailedException;
 import org.disagn.graphicControllers.LoginGraphic;
 import org.disagn.interfaces.JobView;
@@ -17,7 +18,6 @@ import static org.disagn.Macros.*;
 
 public class LoginView implements JobView{
 
-    //todo change this... make more simpler by eliminating some control
     private final LoginGraphic controller;
     private List<String> commandList;
 
@@ -28,12 +28,14 @@ public class LoginView implements JobView{
     private String dateOfBirth = null;
     private String cityOfBirth = null;
 
+    private final String LOGIN = "LOGIN";
+
     public LoginView() {
         try {
-            CommandLoader commandLoader = new CommandLoader("LOGIN");
+            CommandLoader commandLoader = new CommandLoader(LOGIN);
             this.commandList = commandLoader.getCommandList();
         } catch (FileNotFoundException e) {
-            Output.pageMessage("LOGIN", e.getMessage(), true);
+            Output.pageMessage(LOGIN, e.getMessage(), true);
         }
         this.controller = new LoginGraphic();
     }
@@ -42,11 +44,11 @@ public class LoginView implements JobView{
     public void startUi() {
 
         String line;
-        PageContainer container = new PageContainer("LOGIN");
+        PageContainer container = new PageContainer(LOGIN);
         String page = container.display();
         while (true) {
 
-            Output.pageMessage(page, CommandLoader.helpMessage, false);
+            Output.pageMessage(page, CommandLoader.HELP, false);
             line = Input.getCmd(this.commandList);
 
             Macros ret = Macros.START;
@@ -99,64 +101,10 @@ public class LoginView implements JobView{
             return BACK_CALL;
         }
 
-        if (this.name == null){
-            line = Input.getInfo(page, "name");
-            if (exit(line)){
-                return BACK_CALL;
-            }
-            if (this.controller.isGood(line, false)){
-                this.name = line;
-            }else {
-                Output.pageMessage(page,"name cannot be blank", true);
-                return signUp();
-            }
-        }
-
-        if (this.surname == null){
-            line = Input.getInfo(page, "surname");
-            if (exit(line)){
-                return BACK_CALL;
-            }
-            if (this.controller.isGood(line, false)){
-                this.surname = line;
-            }else {
-                Output.pageMessage(page,"surname cannot be blank", true);
-                return signUp();
-            }
-        }
-
-        if (this.dateOfBirth == null){
-            line = Input.getInfo(page, "date of birth");
-            if (exit(line)){
-                return BACK_CALL;
-            }
-            if (this.controller.isGood(line, false)){
-                try {
-                    JobDate date = new JobDate(line);
-                    this.dateOfBirth = date.toString();
-                } catch (InvalidDateException e) {
-                    Output.pageMessage(page, e.getMessage(), true);
-                    return signUp();
-                }
-            }else {
-                Output.pageMessage(page,"date cannot be blank", true);
-                return signUp();
-            }
-        }
-
-        if (this.cityOfBirth == null){
-            line = Input.getInfo(page, "city of birth");
-            if (exit(line)){
-                return BACK_CALL;
-            }
-            if (this.controller.isGood(line, false)){
-                this.cityOfBirth = line;
-            }else {
-                Output.pageMessage(page,"city of birth cannot be blank", true);
-                return signUp();
-            }
-        }
-
+        setName(page);
+        setSurname(page);
+        setDateOfBirth(page);
+        setCityOfBirth(page);
         line = Input.getInfo(page, "Register as {" + Macros.EMPLOYER.name() + "}? y to accept");
         if (this.exit(line)){
             return BACK_CALL;
@@ -179,6 +127,77 @@ public class LoginView implements JobView{
         return SIGN_UP_SUCCESS;
     }
 
+
+    private void setName(String page){
+        String line;
+        if (this.name == null){
+            line = Input.getInfo(page, "name");
+            if (exit(line)){
+                startUi();
+            }
+            if (this.controller.isGood(line, false)){
+                this.name = line;
+            }else {
+                Output.pageMessage(page,"name cannot be blank", true);
+                signUp();
+            }
+        }
+    }
+    private void setSurname(String page) {
+        String line;
+        if (this.surname == null){
+            line = Input.getInfo(page, "surname");
+            if (exit(line)){
+                startUi();
+            }
+            if (this.controller.isGood(line, false)){
+                this.surname = line;
+            }else {
+                Output.pageMessage(page,"surname cannot be blank", true);
+                signUp();
+            }
+        }
+    }
+
+    private void setDateOfBirth(String page) {
+        String line;
+        if (this.dateOfBirth == null){
+            line = Input.getInfo(page, "date of birth");
+            if (exit(line)){
+                startUi();
+            }
+            if (this.controller.isGood(line, false)){
+                try {
+                    JobDate date = new JobDate(line);
+                    this.dateOfBirth = date.toString();
+                } catch (InvalidDateException e) {
+                    Output.pageMessage(page, e.getMessage(), true);
+                    signUp();
+                }
+            }else {
+                Output.pageMessage(page,"date cannot be blank", true);
+                signUp();
+            }
+        }
+    }
+
+    private void setCityOfBirth(String page) {
+        String line;
+        if (this.cityOfBirth == null){
+            line = Input.getInfo(page, "city of birth");
+            if (exit(line)){
+                startUi();
+            }
+            if (this.controller.isGood(line, false)){
+                this.cityOfBirth = line;
+            }else {
+                Output.pageMessage(page,"city of birth cannot be blank", true);
+                signUp();
+            }
+        }
+
+    }
+
     private Macros signIn() {
         String line;
         String page = "SIGN_IN";
@@ -199,6 +218,8 @@ public class LoginView implements JobView{
         } catch (UserLoginFailedException e) {
             Output.pageMessage(page, e.getMessage(), true);
             return SIGN_IN_FAILED;
+        } catch (NoInterfaceException e) {
+            Output.println(e.getMessage());
         }
         return SIGN_IN_SUCCESS;
     }
@@ -210,7 +231,7 @@ public class LoginView implements JobView{
         if (s.equalsIgnoreCase("#BACK") || s.equalsIgnoreCase("#EXIT")){
             ret = true;
             this.refresh();
-            Output.pageMessage("LOGIN", "EXITING PROCEDURE", true);
+            Output.pageMessage(LOGIN, "EXITING PROCEDURE", true);
         }
         return ret;
     }

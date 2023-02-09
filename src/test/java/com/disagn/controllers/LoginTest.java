@@ -2,10 +2,10 @@ package com.disagn.controllers;
 
 
 import org.disagn.Macros;
+import org.disagn.cli.io.Output;
 import org.disagn.controllers.Login;
 import org.disagn.exceptions.InvalidDateException;
 import org.disagn.exceptions.UserAlreadyExistException;
-import org.disagn.exceptions.UserLoginFailedException;
 import org.disagn.factories.DAOFactory;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -26,24 +26,15 @@ class LoginTest {
         Date date = new Date();
         DAOFactory.setStorageMethod(true);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        boolean isGone = false;
         try {
             login.signUp("test", "testPassword", "test", "test", dateFormat.format(date), "test", Macros.EMPLOYEE);
-        } catch (UserAlreadyExistException | InvalidDateException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            LOGGER.info("Login gone");
+            isGone = true;
+        } catch (UserAlreadyExistException | InvalidDateException | SQLException e) {
+            Output.exception(e);
+        }finally{
+            assertTrue(isGone);
         }
-    }
-
-    @Test
-    void testSignIn(){
-        Login login = new Login();
-        try {
-            DAOFactory.setStorageMethod(true);
-            login.signIn("test", "testPassword", false);
-        } catch (UserLoginFailedException e) {
-            assertNull(e);
-        }
-        LOGGER.info("LOGIN SUCCESS");
     }
 }

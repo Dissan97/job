@@ -60,38 +60,7 @@ public class JobDate {
                     throw new InvalidDateException("Cannot pass this month: " + first + " and this day: " + second);
                 }
 
-                if (first == 2){
-                    char [] year = date[0].toCharArray();
-                    int num = Integer.parseInt(date[0]);
-
-                    if (second > 29){
-                        throw new InvalidDateException("February cannot ha more than 29 days");
-                    }
-
-                    if (num % 4 != 0){
-                        if (second > 28){
-                            throw new InvalidDateException("This year is not leap");
-                        }
-                    }
-
-                    num = Integer.parseInt(String.valueOf(year[2]));
-                    int unit = Integer.parseInt(String.valueOf(year[3]));
-                    if (num % 2 == 1){
-                        num = unit;
-                        if (num != 6 &&  num != 2 && second > 28){
-                            throw new InvalidDateException("This year is not leap");
-                        }
-                    }else {
-                        num = unit;
-                        if (num % 4 != 0 && second > 28){
-                            throw new InvalidDateException("BAD FORMAT");
-                        }
-                    }
-
-
-                }
-
-
+                controlFebruary(date[0], first, second);
 
                 switch (first){
 
@@ -100,6 +69,7 @@ public class JobDate {
                             throw new InvalidDateException(MONTHS[first - 1] + " cannot have more than 30 days");
                         }
                     }
+                    default -> throw new InvalidDateException("Cant pass such month");
 
                 }
 
@@ -111,6 +81,39 @@ public class JobDate {
             this.month = Integer.parseInt(date[1]);
             this.day = Integer.parseInt(date[2]);
 
+    }
+
+    private void controlFebruary(String date, int first, int second) throws InvalidDateException {
+        if (first == 2){
+            char [] year = date.toCharArray();
+            int num = Integer.parseInt(date);
+
+            if (second > 29){
+                throw new InvalidDateException("February cannot ha more than 29 days");
+            }
+
+            if (num % 4 != 0){
+                if (second > 28){
+                    throw new InvalidDateException("This year is not leap");
+                }
+            }
+
+            num = Integer.parseInt(String.valueOf(year[2]));
+            int unit = Integer.parseInt(String.valueOf(year[3]));
+            if (num % 2 == 1){
+                num = unit;
+                if (num != 6 &&  num != 2 && second > 28){
+                    throw new InvalidDateException("This year is not leap");
+                }
+            }else {
+                num = unit;
+                if (num % 4 != 0 && second > 28){
+                    throw new InvalidDateException("BAD FORMAT");
+                }
+            }
+
+
+        }
     }
 
     public int getDay() {
@@ -126,30 +129,6 @@ public class JobDate {
     }
 
 
-    public String toItalianFormat(){
-        return "Date{Italian format}: " + this.getDay() + " " + this.MONTHS[this.getMonth() - 1] + " " + this.getYear();
-    }
-
-    public String toBritishFormat(){
-        String date = this.MONTHS[this.getMonth() - 1] + " " + this.getDay();
-        switch (this.getDay()){
-            case 1 ->{
-                date += "st";
-            }
-            case 2 ->{
-                date += "nd";
-            }
-            case 3 ->{
-                date += "rd";
-            }
-            default -> {
-                date += "th";
-            }
-        }
-
-        date += " of " + this.getYear();
-        return "Date{British format}: " +  date;
-    }
 
     @Override
     public String toString() {

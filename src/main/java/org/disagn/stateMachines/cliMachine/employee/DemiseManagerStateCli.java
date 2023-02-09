@@ -47,13 +47,17 @@ public class DemiseManagerStateCli extends JobAbstractState {
             pendingDemise.add(d.getApplication());
         }
 
-        String cmd;
 
         if (demiseList.size() < 1){
             Output.pageMessage(page, "there is no demises", true);
             return;
         }
 
+        demise(demiseList, pendingDemise);
+    }
+
+    private void demise(List<Demise> demiseList, List<String> pendingDemise) {
+        String cmd;
         while (true) {
             Output.pageMessage(page, "Demises: ", true);
             Output.printList(page, pendingDemise);
@@ -64,7 +68,7 @@ public class DemiseManagerStateCli extends JobAbstractState {
             if (pendingDemise.contains(cmd)){
 
                 for (Demise d:
-                     demiseList) {
+                        demiseList) {
                     if (d.getApplication().equals(cmd)){
                         controller.setDemiseToManage(d);
                         this.setMotivation();

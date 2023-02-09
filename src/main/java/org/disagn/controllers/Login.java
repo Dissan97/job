@@ -5,6 +5,7 @@ import org.disagn.Macros;
 import org.disagn.beans.AccountBean;
 import org.disagn.daos.DaoManager;
 import org.disagn.exceptions.InvalidDateException;
+import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.exceptions.UserAlreadyExistException;
 import org.disagn.exceptions.UserLoginFailedException;
 import org.disagn.factories.DAOFactory;
@@ -52,11 +53,10 @@ public class Login {
 
     }
     //TODO move this method to controller
-    public static void LogOut(){
+    public static void LogOut() throws NoInterfaceException {
         DAO tempDao = DAOFactory.getDAO();
         tempDao.saveConfig(null);
         JobView view = UiFactory.getUi(Macros.START, null);
-        assert view != null;
         view.startUi();
     }
 

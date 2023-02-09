@@ -1,13 +1,14 @@
 package org.disagn.stateMachines.cliMachine;
 
 
+import org.disagn.cli.io.Output;
 import org.disagn.decorator.PageContainer;
 import org.disagn.models.users.User;
 import org.disagn.stateMachines.JobAbstractState;
 
 public class ViewSchedulingStateCli extends JobAbstractState {
 
-    private String page;
+    private final String page;
 
     public ViewSchedulingStateCli(User user) {
         PageContainer container = new PageContainer("DEMISE MANAGER", user);
@@ -16,6 +17,7 @@ public class ViewSchedulingStateCli extends JobAbstractState {
 
     @Override
     public void entry(CliMachine stateMachine) {
-
+        //need to be implemented
+        Output.pageMessage(this.page, "Hello from scheduling", true);
     }
 }

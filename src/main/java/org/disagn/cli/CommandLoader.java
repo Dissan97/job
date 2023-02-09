@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class CommandLoader {
     List<String> commandList = new ArrayList<>();
-    public static final String helpMessage = "Type help or 0 to get command list";
+    public static final String HELP = "Type help or 0 to get command list";
     public CommandLoader(String user) throws FileNotFoundException {
         this.setUpCommandList(user);
     }
