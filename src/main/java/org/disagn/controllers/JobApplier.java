@@ -6,7 +6,7 @@ import org.disagn.cli.io.Output;
 import org.disagn.daos.DaoManager;
 import org.disagn.exceptions.InvalidDateException;
 import org.disagn.exceptions.ShiftAlreadyApplied;
-import org.disagn.graphicControllers.DemiseGraphicController;
+import org.disagn.graphics.DemiseGraphicController;
 import org.disagn.interfaces.DAO;
 import org.disagn.models.job.Demise;
 import org.disagn.models.job.Shift;
@@ -48,10 +48,10 @@ public class JobApplier {
             }
         }
 
-        List<ShiftApply> applyList = dao.pullAppliances(user);
+        List<ShiftApply> localApplies = dao.pullAppliances(user);
 
         for (ShiftApply apply:
-             applyList) {
+             localApplies) {
             updatedList.removeIf(s -> s.getCode().equals(apply.getShift()));
         }
 
@@ -103,9 +103,9 @@ public class JobApplier {
 
     private void verifyAppliance(ShiftApply apply, User user) throws FileNotFoundException, ShiftAlreadyApplied {
         DAO dao = DaoManager.getDaoManager();
-        List<ShiftApply> applyList = dao.pullAppliances(user);
+        List<ShiftApply> localApplies = dao.pullAppliances(user);
         for (ShiftApply a:
-        applyList) {
+        localApplies) {
             if (a.toString().equals(apply.toString())){
                 throw new ShiftAlreadyApplied();
             }
@@ -128,7 +128,7 @@ public class JobApplier {
             }
             throw new InvalidDateException();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Output.exception(e);
         }
     }
 
@@ -137,7 +137,7 @@ public class JobApplier {
      * @param apply is the application that want to demise
      * @return true if the application is not already send
      */
-    private boolean checkDemises(ShiftApply apply) {
+    private boolean checkDemises(ShiftApply apply) throws FileNotFoundException {
         DAO dao = DaoManager.getDaoManager();
         List<Demise> demiseList = dao.pullEmployeeDemise(apply.getEmployee());
 

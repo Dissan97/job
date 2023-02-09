@@ -5,32 +5,33 @@ import javafx.scene.control.*;
 import org.disagn.cli.io.Output;
 import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.exceptions.UserLoginFailedException;
-import org.disagn.graphicControllers.LoginGraphic;
+import org.disagn.graphics.LoginGraphic;
 import org.disagn.gui.GuiManager;
 import org.disagn.interfaces.JobView;
 
 import java.io.IOException;
 
-//TODO ADJUST TO NEW FORMAT
 public class SignInGui implements JobView {
 
     @FXML
     public CheckBox logged;
+    @FXML
+    public Button signInButton;
 
     @FXML
-    TextField username_field;
+    TextField usernameField;
     @FXML
-    PasswordField password_field;
+    PasswordField passwordField;
     @FXML
-    Label status_label;
+    Label statusLabel;
 
 
     public void signIn() {
 
         LoginGraphic controller = new LoginGraphic();
 
-        String username = username_field.getText();
-        String password = password_field.getText();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
 
         if (controller.isGood(username, false) && controller.isGood(password, true)){
             try {
@@ -59,7 +60,7 @@ public class SignInGui implements JobView {
         try {
             GuiManager.setUp("sign_in.fxml");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            GuiManager.exception(e);
         }
     }
 

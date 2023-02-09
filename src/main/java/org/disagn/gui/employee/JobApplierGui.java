@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.disagn.beans.JobApplierBean;
-import org.disagn.graphicControllers.JobApplierGraphic;
+import org.disagn.graphics.JobApplierGraphic;
 import org.disagn.gui.GuiManager;
 import org.disagn.gui.GuiStarter;
 import org.disagn.gui.ViewAction;
@@ -63,7 +63,7 @@ public class JobApplierGui {
             //adding label and button to the hBox
             hBoxes[i].getChildren().add(labels[i]);
             hBoxes[i].getChildren().add(submit[i]);
-            //todo add listener with second check
+            //add listener with second check
             int finalI = i;
             submit[i].setOnAction(actionEvent ->{
                 if (GuiManager.acceptPopUp(labels[finalI], "Apply this shift?")) {

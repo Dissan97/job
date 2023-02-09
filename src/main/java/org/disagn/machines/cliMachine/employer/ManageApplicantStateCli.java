@@ -1,14 +1,14 @@
-package org.disagn.stateMachines.cliMachine.employer;
+package org.disagn.machines.cliMachine.employer;
 
 import org.disagn.cli.io.Input;
 import org.disagn.cli.io.Output;
 import org.disagn.decorator.PageContainer;
-import org.disagn.graphicControllers.ApplicationAcceptorGraphic;
+import org.disagn.graphics.ApplicationAcceptorGraphic;
 import org.disagn.models.job.ShiftApply;
 import org.disagn.models.users.User;
-import org.disagn.stateMachines.JobAbstractState;
-import org.disagn.stateMachines.cliMachine.AccountStateCli;
-import org.disagn.stateMachines.cliMachine.CliMachine;
+import org.disagn.machines.JobAbstractState;
+import org.disagn.machines.cliMachine.AccountStateCli;
+import org.disagn.machines.cliMachine.CliMachine;
 
 public class ManageApplicantStateCli extends JobAbstractState {
 

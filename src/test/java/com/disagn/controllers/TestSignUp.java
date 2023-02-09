@@ -1,7 +1,7 @@
 package com.disagn.controllers;
 
 import org.disagn.Macros;
-import org.disagn.graphicControllers.LoginGraphic;
+import org.disagn.graphics.LoginGraphic;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

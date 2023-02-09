@@ -1,15 +1,15 @@
-package org.disagn.stateMachines.cliMachine.employer;
+package org.disagn.machines.cliMachine.employer;
 
 import org.disagn.beans.AccountBean;
 import org.disagn.beans.JobApplierBean;
 import org.disagn.cli.io.Input;
 import org.disagn.cli.io.Output;
 import org.disagn.decorator.PageContainer;
-import org.disagn.graphicControllers.ApplicationAcceptorGraphic;
+import org.disagn.graphics.ApplicationAcceptorGraphic;
 import org.disagn.models.job.ShiftApply;
 import org.disagn.models.users.User;
-import org.disagn.stateMachines.JobAbstractState;
-import org.disagn.stateMachines.cliMachine.CliMachine;
+import org.disagn.machines.JobAbstractState;
+import org.disagn.machines.cliMachine.CliMachine;
 
 
 import java.io.FileNotFoundException;
@@ -66,7 +66,7 @@ public class ViewApplicantsStateCli extends JobAbstractState {
             rowEntries[i][4] = String.valueOf(apply.isAccepted());
             i++;
         }
-        if (applies.size() < 1){
+        if (applies.isEmpty()){
             Output.pageMessage(page, "There is no appliances yet", false);
             stateMachine.getBack();
         }
@@ -75,27 +75,23 @@ public class ViewApplicantsStateCli extends JobAbstractState {
 
         String cmd;
 
-        while (true){
+        do {
             Output.pageMessage(page, "select an apply or quit or exit to leave the procedure", false);
             cmd = Input.getCmd(applies);
 
-            if (cmd.equals("EXIT") || cmd.equals("QUIT")){
-                break;
-            }
 
-            if (applies.contains(cmd)){
+            if (applies.contains(cmd)) {
                 ShiftApply apply = loadUserData(cmd);
                 if (apply != null) {
                     ManageApplicantStateCli applicantStateCli = new ManageApplicantStateCli(this.user, apply, this.chooseUser);
                     applicantStateCli.showAccount();
 
-                    break;
+                    return;
                 }
             }
 
 
-
-        }
+        } while (!cmd.equals("EXIT") && !cmd.equals("QUIT"));
         stateMachine.getBack();
 
     }

@@ -10,11 +10,11 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class TestConfig {
+class TestConfig {
 
     //Test Dissan Uddin Ahmed
     @Test
-    public void getConfig(){
+    void getConfig(){
         // Loading configuration from file json
         DBConfigJson configJson = new DBConfigJson();
         assert !configJson.getUser().equals("");

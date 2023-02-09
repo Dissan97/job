@@ -10,7 +10,6 @@ import java.util.List;
 
 public class ShiftPublisher {
 
-    //todo control if this shift already exist
     public void publish(String employer, String name, String jobPlace, String jobDateTime,String description) throws ShiftAlreadyExists, SQLException {
         Shift shift = new Shift(employer, name, jobPlace, jobDateTime, description);
         DAO dao = DAOFactory.getDAO();

@@ -1,9 +1,10 @@
-package org.disagn.graphicControllers;
+package org.disagn.graphics;
 
 import org.disagn.beans.ShiftSchedulerBean;
 import org.disagn.controllers.ShiftScheduler;
 import org.disagn.models.users.User;
 
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,7 +23,7 @@ public class ShiftSchedulerGraphic {
         this.shiftScheduler = new ShiftScheduler(this.bean);
     }
 
-    public void getScheduling(){
+    public void getScheduling() throws FileNotFoundException {
         this.shiftScheduler.getSchedules(this.user);
     }
 
@@ -43,7 +44,7 @@ public class ShiftSchedulerGraphic {
         this.bean.setDateList(dateList);
     }
 
-    public void pullSchedules(String date, User user) {
+    public void pullSchedules() {
         this.bean.setSchedules(new ArrayList<>());
     }
 }

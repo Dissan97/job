@@ -8,7 +8,7 @@ import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.InvalidDateException;
 import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.exceptions.UserLoginFailedException;
-import org.disagn.graphicControllers.LoginGraphic;
+import org.disagn.graphics.LoginGraphic;
 import org.disagn.interfaces.JobView;
 import org.disagn.models.time.JobDate;
 import java.io.FileNotFoundException;
@@ -28,14 +28,14 @@ public class LoginView implements JobView{
     private String dateOfBirth = null;
     private String cityOfBirth = null;
 
-    private final String LOGIN = "LOGIN";
+    private static final String login = "LOGIN";
 
     public LoginView() {
         try {
-            CommandLoader commandLoader = new CommandLoader(LOGIN);
+            CommandLoader commandLoader = new CommandLoader(login);
             this.commandList = commandLoader.getCommandList();
         } catch (FileNotFoundException e) {
-            Output.pageMessage(LOGIN, e.getMessage(), true);
+            Output.pageMessage(login, e.getMessage(), true);
         }
         this.controller = new LoginGraphic();
     }
@@ -44,7 +44,7 @@ public class LoginView implements JobView{
     public void startUi() {
 
         String line;
-        PageContainer container = new PageContainer(LOGIN);
+        PageContainer container = new PageContainer(login);
         String page = container.display();
         while (true) {
 
@@ -65,8 +65,8 @@ public class LoginView implements JobView{
                 }
                 case "HELP" -> Output.printList(page, this.commandList);
                 case "EXIT" -> {
-                    System.out.println("LOGIN: Bye...");
-                    System.exit(0);
+                    Output.pageMessage(login, "bye...", true);
+                    return;
                 }
                 case "" ->{
                     //DO NO OP CONTINUE
@@ -231,7 +231,7 @@ public class LoginView implements JobView{
         if (s.equalsIgnoreCase("#BACK") || s.equalsIgnoreCase("#EXIT")){
             ret = true;
             this.refresh();
-            Output.pageMessage(LOGIN, "EXITING PROCEDURE", true);
+            Output.pageMessage(login, "EXITING PROCEDURE", true);
         }
         return ret;
     }

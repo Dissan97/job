@@ -19,11 +19,9 @@ import java.util.List;
 public class DemiseController {
 
     private final DemiseBean bean;
-    //private DemiseBean bean;
     
     public DemiseController(DemiseBean bean){
         this.bean = bean;
-        //this.bean = this.graphic.getDemiseBean();
     }
 
     public void sendDemise(Demise demise) throws IOException, ElementAlreadyComputedException {
@@ -90,7 +88,7 @@ public class DemiseController {
         dao.updateDemise(demise);
     }
 
-    public void refuseDemise() throws Exception {
+    public void refuseDemise() throws IOException {
         DAO dao = DaoManager.getDaoManager();
         Demise demise = this.bean.getPendingDemise();
         if (checkDemiseInList(demise, dao)){

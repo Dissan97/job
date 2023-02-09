@@ -4,12 +4,15 @@
   }
   
 .label {
-    -fx-background-radius: 5;
+
     -fx-background-color: lightpink;
-    -fx-text-fill: white;
-    -fx-font-size: 18;
     -fx-font-weight: bold;
-    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-text-fill: #3E8E41;
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-padding: 5px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
  }
  
 
@@ -57,16 +60,6 @@
     -fx-background-color: #3E8E41;
 }
 
-  
-.label {
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #3E8E41;
-    -fx-background-color: rgba(255, 255, 255, 0.1);
-    -fx-padding: 5px;
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-}
 
 .main-label{
     -fx-font-size: 18px;

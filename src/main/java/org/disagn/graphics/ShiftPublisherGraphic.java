@@ -1,4 +1,4 @@
-package org.disagn.graphicControllers;
+package org.disagn.graphics;
 
 import org.disagn.controllers.ShiftPublisher;
 import org.disagn.exceptions.InvalidDateException;
@@ -19,8 +19,7 @@ public class ShiftPublisherGraphic {
 
 
     public void publishShift(String username, String name, String place, String dateTime, String description) throws ShiftAlreadyExists, SQLException {
-        //TODO can add something that return an error?
-        shiftPublisher.publish(username, name, place, dateTime, description);
+        shiftPublisher.publish(username, name, place, dateTime, description); //can add something that return an error?
     }
 
     public boolean isGood(String str){

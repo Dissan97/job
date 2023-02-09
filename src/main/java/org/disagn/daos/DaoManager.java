@@ -70,7 +70,7 @@ public class DaoManager implements DAO, Runnable {
     }
 
     @Override
-    public List<ShiftApply> pullSchedules(User user) {
+    public List<ShiftApply> pullSchedules(User user) throws FileNotFoundException {
         //needed to show demises don't know why is empty
         return this.fileSystem.pullSchedules(user);
     }
@@ -104,7 +104,7 @@ public class DaoManager implements DAO, Runnable {
     }
 
     @Override
-    public List<Demise> pullEmployeeDemise(String employee) {
+    public List<Demise> pullEmployeeDemise(String employee) throws FileNotFoundException {
         return this.fileSystem.pullEmployeeDemise(employee);
     }
 

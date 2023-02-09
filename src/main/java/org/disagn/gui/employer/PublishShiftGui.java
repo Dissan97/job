@@ -3,7 +3,7 @@ package org.disagn.gui.employer;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import org.disagn.graphicControllers.ShiftPublisherGraphic;
+import org.disagn.graphics.ShiftPublisherGraphic;
 import org.disagn.gui.GuiManager;
 import org.disagn.gui.GuiStarter;
 import org.disagn.gui.ViewAction;
@@ -39,7 +39,7 @@ public class PublishShiftGui {
         String place = this.jobPlace.getText();
         String date = this.jobDate.getText();
         String time = this.jobTime.getText();
-        String description = this.description.getText();
+        String describe = this.description.getText();
 
 
         try {
@@ -49,10 +49,10 @@ public class PublishShiftGui {
                     && controller.isGood(date)
                     && controller.isGood(time)
             ) {
-                if (description.equals("")){
-                    description = "Job appliance";
+                if (describe.equals("")){
+                    describe = "Job appliance";
                 }
-                controller.publishShift(GuiStarter.getUser().getUsername(), name, place, dateTime, description);
+                controller.publishShift(GuiStarter.getUser().getUsername(), name, place, dateTime, describe);
                 GuiManager.popUp("Shift published");
                 this.clear();
             }

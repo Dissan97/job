@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.disagn.beans.JobApplierBean;
-import org.disagn.graphicControllers.JobApplierGraphic;
+import org.disagn.graphics.JobApplierGraphic;
 import org.disagn.gui.GuiManager;
 import org.disagn.gui.GuiStarter;
 import org.disagn.gui.ViewAction;
@@ -20,6 +20,7 @@ import java.util.Objects;
 
 public class ViewAppliesGui {
 
+    @FXML
     public VBox vBox;
 
     @FXML

@@ -8,12 +8,12 @@ import org.disagn.controllers.Login;
 import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.models.users.User;
-import org.disagn.stateMachines.JobAbstractState;
-import org.disagn.stateMachines.cliMachine.AccountStateCli;
-import org.disagn.stateMachines.cliMachine.CliMachine;
-import org.disagn.stateMachines.cliMachine.ViewSchedulingStateCli;
-import org.disagn.stateMachines.cliMachine.employer.ViewApplicantsStateCli;
-import org.disagn.stateMachines.cliMachine.employer.PublishShiftStateCli;
+import org.disagn.machines.JobAbstractState;
+import org.disagn.machines.cliMachine.AccountStateCli;
+import org.disagn.machines.cliMachine.CliMachine;
+import org.disagn.machines.cliMachine.ViewSchedulingStateCli;
+import org.disagn.machines.cliMachine.employer.ViewApplicantsStateCli;
+import org.disagn.machines.cliMachine.employer.PublishShiftStateCli;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -66,7 +66,9 @@ public class EmployerView extends JobAbstractState {
                     Output.pageMessage(page, this.user.getUsername() + " Bye...", true);
                     return;
                 }
-                case ""->{}
+                case ""->{
+                    //Do no op
+                }
 
                 case "INVALID_NUMBER"-> Output.pageMessage(this.page, line + " VALUES ALLOWED 0.." + (this.commandList.size() - 1), true);
                 default -> {

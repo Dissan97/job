@@ -6,6 +6,7 @@ module job {
     requires org.jetbrains.annotations;
     requires java.sql;
     requires mariadb.java.client;
+    requires org.slf4j;
 
     opens org.disagn.gui to javafx.fxml;
     opens org.disagn.daos to com.google.gson;

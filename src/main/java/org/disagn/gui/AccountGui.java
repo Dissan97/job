@@ -4,10 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class AccountGui {
+    @FXML
     public Label username;
+    @FXML
     public Label name;
+    @FXML
     public Label surname;
+    @FXML
     public Label dateOfBirth;
+    @FXML
     public Label cityOfBirth;
 
 

@@ -9,12 +9,12 @@ import org.disagn.exceptions.InvalidDateException;
 import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.models.users.Employee;
 import org.disagn.models.users.User;
-import org.disagn.stateMachines.JobAbstractState;
-import org.disagn.stateMachines.cliMachine.AccountStateCli;
-import org.disagn.stateMachines.cliMachine.CliMachine;
-import org.disagn.stateMachines.cliMachine.employee.ApplyShift;
-import org.disagn.stateMachines.cliMachine.employee.DemiseManagerStateCli;
-import org.disagn.stateMachines.cliMachine.employee.ViewAppliesStateCli;
+import org.disagn.machines.JobAbstractState;
+import org.disagn.machines.cliMachine.AccountStateCli;
+import org.disagn.machines.cliMachine.CliMachine;
+import org.disagn.machines.cliMachine.employee.ApplyShift;
+import org.disagn.machines.cliMachine.employee.DemiseManagerStateCli;
+import org.disagn.machines.cliMachine.employee.ViewAppliesStateCli;
 
 import java.io.FileNotFoundException;
 import java.util.List;

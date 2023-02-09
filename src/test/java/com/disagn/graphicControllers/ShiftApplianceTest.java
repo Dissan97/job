@@ -1,6 +1,6 @@
 package com.disagn.graphicControllers;
 
-import org.disagn.graphicControllers.ShiftPublisherGraphic;
+import org.disagn.graphics.ShiftPublisherGraphic;
 import org.disagn.models.time.JobDate;
 import org.junit.jupiter.api.Test;
 

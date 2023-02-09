@@ -8,6 +8,7 @@ import org.disagn.models.job.ShiftApply;
 import org.disagn.models.users.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MariaDbJDBC implements DAO {
@@ -75,7 +76,7 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public List<User> getUserList() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -98,12 +99,12 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public List<Shift> pullShifts() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public List<ShiftApply> pullSchedules(User user) {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -126,7 +127,7 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public List<ShiftApply> pullAppliances(User user) {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -164,12 +165,12 @@ public class MariaDbJDBC implements DAO {
 
     @Override
     public List<Demise> pullEmployeeDemise(String employee) {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
     public List<Demise> pullDemises() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

@@ -28,7 +28,6 @@ public class Login {
     public Login(){
         this.dao = DaoManager.getDaoManager();
     }
-    //TODO control store value
     public void signIn(String username, String password, boolean store) throws UserLoginFailedException {
 
         Macros userKind = verify(username, password);
@@ -52,7 +51,7 @@ public class Login {
         this.dao.pushUser(new User(username, password, name, surname, dateOfBirth, cityOfBirth, type));
 
     }
-    //TODO move this method to controller
+
     public static void LogOut() throws NoInterfaceException {
         DAO tempDao = DAOFactory.getDAO();
         tempDao.saveConfig(null);
@@ -84,9 +83,9 @@ public class Login {
     private Macros verify(String username) {
         List<User> users = this.dao.getUserList();
         if (this.user != null) {
-            for (User user : users
+            for (User u : users
             ) {
-                if (Objects.equals(user.getUsername(), username)) {
+                if (Objects.equals(u.getUsername(), username)) {
                     return Macros.ERROR;
                 }
             }
@@ -101,8 +100,8 @@ public class Login {
     }
 
     public void pullEmployee(AccountBean bean) {
-        DAO dao = DaoManager.getDaoManager();
-        List<User> users = dao.getUserList();
+        DAO daoManager = DaoManager.getDaoManager();
+        List<User> users = daoManager.getUserList();
         List<User> listBean = new ArrayList<>();
         if (users != null){
             for (User u:

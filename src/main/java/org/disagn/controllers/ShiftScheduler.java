@@ -8,6 +8,7 @@ import org.disagn.models.job.ShiftApply;
 import org.disagn.models.time.JobDate;
 import org.disagn.models.users.User;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class ShiftScheduler {
         this.bean = bean;
     }
 
-    public void getSchedules(User user) {
+    public void getSchedules(User user) throws FileNotFoundException {
         DAO dao = DaoManager.getDaoManager();
         List<ShiftApply> oldApplyList = dao.pullSchedules(user);
         List<ShiftApply> updatedApplyList = new ArrayList<>();
@@ -37,7 +38,6 @@ public class ShiftScheduler {
                 //Do no op
             }
         }
-        //TODO CONTROL IF IS NOW DAY SCHEDULING
         this.bean.setSchedules(updatedApplyList);
 
     }
@@ -58,7 +58,6 @@ public class ShiftScheduler {
             }
         }
 
-        //todo verify if the shift already exist
         dao.pushSchedule(apply, user);
 
     }

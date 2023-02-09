@@ -4,8 +4,9 @@ import org.disagn.Macros;
 import org.disagn.beans.DemiseBean;
 import org.disagn.cli.io.Output;
 import org.disagn.exceptions.InvalidDateException;
-import org.disagn.graphicControllers.DemiseGraphicController;
-import org.disagn.graphicControllers.JobApplierGraphic;
+import org.disagn.graphics.DemiseGraphicController;
+import org.disagn.graphics.JobApplierGraphic;
+import org.disagn.graphics.ShiftSchedulerGraphic;
 import org.disagn.models.job.Demise;
 import org.disagn.models.job.Shift;
 import org.disagn.models.job.ShiftApply;
@@ -50,8 +51,13 @@ class DemiseTest {
         }finally {
             assertTrue(isGone);
         }
+    }
 
-
+    @Test
+    void testFoo() throws FileNotFoundException {
+        ShiftSchedulerGraphic controller = new ShiftSchedulerGraphic(null);
+        controller.getScheduling();
+        assertNotNull(controller);
     }
 
 }

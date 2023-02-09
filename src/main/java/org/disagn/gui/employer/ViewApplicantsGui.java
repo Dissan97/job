@@ -10,7 +10,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.disagn.beans.AccountBean;
 import org.disagn.beans.JobApplierBean;
-import org.disagn.graphicControllers.ApplicationAcceptorGraphic;
+import org.disagn.graphics.ApplicationAcceptorGraphic;
 import org.disagn.gui.GuiManager;
 import org.disagn.gui.GuiStarter;
 import org.disagn.gui.ViewAction;
@@ -43,8 +43,6 @@ public class ViewApplicantsGui {
 
     @FXML
     public void buildView() {
-        //GuiManager.showApplies(this.vBox);
-
         ApplicationAcceptorGraphic acceptorController = new ApplicationAcceptorGraphic();
         try {
             acceptorController.getUserData(GuiStarter.getUser());
@@ -96,9 +94,9 @@ public class ViewApplicantsGui {
 
 
             ShiftApply finalApply = tempApply;
-            buttons[i].setOnAction(e ->{
-                this.popUserPopUpWindow(finalUser, finalApply);
-            });
+            buttons[i].setOnAction(e ->
+                this.popUserPopUpWindow(finalUser, finalApply)
+            );
 
             hBoxes[i] = new HBox();
             hBoxes[i].getChildren().add(labels[i]);

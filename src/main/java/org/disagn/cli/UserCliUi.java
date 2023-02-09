@@ -4,8 +4,8 @@ package org.disagn.cli;
 import org.disagn.Macros;
 import org.disagn.interfaces.JobView;
 import org.disagn.models.users.User;
-import org.disagn.stateMachines.JobStates;
-import org.disagn.stateMachines.cliMachine.CliMachine;
+import org.disagn.machines.JobStates;
+import org.disagn.machines.cliMachine.CliMachine;
 
 public record UserCliUi(User user) implements JobView {
 

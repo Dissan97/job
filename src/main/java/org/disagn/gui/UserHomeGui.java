@@ -34,7 +34,7 @@ public class UserHomeGui {
         try {
             GuiManager.changeScene("job_applier.fxml");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            GuiManager.exception(e);
         }
     }
 

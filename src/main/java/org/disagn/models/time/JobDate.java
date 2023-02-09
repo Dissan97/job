@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class JobDate {
 
-    private final String [] MONTHS = {"January","February", "March", "April", "May" ,"June", "July", "August", "September", "October", "November", "December"};
+    private static final String [] MONTHS = {"January","February", "March", "April", "May" ,"June", "July", "August", "September", "October", "November", "December"};
     private int day;
     private int month;
     private int year;
@@ -62,15 +62,12 @@ public class JobDate {
 
                 controlFebruary(date[0], first, second);
 
-                switch (first){
-
-                    case 4, 6, 9, 11 ->{
-                        if (second > 30){
-                            throw new InvalidDateException(MONTHS[first - 1] + " cannot have more than 30 days");
-                        }
+                if (first == 4 || first == 6 || first == 9 || first == 11) {
+                    if (second > 30) {
+                        throw new InvalidDateException(MONTHS[first - 1] + " cannot have more than 30 days");
                     }
-                    default -> throw new InvalidDateException("Cant pass such month");
-
+                } else {
+                    throw new InvalidDateException("Cant pass such month");
                 }
 
             }   else {
@@ -85,7 +82,7 @@ public class JobDate {
 
     private void controlFebruary(String date, int first, int second) throws InvalidDateException {
         if (first == 2){
-            char [] year = date.toCharArray();
+            char [] localYear = date.toCharArray();
             int num = Integer.parseInt(date);
 
             if (second > 29){
@@ -98,21 +95,25 @@ public class JobDate {
                 }
             }
 
-            num = Integer.parseInt(String.valueOf(year[2]));
-            int unit = Integer.parseInt(String.valueOf(year[3]));
-            if (num % 2 == 1){
-                num = unit;
-                if (num != 6 &&  num != 2 && second > 28){
-                    throw new InvalidDateException("This year is not leap");
-                }
-            }else {
-                num = unit;
-                if (num % 4 != 0 && second > 28){
-                    throw new InvalidDateException("BAD FORMAT");
-                }
+            secondLeapControl(second, localYear);
+
+        }
+    }
+
+    private void secondLeapControl(int second, char[] year) throws InvalidDateException {
+        int num;
+        num = Integer.parseInt(String.valueOf(year[2]));
+        int unit = Integer.parseInt(String.valueOf(year[3]));
+        if (num % 2 == 1){
+            num = unit;
+            if (num != 6 &&  num != 2 && second > 28){
+                throw new InvalidDateException("This year is not leap");
             }
-
-
+        }else {
+            num = unit;
+            if (num % 4 != 0 && second > 28){
+                throw new InvalidDateException("BAD FORMAT");
+            }
         }
     }
 

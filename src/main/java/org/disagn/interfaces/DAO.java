@@ -25,7 +25,7 @@ public interface DAO {
 
     List<Shift> pullShifts();
 
-    List<ShiftApply> pullSchedules(User employer);
+    List<ShiftApply> pullSchedules(User employer) throws FileNotFoundException;
 
     void pushAppliance(ShiftApply shiftApply) throws IOException, SQLException;
 
@@ -39,7 +39,7 @@ public interface DAO {
 
     void pushEmployeeDemise(Demise apply) throws IOException, SQLException;
 
-    List<Demise> pullEmployeeDemise(String employee);
+    List<Demise> pullEmployeeDemise(String employee) throws FileNotFoundException;
 
     List<Demise> pullDemises() throws FileNotFoundException;
 
@@ -50,8 +50,5 @@ public interface DAO {
 
     void removeDemise(Demise demise) throws IOException;
 
-    //TODO add exception to all the processes throw ioException
-    //TODO add function removeShift candidateShift
-    //TODO add some feature that will load some configuration file to handle some state
 
 }

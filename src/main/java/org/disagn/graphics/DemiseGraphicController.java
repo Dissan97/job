@@ -1,4 +1,4 @@
-package org.disagn.graphicControllers;
+package org.disagn.graphics;
 
 
 import org.disagn.beans.DemiseBean;

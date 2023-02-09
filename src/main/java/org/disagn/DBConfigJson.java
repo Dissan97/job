@@ -2,6 +2,8 @@ package org.disagn;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
+import org.disagn.cli.io.Output;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -23,7 +25,7 @@ public class DBConfigJson {
 
     private void loadConfig() {
         String path = "src/main/resources/org/disagn/dao/configDataBase.json";
-        JsonElement reader;
+        JsonElement reader = null;
 
         try {
             reader = JsonParser.parseReader(
@@ -32,9 +34,10 @@ public class DBConfigJson {
                     )
             );
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            Output.exception(e);
         }
 
+        assert reader != null;
         JsonObject object = reader.getAsJsonObject();
         this.driver = object.get("driver").getAsString();
         this.host = object.get("host").getAsString();

@@ -9,7 +9,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 import org.disagn.Macros;
 import org.disagn.beans.ShiftSchedulerBean;
-import org.disagn.graphicControllers.ShiftSchedulerGraphic;
+import org.disagn.graphics.ShiftSchedulerGraphic;
 import org.disagn.models.job.ShiftApply;
 
 import java.util.List;
@@ -48,21 +48,20 @@ public class SchedulingGui {
              dateList) {
             MenuItem item = new MenuItem(date);
 
-            item.setOnAction(e-> {
-                String scheduleDate = item.getText();
-                this.schedulePuller(controller, bean, scheduleDate);
-            });
+            item.setOnAction(e->
+                this.schedulePuller(controller, bean)
+            );
 
             this.menuButton.getItems().add(item);
         }
 
-        schedulePuller(controller, bean,dateList.get(0));
+        schedulePuller(controller, bean);
 
     }
 
-    void schedulePuller(ShiftSchedulerGraphic controller, ShiftSchedulerBean bean,String date){
+    void schedulePuller(ShiftSchedulerGraphic controller, ShiftSchedulerBean bean){
         this.vBox.getChildren().clear();
-        controller.pullSchedules(date, GuiStarter.getUser());
+        controller.pullSchedules();
         List<ShiftApply> scheduleList = bean.getSchedules();
         int size = scheduleList.size();
 

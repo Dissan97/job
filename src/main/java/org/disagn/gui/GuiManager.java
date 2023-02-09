@@ -24,16 +24,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GuiManager {
 
-    public final static int WEIGHT = 1024, HEIGHT = 720;
+    public final static int WEIGHT = 1024;
+    public final static int HEIGHT = 720;
     public static final double BUTTON_WIDTH = 500;
     public static final int BUTTON_HEIGHT = 100;
-
-    //TODO must be changed to a state machine pattern
     private static Scene home = null;
     private static Scene now;
     private static Scene prev = null;
 
-    public static Stage stage;
+    private static Stage stage;
+
+    private GuiManager(){
+        //this is singleton
+    }
 
     /**
      * This function must be launched before all if you want to run the code

@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.disagn.beans.DemiseBean;
-import org.disagn.graphicControllers.DemiseGraphicController;
+import org.disagn.graphics.DemiseGraphicController;
 import org.disagn.models.job.Demise;
 
 import java.io.FileNotFoundException;

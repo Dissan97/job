@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.disagn.beans.DemiseBean;
-import org.disagn.graphicControllers.DemiseGraphicController;
+import org.disagn.graphics.DemiseGraphicController;
 import org.disagn.gui.GuiManager;
 import org.disagn.gui.GuiStarter;
 import org.disagn.gui.ViewAction;
