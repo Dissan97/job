@@ -1,7 +1,7 @@
 package com.disagn.dao;
 
 import org.disagn.DBConfigJson;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -34,10 +34,10 @@ class TestConfig {
             //Try connection to MariaDb driver
             Connection connection = DriverManager.getConnection(connectionUrl);
             assertNotNull(connection);
-            Output.println("Connection success");
+            Printer.print("Connection success");
             connection.close();
         } catch (SQLException e) {
-            Output.println(e.getMessage());
+            Printer.print(e.getMessage());
         }
 
 

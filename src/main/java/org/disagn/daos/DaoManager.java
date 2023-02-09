@@ -1,6 +1,6 @@
 package org.disagn.daos;
 
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.exceptions.UserAlreadyExistException;
 import org.disagn.interfaces.DAO;
 import org.disagn.models.job.Demise;
@@ -144,9 +144,9 @@ public class DaoManager implements DAO, Runnable {
             case POST_USER -> {
                 try {
                     this.mariaDbJDBC.pushUser(this.user);
-                    Output.pageMessage(thread.getName(), "user inserted", true);
+                    Printer.pageMessage(thread.getName(), "user inserted", true);
                 } catch (SQLException e) {
-                    Output.exception(e);
+                    Printer.exception(e);
                 }
 
             }
@@ -155,7 +155,7 @@ public class DaoManager implements DAO, Runnable {
                 try {
                     this.mariaDbJDBC.pushShift(this.shift);
                 } catch (SQLException e) {
-                    Output.exception(e);
+                    Printer.exception(e);
                 }
             }
 
@@ -163,7 +163,7 @@ public class DaoManager implements DAO, Runnable {
                 try {
                     this.mariaDbJDBC.pushAppliance(this.appliance);
                 } catch (SQLException e) {
-                    Output.exception(e);
+                    Printer.exception(e);
                 }
             }
 
@@ -171,13 +171,13 @@ public class DaoManager implements DAO, Runnable {
                 try {
                     this.mariaDbJDBC.pushEmployeeDemise(this.demise);
                 } catch (SQLException e) {
-                    Output.exception(e);
+                    Printer.exception(e);
                 }
             }
 
             case LOAD_CONFIG -> {
                 List<User> userList = this.mariaDbJDBC.getUserList();
-                Output.println(userList.toString());
+                Printer.print(userList.toString());
             }
         }
         this.state = null;

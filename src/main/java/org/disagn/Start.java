@@ -1,6 +1,6 @@
 package org.disagn;
 
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.factories.DAOFactory;
 import org.disagn.factories.UiFactory;
@@ -43,7 +43,7 @@ public class Start{
         try {
             startView = UiFactory.getUi(starter, user);
         } catch (NoInterfaceException e) {
-            Output.println(e.getMessage());
+            Printer.print(e.getMessage());
         }
         assert startView != null;
         startView.startUi();

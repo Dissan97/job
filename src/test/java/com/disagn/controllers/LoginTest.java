@@ -2,7 +2,7 @@ package com.disagn.controllers;
 
 
 import org.disagn.Macros;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.controllers.Login;
 import org.disagn.exceptions.InvalidDateException;
 import org.disagn.exceptions.UserAlreadyExistException;
@@ -33,7 +33,7 @@ class LoginTest {
             LOGGER.info("Login gone");
             isGone = true;
         } catch (UserAlreadyExistException | InvalidDateException | SQLException | FileNotFoundException e) {
-            Output.exception(e);
+            Printer.exception(e);
         } finally{
             assertTrue(isGone);
         }

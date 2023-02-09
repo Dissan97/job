@@ -48,7 +48,7 @@ public class MariaDbJDBC implements DAO {
     public void pushUser(User user) throws SQLException {
 
         Connection connection = this.getConnection();
-        CallableStatement statement = connection.prepareCall("{ call new_user(?,?,?,?,?,?,?) }");
+        CallableStatement statement = connection.prepareCall("{ call newUser(?,?,?,?,?,?,?) }");
         statement.setString(1, user.getUsername());
         statement.setString(2, user.getPassword());
         statement.setString(3, user.getName());

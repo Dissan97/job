@@ -3,7 +3,7 @@ package org.disagn.machines.commandline.employee;
 
 import org.disagn.beans.JobApplierBean;
 import org.disagn.cli.io.Input;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.InvalidDateException;
 import org.disagn.graphics.JobApplierGraphic;
@@ -42,10 +42,10 @@ public class ViewAppliesStateCli extends JobAbstractState {
         try {
             this.controller.pullAppliances(user);
         } catch (FileNotFoundException e) {
-            Output.exception(e);
+            Printer.exception(e);
         }
         List<ShiftApply> applyList = bean.getShiftApplyList();
-        Output.pageMessage(page, "apply list", true);
+        Printer.pageMessage(page, "apply list", true);
         int rows = applyList.size();
         this.columnNames = new String[5];
         this.columnNames[0] = "num";
@@ -65,9 +65,9 @@ public class ViewAppliesStateCli extends JobAbstractState {
             i++;
         }
         this.tableName = "Applies";
-        Output.printTable(this.page, this.tableName, this.columnNames, this.rowEntries);
+        Printer.printTable(this.page, this.tableName, this.columnNames, this.rowEntries);
 
-        Output.pageMessage(page, "Want to demise some appliance yes to continue", false);
+        Printer.pageMessage(page, "Want to demise some appliance yes to continue", false);
         String line = Input.line();
 
         if (line.equalsIgnoreCase("yes") || line.equals("y") && !applyList.isEmpty()){
@@ -90,8 +90,8 @@ public class ViewAppliesStateCli extends JobAbstractState {
         String cmd;
 
         do {
-            Output.printTable(localPage, this.tableName, this.columnNames, this.rowEntries);
-            Output.pageMessage(localPage, "Choose an appliance", false);
+            Printer.printTable(localPage, this.tableName, this.columnNames, this.rowEntries);
+            Printer.pageMessage(localPage, "Choose an appliance", false);
             cmd = Input.getCmd(appliances);
             if (appliances.contains(cmd)){
 
@@ -106,11 +106,11 @@ public class ViewAppliesStateCli extends JobAbstractState {
         if (apply != null) {
             try {
                 this.controller.removeAppliance(apply);
-                Output.pageMessage(page, "appliance removed", true);
+                Printer.pageMessage(page, "appliance removed", true);
             } catch (InvalidDateException e) {
-                Output.pageMessage(page, "Application in demise pending state" , true);
+                Printer.pageMessage(page, "Application in demise pending state" , true);
             } catch (ParseException | IOException | SQLException e) {
-                Output.exception(e);
+                Printer.exception(e);
             } finally {
                 cmd = "quit";
             }

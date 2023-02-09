@@ -2,7 +2,7 @@ package com.disagn.controllers;
 
 import org.disagn.Macros;
 import org.disagn.beans.DemiseBean;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.exceptions.InvalidDateException;
 import org.disagn.graphics.DemiseGraphicController;
 import org.disagn.graphics.JobApplierGraphic;
@@ -47,7 +47,7 @@ class DemiseTest {
             controller.removeAppliance(shiftApply);
             isGone = true;
         } catch (Exception e) {
-            Output.println("System: added to demise");
+            Printer.print("System: added to demise");
         }finally {
             assertTrue(isGone);
         }

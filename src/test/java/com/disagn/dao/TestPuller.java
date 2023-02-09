@@ -2,7 +2,7 @@ package com.disagn.dao;
 
 import org.disagn.Macros;
 import org.disagn.beans.ShiftSchedulerBean;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.controllers.ApplicationAcceptor;
 import org.disagn.controllers.ShiftScheduler;
 import org.disagn.exceptions.InvalidDateException;
@@ -36,9 +36,9 @@ class TestPuller {
         if (shiftApplies != null){
             for (ShiftApply apply:
                  shiftApplies) {
-                Output.println(apply.getEmployee());
-                Output.println(apply.getEmployer());
-                Output.println(apply.getApplyDate());
+                Printer.print(apply.getEmployee());
+                Printer.print(apply.getEmployer());
+                Printer.print(apply.getApplyDate());
             }
         }
 

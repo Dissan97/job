@@ -6,7 +6,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import org.disagn.Macros;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.exceptions.UserAlreadyExistException;
 import org.disagn.interfaces.DAO;
 import org.disagn.models.job.Demise;
@@ -51,7 +51,7 @@ public class FileSystem implements DAO {
 
         File dir = new File(path);
 
-        Output.println(path);
+        Printer.print(path);
 
         if (!dir.mkdir()){
             throw new UserAlreadyExistException();
@@ -112,7 +112,7 @@ public class FileSystem implements DAO {
             writer.close();
 
         } catch (IOException e) {
-            Output.exception(e);
+            Printer.exception(e);
         }
 
     }
@@ -192,7 +192,7 @@ public class FileSystem implements DAO {
             writer.close();
             localWriter.close();
         } catch (IOException e) {
-            Output.exception(e);
+            Printer.exception(e);
         }
     }
 

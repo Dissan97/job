@@ -3,7 +3,7 @@ package org.disagn.controllers;
 
 import org.disagn.Macros;
 import org.disagn.beans.DemiseBean;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.daos.DaoManager;
 import org.disagn.exceptions.ElementAlreadyComputedException;
 import org.disagn.exceptions.InvalidDateException;
@@ -30,7 +30,7 @@ public class DemiseController {
         try {
             this.pullDemises(new User());
         } catch (InvalidDateException e) {
-            Output.println("Something wrong");
+            Printer.print("Something wrong");
         }
 
         List<Demise> demiseList;
@@ -82,7 +82,7 @@ public class DemiseController {
              demiseList) {
             if (d.getApplication().equals(demise.getApplication()) && d.isAccepted()){
                 //return
-                Output.println("already accepted");
+                Printer.print("already accepted");
             }
         }
         dao.updateDemise(demise);

@@ -2,7 +2,7 @@ package org.disagn.cli;
 
 
 import org.disagn.cli.io.Input;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.controllers.Login;
 import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.InvalidDateException;
@@ -30,7 +30,7 @@ public class EmployeeView extends JobAbstractState {
         try {
             employee = new Employee(user);
         } catch (InvalidDateException e) {
-            Output.exception(e);
+            Printer.exception(e);
         }
 
         PageContainer container = new PageContainer("HOME", user);
@@ -39,7 +39,7 @@ public class EmployeeView extends JobAbstractState {
             CommandLoader commandLoader = new CommandLoader("EMPLOYEE");
             this.commandList = commandLoader.getCommandList();
         } catch (FileNotFoundException e) {
-            Output.pageMessage(this.page, e.getMessage(), true);
+            Printer.pageMessage(this.page, e.getMessage(), true);
         }
     }
 
@@ -48,7 +48,7 @@ public class EmployeeView extends JobAbstractState {
 
 
         while (true) {
-            Output.pageMessage(page, CommandLoader.HELP, false);
+            Printer.pageMessage(page, CommandLoader.HELP, false);
             String line = Input.getCmd(this.commandList);
             JobAbstractState newState = null;
             switch (line) {
@@ -56,25 +56,25 @@ public class EmployeeView extends JobAbstractState {
                 case "APPLY_SHIFT" -> newState = new ApplyShift(this.employee);
                 case "VIEW_APPLIES" -> newState = new ViewAppliesStateCli(this.employee);
                 case "MANAGE_DEMISE" -> newState = new DemiseManagerStateCli(this.employee);
-                case "HELP" -> Output.printList(this.page, this.commandList);
+                case "HELP" -> Printer.printList(this.page, this.commandList);
                 case "LOG_OUT" ->  {
                     try {
                         Login.LogOut();
                     } catch (NoInterfaceException e) {
-                        Output.println(e.getMessage());
+                        Printer.print(e.getMessage());
                     }
                     return;
                 }
                 case "EXIT" -> {
-                    Output.pageMessage(this.page, employee.getUsername() + " Bye...", true);
+                    Printer.pageMessage(this.page, employee.getUsername() + " Bye...", true);
                     return;
                 }
                 case "" -> {
                     //no op
                 }
                 default -> {
-                    Output.pageMessage(this.page, "PLEASE TYPE THIS COMMAND", true);
-                    Output.printList(this.page, this.commandList);
+                    Printer.pageMessage(this.page, "PLEASE TYPE THIS COMMAND", true);
+                    Printer.printList(this.page, this.commandList);
                 }
 
             }

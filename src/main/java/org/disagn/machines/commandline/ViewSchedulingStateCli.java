@@ -1,7 +1,7 @@
 package org.disagn.machines.commandline;
 
 
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.decorator.PageContainer;
 import org.disagn.models.users.User;
 import org.disagn.machines.JobAbstractState;
@@ -18,6 +18,6 @@ public class ViewSchedulingStateCli extends JobAbstractState {
     @Override
     public void entry(CliMachine stateMachine) {
         //need to be implemented
-        Output.pageMessage(this.page, "Hello from scheduling", true);
+        Printer.pageMessage(this.page, "Hello from scheduling", true);
     }
 }

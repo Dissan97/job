@@ -9,11 +9,6 @@ import java.util.Locale;
 public class GuiStarter implements JobView {
     public static User user = null;
 
-    public GuiStarter(User u) {
-        user = u;
-    }
-
-
     @Override
     public void startUi() {
         try {

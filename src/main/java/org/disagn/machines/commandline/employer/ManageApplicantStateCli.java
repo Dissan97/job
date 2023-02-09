@@ -1,7 +1,7 @@
 package org.disagn.machines.commandline.employer;
 
 import org.disagn.cli.io.Input;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.decorator.PageContainer;
 import org.disagn.graphics.ApplicationAcceptorGraphic;
 import org.disagn.models.job.ShiftApply;
@@ -35,16 +35,16 @@ public class ManageApplicantStateCli extends JobAbstractState {
         if (line.equalsIgnoreCase("yes") || line.equalsIgnoreCase("y")){
             try {
                 acceptorController.manageCandidate(this.employee, this.user, this.apply, true);
-                Output.pageMessage(this.page, "user accepted", true);
+                Printer.pageMessage(this.page, "user accepted", true);
             }catch (Exception e){
-                Output.exception(e);
+                Printer.exception(e);
             }
         }else if (line.equalsIgnoreCase("no") || line.equalsIgnoreCase("n")) {
             try {
                 acceptorController.manageCandidate(this.employee, this.user, apply, true);
-                Output.pageMessage(this.page, "user refused", true);
+                Printer.pageMessage(this.page, "user refused", true);
             } catch (Exception e) {
-                Output.exception(e);
+                Printer.exception(e);
             }
         }
     }

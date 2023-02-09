@@ -2,7 +2,7 @@ package org.disagn.controllers;
 
 import org.disagn.beans.DemiseBean;
 import org.disagn.beans.JobApplierBean;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.daos.DaoManager;
 import org.disagn.exceptions.InvalidDateException;
 import org.disagn.exceptions.ShiftAlreadyApplied;
@@ -89,7 +89,7 @@ public class JobApplier {
                 localApplyList.add(apply);
             }
         } catch (Exception e) {
-            Output.println(e.getMessage());
+            Printer.print(e.getMessage());
         }
 
         for (Demise d:
@@ -128,7 +128,7 @@ public class JobApplier {
             }
             throw new InvalidDateException();
         } catch (IOException e) {
-            Output.exception(e);
+            Printer.exception(e);
         }
     }
 

@@ -3,7 +3,7 @@ package org.disagn.machines.commandline.employer;
 
 
 import org.disagn.cli.io.Input;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.decorator.PageContainer;
 import org.disagn.graphics.ShiftPublisherGraphic;
 import org.disagn.models.users.User;
@@ -26,7 +26,7 @@ public class PublishShiftStateCli extends JobAbstractState {
     public void entry(CliMachine stateMachine){
         ShiftPublisherGraphic controller = new ShiftPublisherGraphic();
 
-        Output.pageMessage(this.page, "Write the information", true);
+        Printer.pageMessage(this.page, "Write the information", true);
 
         String name = Input.getInfo(this.page, "insert job name");
         String place = Input.getInfo(this.page, "insert job place");
@@ -45,10 +45,10 @@ public class PublishShiftStateCli extends JobAbstractState {
                     description = "Job appliance";
                 }
                 controller.publishShift(this.user.getUsername(), name, place, dateTime, description);
-                Output.pageMessage(page, "Shift published", true);
+                Printer.pageMessage(page, "Shift published", true);
             }
         } catch (Exception e) {
-            Output.exception(e);
+            Printer.exception(e);
         }
 
         stateMachine.getBack();

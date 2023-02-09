@@ -1,7 +1,7 @@
 package org.disagn.machines.commandline;
 
 
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.decorator.PageContainer;
 import org.disagn.models.users.User;
 import org.disagn.machines.JobAbstractState;
@@ -22,11 +22,11 @@ public class AccountStateCli extends JobAbstractState {
      */
     @Override
     public void entry (CliMachine stateMachine) {
-        Output.println("[ACCOUNT INFORMATION]");
-        Output.pageMessage(this.page, "NAME: " + this.user.getName(), true);
-        Output.pageMessage(this.page, "SURNAME: " + this.user.getSurname(), true);
-        Output.pageMessage(this.page, "DATE OF BIRTH: " + this.user.getDateOfBirth(), true);
-        Output.pageMessage(this.page, "CITY OF BIRTH: " + this.user.getCityOfBirth(), true);
+        Printer.print("[ACCOUNT INFORMATION]");
+        Printer.pageMessage(this.page, "NAME: " + this.user.getName(), true);
+        Printer.pageMessage(this.page, "SURNAME: " + this.user.getSurname(), true);
+        Printer.pageMessage(this.page, "DATE OF BIRTH: " + this.user.getDateOfBirth(), true);
+        Printer.pageMessage(this.page, "CITY OF BIRTH: " + this.user.getCityOfBirth(), true);
         stateMachine.getBack();
     }
 

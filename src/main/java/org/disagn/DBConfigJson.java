@@ -2,7 +2,7 @@ package org.disagn;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -34,7 +34,7 @@ public class DBConfigJson {
                     )
             );
         } catch (FileNotFoundException e) {
-            Output.exception(e);
+            Printer.exception(e);
         }
 
         assert reader != null;

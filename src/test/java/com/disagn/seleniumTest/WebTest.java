@@ -1,7 +1,7 @@
 package com.disagn.seleniumTest;
 
 
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -37,8 +37,8 @@ class WebTest {
         driver.quit();
         // Close the browser window
         // Print the contents of the section in the console
-        Output.println("Change 1 EUR = " + dollar + " USD");
-        Output.println("Change 1 EUR = " + pound + " GBP");
+        Printer.print("Change 1 EUR = " + dollar + " USD");
+        Printer.print("Change 1 EUR = " + pound + " GBP");
     }
 
 

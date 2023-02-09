@@ -6,39 +6,39 @@ CREATE schema `Job`;
 use `Job`;
 
 CREATE TABLE `Users` (
-    `username` varchar(32) NOT NULL,
-    `password` varchar(64) NOT NULL,
-    `name` varchar(32) NOT NULL,
-    `surname` varchar(32) NOT NULL,
-    `cityOfBirth` varchar(32) NOT NULL,
-    `dateOfBirth` date NOT NULL,
-    `tel` varchar(16) DEFAULT NULL,
-    `userType` varchar(16) NOT NULL,
-    PRIMARY KEY (`username`)
+                         `username` varchar(32) NOT NULL,
+                         `password` varchar(64) NOT NULL,
+                         `name` varchar(32) NOT NULL,
+                         `surname` varchar(32) NOT NULL,
+                         `cityOfBirth` varchar(32) NOT NULL,
+                         `dateOfBirth` date NOT NULL,
+                         `tel` varchar(16) DEFAULT NULL,
+                         `userType` varchar(16) NOT NULL,
+                         PRIMARY KEY (`username`)
 );
 
 
 create table if not exists `Job`.`Shifts`(
-    `shiftCode` varchar(64),
-    `jobName` varchar(32) not null,
-    `JobPlace` varchar(32) not null,
-    `jobDateTime` varchar(32) not null,
-    `jobDescription` varchar(128) not null,
-    `employer` varchar(32) not null,
-    primary key (`shiftCode`),
-    foreign key (`employer`) references `Job`.`Users`(`username`)
+                                             `shiftCode` varchar(64),
+                                             `jobName` varchar(32) not null,
+                                             `JobPlace` varchar(32) not null,
+                                             `jobDateTime` varchar(32) not null,
+                                             `jobDescription` varchar(128) not null,
+                                             `employer` varchar(32) not null,
+                                             primary key (`shiftCode`),
+                                             foreign key (`employer`) references `Job`.`Users`(`username`)
 );
 
 
 create table if not exists `Job`.`ShiftAppliance`(
-     `applianceCode` varchar(128) primary key,
-     `applianceDate` varchar(32) not null,
-     `shiftDate` varchar(32) not null,
-     `isAccepted` bool not null,
-     `shiftEmployer` varchar(32) not null,
-     `shiftEmployee` varchar(32) not null,
-     foreign key (`shiftEmployee`) references `Job`.`Users`(`username`),
-     foreign key (`shiftEmployer`) references Job.`Shifts`(`employer`)
+                                                     `applianceCode` varchar(128) primary key,
+                                                     `applianceDate` varchar(32) not null,
+                                                     `shiftDate` varchar(32) not null,
+                                                     `isAccepted` bool not null,
+                                                     `shiftEmployer` varchar(32) not null,
+                                                     `shiftEmployee` varchar(32) not null,
+                                                     foreign key (`shiftEmployee`) references `Job`.`Users`(`username`),
+                                                     foreign key (`shiftEmployer`) references Job.`Shifts`(`employer`)
 );
 
 
@@ -60,23 +60,23 @@ create table if not exists `Job`.`Demises`
 -- NEW_USER
 
 USE `Job`;
-DROP procedure IF EXISTS `Job`.`new_user`;
+DROP procedure IF EXISTS `Job`.`newUser`;
 ;
 
 DELIMITER $$
 USE `Job`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `new_user`(in username varchar (32), in pwd varchar(64), in usr_name varchar(32), in surname varchar(32), cityOfBirth varchar (32), in dateOfBirth varchar(32), in userType int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `newUser`(in usr varchar (32), in pwd varchar(64), in usr_name varchar(32), in sur varchar(32), city varchar (32), in birth varchar(32), in type int)
 BEGIN
-	declare exit handler for sqlexception
-    begin 
-        rollback;
-        resignal;
-    end;
+    declare exit handler for sqlexception
+        begin
+            rollback;
+            resignal;
+        end;
 
     set transaction isolation level read uncommitted;
     start transaction;
-	INSERT INTO `Job`.`Users` (`username`, `password`, `name`, `surname`, `cityOfBirth`, `dateOfBirth`, `userType`)
-	VALUES(username, pwd, usr_name, surname, cityOfBirth, dateOfBirth, userType);
+    INSERT INTO `Job`.`Users` (`username`, `password`, `name`, `surname`, `cityOfBirth`, `dateOfBirth`, `userType`)
+    VALUES(usr, pwd, usr_name, sur, city, birth, type);
     commit;
 
 END$$
@@ -92,15 +92,15 @@ DELIMITER $$
 USE `Job`$$
 CREATE PROCEDURE `login` (in username varchar(32), in pwd varchar(64))
 BEGIN
-   declare exit handler for sqlexception
-    begin 
-        rollback;
-        resignal;
-    end;
+    declare exit handler for sqlexception
+        begin
+            rollback;
+            resignal;
+        end;
 
     set transaction isolation level read committed;
     start transaction;
-    
+
     select `username`, `password` from `Users` where `Users`.`username` = username and `Users`.`password` = pwd;
     commit;
 END$$
@@ -184,5 +184,13 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+drop user if exists `job`;
+CREATE USER 'job'@'localhost' IDENTIFIED BY 'password';
+grant  execute on procedure `Job`.`login`  to `job`;
+grant  execute on procedure `Job`.`newUser`  to `job`;
+grant  execute on procedure `Job`.`pushAppliance`  to `job`;
+grant  execute on procedure `Job`.`pushDemise`  to `job`;
+grant  execute on procedure `Job`.`pushShift`  to `job`;
 
 

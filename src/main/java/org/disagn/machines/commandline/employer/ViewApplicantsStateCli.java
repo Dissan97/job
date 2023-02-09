@@ -3,7 +3,7 @@ package org.disagn.machines.commandline.employer;
 import org.disagn.beans.AccountBean;
 import org.disagn.beans.JobApplierBean;
 import org.disagn.cli.io.Input;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.decorator.PageContainer;
 import org.disagn.graphics.ApplicationAcceptorGraphic;
 import org.disagn.models.job.ShiftApply;
@@ -36,7 +36,7 @@ public class ViewApplicantsStateCli extends JobAbstractState {
         try {
             acceptorController.getUserData(this.user);
         } catch (FileNotFoundException e) {
-            Output.exception(e);
+            Printer.exception(e);
         }
 
         AccountBean accountBean = acceptorController.getAccountBean();
@@ -67,16 +67,16 @@ public class ViewApplicantsStateCli extends JobAbstractState {
             i++;
         }
         if (applies.isEmpty()){
-            Output.pageMessage(page, "There is no appliances yet", false);
+            Printer.pageMessage(page, "There is no appliances yet", false);
             stateMachine.getBack();
         }
 
-        Output.printTable(this.page, "Applicants", columnNames, rowEntries);
+        Printer.printTable(this.page, "Applicants", columnNames, rowEntries);
 
         String cmd;
 
         do {
-            Output.pageMessage(page, "select an apply or quit or exit to leave the procedure", false);
+            Printer.pageMessage(page, "select an apply or quit or exit to leave the procedure", false);
             cmd = Input.getCmd(applies);
 
 

@@ -3,7 +3,7 @@ package org.disagn.machines.commandline.employee;
 
 import org.disagn.beans.DemiseBean;
 import org.disagn.cli.io.Input;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.decorator.PageContainer;
 import org.disagn.graphics.DemiseGraphicController;
 import org.disagn.models.job.Demise;
@@ -35,7 +35,7 @@ public class DemiseManagerStateCli extends JobAbstractState {
         try{
             this.controller.pullDemises(user);
         }catch (Exception e){
-            Output.exception(e);
+            Printer.exception(e);
         }
 
         List<Demise> demiseList = this.bean.getDemiseList();
@@ -49,7 +49,7 @@ public class DemiseManagerStateCli extends JobAbstractState {
 
 
         if (demiseList.isEmpty()){
-            Output.pageMessage(page, "there is no demises", true);
+            Printer.pageMessage(page, "there is no demises", true);
             return;
         }
 
@@ -59,9 +59,9 @@ public class DemiseManagerStateCli extends JobAbstractState {
     private void demise(List<Demise> demiseList, List<String> pendingDemise) {
         String cmd;
         while (true) {
-            Output.pageMessage(page, "Demises: ", true);
-            Output.printList(page, pendingDemise);
-            Output.pageMessage(page, "choose a demise print exit or quit to leave the procedure", false);
+            Printer.pageMessage(page, "Demises: ", true);
+            Printer.printList(page, pendingDemise);
+            Printer.pageMessage(page, "choose a demise print exit or quit to leave the procedure", false);
             cmd = Input.getCmd(pendingDemise);
 
 
@@ -82,19 +82,19 @@ public class DemiseManagerStateCli extends JobAbstractState {
                 break;
             }
 
-            Output.pageMessage(page, "[" +cmd + "] not found in the demise list", true);
+            Printer.pageMessage(page, "[" +cmd + "] not found in the demise list", true);
 
         }
     }
 
     private void setMotivation() {
         String motivation;
-        Output.pageMessage(this.page, "write a motivation for demise: " + this.bean.getPendingDemiseApplication(), false);
+        Printer.pageMessage(this.page, "write a motivation for demise: " + this.bean.getPendingDemiseApplication(), false);
         motivation = Input.line();
         if (this.controller.setMotivation(this.bean.getPendingDemise(), motivation)){
-            Output.pageMessage(this.page, "demise sent", true);
+            Printer.pageMessage(this.page, "demise sent", true);
             return;
         }
-        Output.pageMessage(this.page, "cannot send demise", true);
+        Printer.pageMessage(this.page, "cannot send demise", true);
     }
 }

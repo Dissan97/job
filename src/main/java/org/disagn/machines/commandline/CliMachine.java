@@ -1,7 +1,7 @@
 package org.disagn.machines.commandline;
 
 
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.interfaces.JobStateMachine;
 import org.disagn.models.users.User;
 import org.disagn.machines.JobAbstractState;
@@ -47,7 +47,7 @@ public class CliMachine implements JobStateMachine {
      */
     public void changeState(JobAbstractState state){
         if (state != this.currentState) {
-            Output.println("Machine: changing state " + this.currentState.getClass().getSimpleName() + "  -> " + state.getClass().getSimpleName());
+            Printer.print("Machine: changing state " + this.currentState.getClass().getSimpleName() + "  -> " + state.getClass().getSimpleName());
         }
 
         this.previousState = this.currentState;

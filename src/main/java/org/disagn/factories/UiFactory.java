@@ -25,7 +25,8 @@ public class UiFactory {
                         return new StartGuiUi();
                     }
                     case EMPLOYEE, EMPLOYER, ASSISTANT -> {
-                        return new GuiStarter(user);
+                        GuiStarter.user = user;
+                        return new GuiStarter();
                     }
                     default -> throw new NoInterfaceException("GUI");
                 }

@@ -17,7 +17,7 @@ public class Input{
         try {
             line = in.readLine();
         }catch (IOException e){
-            Output.exception(e);
+            Printer.exception(e);
         }
         return line;
     }
@@ -63,7 +63,7 @@ public class Input{
 
 
     public static String getInfo(String page, String msg) {
-        Output.pageMessage(page,"Insert " +  msg, false);
+        Printer.pageMessage(page,"Insert " +  msg, false);
         return Input.line();
     }
 }

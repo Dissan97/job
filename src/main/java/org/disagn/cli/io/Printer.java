@@ -1,45 +1,43 @@
 package org.disagn.cli.io;
 
-import java.io.*;
-import java.util.Arrays;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
+import java.util.Arrays;
 
-public class Output{
 
-    private static final BufferedWriter WRITER = new BufferedWriter(
-            new OutputStreamWriter(System.out)
-    );
 
-    private Output() {}
+public class Printer {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger("PRINTER");
+    private final static String LINE = "\n";
+    private Printer() {}
+
 
     public static void print(String msg){
-        try {
-            WRITER.write(msg, 0, msg.length());
-            WRITER.flush();
-        }catch (IOException e){
-            System.err.println(e.getMessage());
-        }
+            LOGGER.info(msg);
     }
 
-    public static void println(String msg){
-        print(msg + "\n");
-    }
 
     public static void printList(String page, List<String> commandList){
-        Output.pageMessage(page, "COMMAND LIST", true);
+        Printer.pageMessage(page, "COMMAND LIST", true);
+        StringBuilder builder = new StringBuilder(LINE + LINE);
         int i = 0;
         for (String command:
                 commandList) {
-            Output.println("[" + (i++) + "] " + command);
+            builder.append("[").append(i++).append("] ").append(command).append("\n");
         }
+        Printer.print(builder.toString());
     }
 
     public static void pageMessage(String page, String s, boolean line){
         if (line)
-            page += " " + s + "\n";
+            page += " " + s + LINE;
         else
-            page += " " +  s + "\n>> ";
-        Output.print(page);
+            page += " " +  s + LINE + "<<insert command>>";
+        Printer.print(page);
     }
 
     public static void printTable(String page, String tableName, String[] columnNames, String[][] rowEntries) {
@@ -62,7 +60,7 @@ public class Output{
             sb.append("+");
             sb.append("-".repeat(Math.max(0, width + 2)));
         }
-        sb.append("+\n");
+        sb.append("+" + LINE);
         // Add the column names
         appender(columnWidths, sb, columnNames);
 
@@ -71,7 +69,7 @@ public class Output{
             appender(columnWidths, sb, row);
         }
 
-        Output.pageMessage(page, tableName + "\n" + sb, true);
+        Printer.pageMessage(page, tableName + LINE + sb, true);
 
     }
 
@@ -81,15 +79,15 @@ public class Output{
             sb.append(row[i]);
             sb.append(" ".repeat(Math.max(0, columnWidths[i] - row[i].length() + 1)));
         }
-        sb.append("|\n");
+        sb.append("|" + LINE);
         for (int width : columnWidths) {
             sb.append("+");
             sb.append("-".repeat(Math.max(0, width + 2)));
         }
-        sb.append("+\n");
+        sb.append("+" + LINE);
     }
 
     public static void exception(Exception e) {
-        println("Exception: " + e.getMessage());
+        LOGGER.error("Exception: ", e);
     }
 }

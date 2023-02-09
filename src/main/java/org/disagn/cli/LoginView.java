@@ -3,7 +3,7 @@ package org.disagn.cli;
 
 import org.disagn.Macros;
 import org.disagn.cli.io.Input;
-import org.disagn.cli.io.Output;
+import org.disagn.cli.io.Printer;
 import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.InvalidDateException;
 import org.disagn.exceptions.NoInterfaceException;
@@ -35,7 +35,7 @@ public class LoginView implements JobView{
             CommandLoader commandLoader = new CommandLoader(LOGIN);
             this.commandList = commandLoader.getCommandList();
         } catch (FileNotFoundException e) {
-            Output.pageMessage(LOGIN, e.getMessage(), true);
+            Printer.pageMessage(LOGIN, e.getMessage(), true);
         }
         this.controller = new LoginGraphic();
     }
@@ -48,41 +48,41 @@ public class LoginView implements JobView{
         String page = container.display();
         while (true) {
 
-            Output.pageMessage(page, CommandLoader.HELP, false);
+            Printer.pageMessage(page, CommandLoader.HELP, false);
             line = Input.getCmd(this.commandList);
 
             Macros ret = Macros.START;
             switch (line) {
                 case "SIGN_IN" -> {
                     this.refresh();
-                    Output.pageMessage(page, "Starting sign up procedure", true);
+                    Printer.pageMessage(page, "Starting sign up procedure", true);
                     ret = this.signIn();
                 }
                 case "SIGN_UP" -> {
                     this.refresh();
-                    Output.pageMessage(page, "Starting sign up procedure", true);
+                    Printer.pageMessage(page, "Starting sign up procedure", true);
                     ret = this.signUp();
                 }
-                case "HELP" -> Output.printList(page, this.commandList);
+                case "HELP" -> Printer.printList(page, this.commandList);
                 case "EXIT" -> {
-                    Output.pageMessage(LOGIN, "bye...", true);
+                    Printer.pageMessage(LOGIN, "bye...", true);
                     return;
                 }
                 case "" ->{
                     //DO NO OP CONTINUE
                 }
                 case "INVALID_NUMBER" ->
-                    Output.pageMessage(page, line + " VALUES ALLOWED 0.." + (this.commandList.size() - 1), true);
+                    Printer.pageMessage(page, line + " VALUES ALLOWED 0.." + (this.commandList.size() - 1), true);
 
                 default ->
-                    Output.pageMessage(page, "{" + line + "} COMMAND_NOT_FOUND TYPE HELP FOR COMMAND LIST", true);
+                    Printer.pageMessage(page, "{" + line + "} COMMAND_NOT_FOUND TYPE HELP FOR COMMAND LIST", true);
 
             }
 
             if (ret == Macros.SIGN_IN_SUCCESS){
                 return;
             } else if (ret == Macros.SIGN_IN_FAILED) {
-                Output.pageMessage(page, "There's some error", true);
+                Printer.pageMessage(page, "There's some error", true);
             }
         }
 
@@ -117,7 +117,7 @@ public class LoginView implements JobView{
         try {
             this.controller.signUp(this.username, this.password, this.name, this.surname, this.dateOfBirth, this.cityOfBirth, type);
         } catch (Exception e) {
-            Output.exception(e);
+            Printer.exception(e);
             return Macros.ERROR;
         }finally {
             this.refresh();
@@ -138,7 +138,7 @@ public class LoginView implements JobView{
             if (this.controller.isGood(line, false)){
                 this.name = line;
             }else {
-                Output.pageMessage(page,"name cannot be blank", true);
+                Printer.pageMessage(page,"name cannot be blank", true);
                 signUp();
             }
         }
@@ -153,7 +153,7 @@ public class LoginView implements JobView{
             if (this.controller.isGood(line, false)){
                 this.surname = line;
             }else {
-                Output.pageMessage(page,"surname cannot be blank", true);
+                Printer.pageMessage(page,"surname cannot be blank", true);
                 signUp();
             }
         }
@@ -171,11 +171,11 @@ public class LoginView implements JobView{
                     JobDate date = new JobDate(line);
                     this.dateOfBirth = date.toString();
                 } catch (InvalidDateException e) {
-                    Output.pageMessage(page, e.getMessage(), true);
+                    Printer.pageMessage(page, e.getMessage(), true);
                     signUp();
                 }
             }else {
-                Output.pageMessage(page,"date cannot be blank", true);
+                Printer.pageMessage(page,"date cannot be blank", true);
                 signUp();
             }
         }
@@ -191,7 +191,7 @@ public class LoginView implements JobView{
             if (this.controller.isGood(line, false)){
                 this.cityOfBirth = line;
             }else {
-                Output.pageMessage(page,"city of birth cannot be blank", true);
+                Printer.pageMessage(page,"city of birth cannot be blank", true);
                 signUp();
             }
         }
@@ -216,12 +216,12 @@ public class LoginView implements JobView{
         try {
             this.controller.signIn(this.username, this.password, store);
         } catch (UserLoginFailedException e) {
-            Output.pageMessage(page, e.getMessage(), true);
+            Printer.pageMessage(page, e.getMessage(), true);
             return SIGN_IN_FAILED;
         } catch (NoInterfaceException e) {
-            Output.println(e.getMessage());
+            Printer.print(e.getMessage());
         } catch (FileNotFoundException e) {
-            Output.exception(e);
+            Printer.exception(e);
         }
         return SIGN_IN_SUCCESS;
     }
@@ -233,7 +233,7 @@ public class LoginView implements JobView{
         if (s.equalsIgnoreCase("#BACK") || s.equalsIgnoreCase("#EXIT")){
             ret = true;
             this.refresh();
-            Output.pageMessage(LOGIN, "EXITING PROCEDURE", true);
+            Printer.pageMessage(LOGIN, "EXITING PROCEDURE", true);
         }
         return ret;
     }
@@ -248,7 +248,7 @@ public class LoginView implements JobView{
             if (this.controller.isGood(line, false)) {
                 this.username = line;
             }else {
-                Output.pageMessage(page,"Cannot insert blank username", true);
+                Printer.pageMessage(page,"Cannot insert blank username", true);
                 return BACK_CALL;
             }
         }
@@ -261,7 +261,7 @@ public class LoginView implements JobView{
             if (this.controller.isGood(line, true)) {
                 this.password = line;
             }else {
-                Output.pageMessage(page,"error password must have at least 8 character", true);
+                Printer.pageMessage(page,"error password must have at least 8 character", true);
                 return BACK_CALL;
             }
         }
