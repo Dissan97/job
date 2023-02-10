@@ -2,8 +2,8 @@ package org.disagn.cli;
 
 import org.disagn.cli.io.Printer;
 import org.disagn.models.users.User;
-import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.commandline.CliMachine;
+import org.disagn.states.JobAbstractState;
+import org.disagn.states.commandline.CliMachine;
 
 public class AssistantView extends JobAbstractState {
 

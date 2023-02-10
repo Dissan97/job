@@ -25,10 +25,10 @@ public class UiFactory {
                         return new StartGuiUi();
                     }
                     case EMPLOYEE, EMPLOYER, ASSISTANT -> {
-                        GuiStarter.user = user;
+                        GuiStarter.setUser(user);
                         return new GuiStarter();
                     }
-                    default -> throw new NoInterfaceException("GUI");
+                    default -> throw new NoInterfaceException();
                 }
         }else {
             switch (type){
@@ -38,7 +38,7 @@ public class UiFactory {
                 case ASSISTANT, EMPLOYEE, EMPLOYER ->{
                     return new UserCliUi(user);
                 }
-                default -> throw new NoInterfaceException("CLI");
+                default -> throw new NoInterfaceException();
 
             }
         }

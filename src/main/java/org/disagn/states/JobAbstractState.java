@@ -1,11 +1,11 @@
-package org.disagn.machines;
+package org.disagn.states;
 
 
 import org.disagn.cli.AssistantView;
 import org.disagn.cli.EmployeeView;
 import org.disagn.cli.EmployerView;
 import org.disagn.models.users.User;
-import org.disagn.machines.commandline.CliMachine;
+import org.disagn.states.commandline.CliMachine;
 
 public abstract class JobAbstractState{
 

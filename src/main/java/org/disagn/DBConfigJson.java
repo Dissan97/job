@@ -6,6 +6,7 @@ import org.disagn.cli.io.Printer;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Objects;
 
 public class DBConfigJson {
     private String driver;
@@ -24,7 +25,7 @@ public class DBConfigJson {
 
 
     private void loadConfig() {
-        String path = "src/main/resources/org/disagn/dao/configDataBase.json";
+        String path = Objects.requireNonNull(getClass().getResource("configDataBase.json")).getPath();
         JsonElement reader = null;
 
         try {

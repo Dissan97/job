@@ -30,7 +30,7 @@ public class JobApplierGui {
         JobApplierGraphic controller = new JobApplierGraphic();
         JobApplierBean bean = controller.getBean();
         try {
-            controller.pullShifts(GuiStarter.user);
+            controller.pullShifts(GuiStarter.getUser());
         } catch (FileNotFoundException e) {
             GuiManager.exception(e);
         }
@@ -79,7 +79,7 @@ public class JobApplierGui {
     private void pushAppliance(Shift shift, JobApplierGraphic controller){
 
         try {
-            controller.pushAppliance(shift, GuiStarter.user);
+            controller.pushAppliance(shift, GuiStarter.getUser());
             GuiManager.popUp("SHIFT APPLIED");
         } catch (Exception e) {
             GuiManager.exception(e);

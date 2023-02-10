@@ -45,7 +45,7 @@ public class ViewApplicantsGui {
     public void buildView() {
         ApplicationAcceptorGraphic acceptorController = new ApplicationAcceptorGraphic();
         try {
-            acceptorController.getUserData(GuiStarter.user);
+            acceptorController.getUserData(GuiStarter.getUser());
         } catch (FileNotFoundException e) {
             GuiManager.exception(e);
         }
@@ -117,7 +117,7 @@ public class ViewApplicantsGui {
         ApplicationAcceptorGraphic controller = new ApplicationAcceptorGraphic();
         acceptButton.setOnAction(e -> {
             try {
-                controller.manageCandidate(user, GuiStarter.user, apply, true);
+                controller.manageCandidate(user, GuiStarter.getUser(), apply, true);
                 GuiManager.popUp("Appliance accepted");
             } catch (Exception ex) {
                 GuiManager.exception(ex);
@@ -126,7 +126,7 @@ public class ViewApplicantsGui {
         });
         refuseButton.setOnAction(e -> {
             try {
-                controller.manageCandidate(user, GuiStarter.user, apply, false);
+                controller.manageCandidate(user, GuiStarter.getUser(), apply, false);
                 GuiManager.popUp("Appliance cancelled");
             } catch (Exception ex) {
                 GuiManager.exception(ex);

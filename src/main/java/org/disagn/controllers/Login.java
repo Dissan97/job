@@ -53,7 +53,7 @@ public class Login {
 
     }
 
-    public static void LogOut() throws NoInterfaceException {
+    public static void logOut() throws NoInterfaceException {
         DAO tempDao = DAOFactory.getDAO();
         tempDao.saveConfig(null);
         JobView view = UiFactory.getUi(Macros.START, null);

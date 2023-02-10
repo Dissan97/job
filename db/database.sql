@@ -185,12 +185,12 @@ END$$
 
 DELIMITER ;
 
-drop user if exists `job`;
+drop user if exists 'job'@'localhost';
 CREATE USER 'job'@'localhost' IDENTIFIED BY 'password';
-grant  execute on procedure `Job`.`login`  to `job`;
-grant  execute on procedure `Job`.`newUser`  to `job`;
-grant  execute on procedure `Job`.`pushAppliance`  to `job`;
-grant  execute on procedure `Job`.`pushDemise`  to `job`;
-grant  execute on procedure `Job`.`pushShift`  to `job`;
+grant  execute on procedure `Job`.`login`  to 'job'@'localhost';
+grant  execute on procedure `Job`.`newUser`  to 'job'@'localhost';
+grant  execute on procedure `Job`.`pushAppliance`  to 'job'@'localhost';
+grant  execute on procedure `Job`.`pushDemise`  to 'job'@'localhost';
+grant  execute on procedure `Job`.`pushShift`  to 'job'@'localhost';
 
 

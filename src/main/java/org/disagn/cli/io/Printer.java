@@ -11,8 +11,8 @@ import java.util.Arrays;
 
 public class Printer {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger("PRINTER");
-    private final static String LINE = "\n";
+    private static final Logger LOGGER = LoggerFactory.getLogger("PRINTER");
+    private static final String LINE = "\n";
     private Printer() {}
 
 

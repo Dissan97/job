@@ -1,4 +1,4 @@
-package org.disagn.machines.commandline.employer;
+package org.disagn.states.commandline.employer;
 
 
 
@@ -7,8 +7,8 @@ import org.disagn.cli.io.Printer;
 import org.disagn.decorator.PageContainer;
 import org.disagn.graphics.ShiftPublisherGraphic;
 import org.disagn.models.users.User;
-import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.commandline.CliMachine;
+import org.disagn.states.JobAbstractState;
+import org.disagn.states.commandline.CliMachine;
 
 
 public class PublishShiftStateCli extends JobAbstractState {

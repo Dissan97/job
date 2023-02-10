@@ -1,4 +1,4 @@
-package org.disagn.machines.commandline.employee;
+package org.disagn.states.commandline.employee;
 
 
 import org.disagn.beans.DemiseBean;
@@ -8,8 +8,8 @@ import org.disagn.decorator.PageContainer;
 import org.disagn.graphics.DemiseGraphicController;
 import org.disagn.models.job.Demise;
 import org.disagn.models.users.User;
-import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.commandline.CliMachine;
+import org.disagn.states.JobAbstractState;
+import org.disagn.states.commandline.CliMachine;
 import java.util.ArrayList;
 import java.util.List;
 

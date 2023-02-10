@@ -1,4 +1,4 @@
-package org.disagn.machines.commandline.employee;
+package org.disagn.states.commandline.employee;
 
 
 import org.disagn.beans.JobApplierBean;
@@ -9,8 +9,8 @@ import org.disagn.exceptions.InvalidDateException;
 import org.disagn.graphics.JobApplierGraphic;
 import org.disagn.models.job.ShiftApply;
 import org.disagn.models.users.Employee;
-import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.commandline.CliMachine;
+import org.disagn.states.JobAbstractState;
+import org.disagn.states.commandline.CliMachine;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

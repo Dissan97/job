@@ -1,11 +1,11 @@
-package org.disagn.machines.commandline;
+package org.disagn.states.commandline;
 
 
 import org.disagn.cli.io.Printer;
 import org.disagn.interfaces.JobStateMachine;
 import org.disagn.models.users.User;
-import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.JobStates;
+import org.disagn.states.JobAbstractState;
+import org.disagn.states.JobStates;
 
 
 public class CliMachine implements JobStateMachine {

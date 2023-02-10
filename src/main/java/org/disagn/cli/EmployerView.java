@@ -8,12 +8,12 @@ import org.disagn.controllers.Login;
 import org.disagn.decorator.PageContainer;
 import org.disagn.exceptions.NoInterfaceException;
 import org.disagn.models.users.User;
-import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.commandline.AccountStateCli;
-import org.disagn.machines.commandline.CliMachine;
-import org.disagn.machines.commandline.ViewSchedulingStateCli;
-import org.disagn.machines.commandline.employer.ViewApplicantsStateCli;
-import org.disagn.machines.commandline.employer.PublishShiftStateCli;
+import org.disagn.states.JobAbstractState;
+import org.disagn.states.commandline.AccountStateCli;
+import org.disagn.states.commandline.CliMachine;
+import org.disagn.states.commandline.ViewSchedulingStateCli;
+import org.disagn.states.commandline.employer.ViewApplicantsStateCli;
+import org.disagn.states.commandline.employer.PublishShiftStateCli;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -56,7 +56,7 @@ public class EmployerView extends JobAbstractState {
                 case "HELP" -> Printer.printList(page + ": HELP", this.commandList);
                 case "LOG_OUT" -> {
                     try {
-                        Login.LogOut();
+                        Login.logOut();
                     } catch (NoInterfaceException e) {
                         Printer.print(e.getMessage());
                     }

@@ -1,4 +1,4 @@
-package org.disagn.machines.commandline.employee;
+package org.disagn.states.commandline.employee;
 
 
 import org.disagn.beans.JobApplierBean;
@@ -8,8 +8,8 @@ import org.disagn.decorator.PageContainer;
 import org.disagn.graphics.JobApplierGraphic;
 import org.disagn.models.job.Shift;
 import org.disagn.models.users.Employee;
-import org.disagn.machines.JobAbstractState;
-import org.disagn.machines.commandline.CliMachine;
+import org.disagn.states.JobAbstractState;
+import org.disagn.states.commandline.CliMachine;
 
 
 import java.io.FileNotFoundException;
@@ -49,7 +49,7 @@ public class ApplyShift extends JobAbstractState {
             availableShifts.add(s.getCode());
         }
 
-        if (shiftList.size() == 0) {
+        if (shiftList.isEmpty()) {
             Printer.pageMessage(page, "There' s no available shifts", true);
             return;
         }

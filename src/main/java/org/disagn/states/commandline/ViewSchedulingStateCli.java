@@ -1,10 +1,10 @@
-package org.disagn.machines.commandline;
+package org.disagn.states.commandline;
 
 
 import org.disagn.cli.io.Printer;
 import org.disagn.decorator.PageContainer;
 import org.disagn.models.users.User;
-import org.disagn.machines.JobAbstractState;
+import org.disagn.states.JobAbstractState;
 
 public class ViewSchedulingStateCli extends JobAbstractState {
 
