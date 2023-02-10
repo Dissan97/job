@@ -35,7 +35,7 @@ public interface DAO {
 
     void updateAppliance(ShiftApply apply) throws IOException;
 
-    void pushSchedule(ShiftApply apply, User user) throws IOException;
+    void pushSchedule(ShiftApply apply, User user) throws IOException, SQLException;
 
     void pushEmployeeDemise(Demise apply) throws IOException, SQLException;
 

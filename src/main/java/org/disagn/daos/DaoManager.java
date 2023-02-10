@@ -12,6 +12,8 @@ import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
 
+import static org.disagn.daos.DAOState.PUSH_SCHEDULE;
+
 public class DaoManager implements DAO, Runnable {
 
     private final FileSystem fileSystem;
@@ -69,11 +71,22 @@ public class DaoManager implements DAO, Runnable {
         return this.fileSystem.pullShifts();
     }
 
+
+    @Override
+    public void pushSchedule(ShiftApply apply, User user) throws IOException {
+        this.fileSystem.pushSchedule(apply, user);
+        this.state = PUSH_SCHEDULE;
+        this.appliance = apply;
+        this.thread.start();
+    }
+
     @Override
     public List<ShiftApply> pullSchedules(User user) throws FileNotFoundException {
         //needed to show demises don't know why is empty
         return this.fileSystem.pullSchedules(user);
     }
+
+
 
     @Override
     public void pushAppliance(ShiftApply shiftApply) throws IOException {
@@ -98,10 +111,6 @@ public class DaoManager implements DAO, Runnable {
         this.fileSystem.updateAppliance(apply);
     }
 
-    @Override
-    public void pushSchedule(ShiftApply apply, User user) throws IOException {
-        this.fileSystem.pushSchedule(apply, user);
-    }
 
     @Override
     public List<Demise> pullEmployeeDemise(String employee) throws FileNotFoundException {
@@ -175,6 +184,14 @@ public class DaoManager implements DAO, Runnable {
                 }
             }
 
+            case PUSH_SCHEDULE -> {
+                try {
+                    this.mariaDbJDBC.pushSchedule(this.appliance, null);
+                }catch (SQLException e){
+                    Printer.exception(e);
+                }
+            }
+
             case LOAD_CONFIG -> {
                 List<User> userList = this.mariaDbJDBC.getUserList();
                 Printer.print(userList.toString());
@@ -189,4 +206,6 @@ public class DaoManager implements DAO, Runnable {
         }
         return daoManager;
     }
+
+
 }

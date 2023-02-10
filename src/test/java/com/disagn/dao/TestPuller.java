@@ -13,6 +13,7 @@ import org.disagn.models.users.User;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,7 +22,7 @@ class TestPuller {
 
     //Dissan Uddin Ahmed
     @Test
-    void pullScheduling() throws InvalidDateException, IOException, ShiftAlreadyScheduledException {
+    void pullScheduling() throws InvalidDateException, IOException, ShiftAlreadyScheduledException, SQLException {
         User user = new User("dissan", "password", "dissan", "dfgg", "1999-2-3", "sfa", Macros.EMPLOYER);
 
         ApplicationAcceptor applicationAcceptor = new ApplicationAcceptor();

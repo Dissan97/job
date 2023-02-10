@@ -140,7 +140,7 @@ public class GuiManager {
     }
 
     public static void exception(Exception e) {
-        popUp("Something wrong\n\t" + e.getMessage(), e.getMessage().length() + 400);
+        popUp("Something wrong\n\t" + e.getMessage(),  600);
     }
 
     public static boolean acceptPopUp(Label l, String title) {

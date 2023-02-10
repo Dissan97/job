@@ -10,6 +10,7 @@ import org.disagn.models.users.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class ApplicationAcceptorGraphic {
         return this.applierBean;
     }
 
-    public void manageCandidate(User employee, User employer, ShiftApply apply, boolean accept) throws IOException, ApplyNotExistException, ShiftAlreadyScheduledException {
+    public void manageCandidate(User employee, User employer, ShiftApply apply, boolean accept) throws IOException, ApplyNotExistException, ShiftAlreadyScheduledException, SQLException {
         if (employee != null && employer != null && apply != null){
             this.controller.manageCandidate(employee, employer, apply, accept);
         }

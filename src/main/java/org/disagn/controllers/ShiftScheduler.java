@@ -10,6 +10,7 @@ import org.disagn.models.users.User;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class ShiftScheduler {
 
     }
 
-    public void pushSchedule(ShiftApply apply, User user) throws IOException, ShiftAlreadyScheduledException {
+    public void pushSchedule(ShiftApply apply, User user) throws IOException, ShiftAlreadyScheduledException, SQLException {
 
         if (!apply.getState()){
             throw new ShiftAlreadyScheduledException("SHIFT NOT ACCEPTED");

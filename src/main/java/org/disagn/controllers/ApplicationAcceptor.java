@@ -8,10 +8,11 @@ import org.disagn.models.job.ShiftApply;
 import org.disagn.models.users.User;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ApplicationAcceptor {
-    public void manageCandidate(User employee, User employer, ShiftApply apply, boolean accept) throws IOException, ApplyNotExistException, ShiftAlreadyScheduledException {
+    public void manageCandidate(User employee, User employer, ShiftApply apply, boolean accept) throws IOException, ApplyNotExistException, ShiftAlreadyScheduledException, SQLException {
         DAO dao = DaoManager.getDaoManager();
 
         List<ShiftApply> employerShiftList = dao.pullAppliances(employer);
@@ -20,9 +21,9 @@ public class ApplicationAcceptor {
             throw new ApplyNotExistException();
         }
         if (accept){
+            apply.accept();
             this.pushScheduling(apply, employee);
             this.pushScheduling(apply, employer);
-            apply.accept();
             dao.updateAppliance(apply);
         }else {
             dao.removeAppliance(apply);
@@ -30,19 +31,21 @@ public class ApplicationAcceptor {
 
     }
 
-    public void pushScheduling(ShiftApply apply, User user) throws IOException, ShiftAlreadyScheduledException {
+    public void pushScheduling(ShiftApply apply, User user) throws IOException, ShiftAlreadyScheduledException, SQLException {
         ShiftScheduler schedulerController = new ShiftScheduler();
         schedulerController.pushSchedule(apply, user);
     }
 
     private boolean badApply(List<ShiftApply> applyList, ShiftApply apply) {
-
+        boolean debugFeature = false;
         for (ShiftApply shiftApply:
              applyList) {
             if (shiftApply.toString().equals(apply.toString())){
-                return false;
+
+                return debugFeature;
             }
         }
+
         return true;
     }
 }

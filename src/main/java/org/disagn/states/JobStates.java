@@ -1,5 +1,6 @@
 package org.disagn.states;
 
 public enum JobStates {
-    EMPLOYEE
+    EMPLOYEE,
+    EMPLOYER
 }

@@ -1,6 +1,7 @@
 package org.disagn.daos;
 
 import org.disagn.DBConfigJson;
+import org.disagn.cli.io.Printer;
 import org.disagn.interfaces.DAO;
 import org.disagn.models.job.Demise;
 import org.disagn.models.job.Shift;
@@ -13,6 +14,8 @@ import java.util.List;
 
 public class MariaDbJDBC implements DAO {
 
+    private static final String MESSAGE = "DATABASE MARIADB: query ";
+    private static final String EXECUTED = " executed";
     private final String driver;
     private final String host;
     private final String port;
@@ -59,6 +62,9 @@ public class MariaDbJDBC implements DAO {
         if (statement.execute()){
             throw new SQLException();
         }
+
+        this.messagePrinter("push User");
+
         statement.close();
         connection.close();
 
@@ -93,6 +99,9 @@ public class MariaDbJDBC implements DAO {
         if (statement.execute()){
             throw new SQLException();
         }
+
+        this.messagePrinter("push Shift");
+
         statement.close();
         connection.close();
     }
@@ -121,6 +130,9 @@ public class MariaDbJDBC implements DAO {
         if (statement.execute()){
             throw new SQLException();
         }
+
+        this.messagePrinter("push Appliance");
+
         statement.close();
         connection.close();
     }
@@ -141,8 +153,19 @@ public class MariaDbJDBC implements DAO {
     }
 
     @Override
-    public void pushSchedule(ShiftApply apply, User user) {
-        //it will push
+    public void pushSchedule(ShiftApply apply, User user) throws SQLException {
+        Connection connection = this.getConnection();
+        CallableStatement statement = connection.prepareCall("{call pushSchedule(?)}");
+        statement.setString(1, apply.toString());
+
+        if (statement.execute()){
+            throw new SQLException();
+        }
+
+        this.messagePrinter("push Schedules for " + apply.getEmployee() + " & " + apply.getEmployer());
+
+        statement.close();
+        connection.close();
     }
 
     @Override
@@ -159,6 +182,9 @@ public class MariaDbJDBC implements DAO {
         if (statement.execute()){
             throw new SQLException();
         }
+
+        this.messagePrinter("push Demise");
+
         statement.close();
         connection.close();
     }
@@ -186,5 +212,9 @@ public class MariaDbJDBC implements DAO {
     @Override
     public void removeDemise(Demise demise) {
         //Must be applied
+    }
+
+    private void messagePrinter(String msg){
+        Printer.print(MESSAGE + msg + EXECUTED);
     }
 }
