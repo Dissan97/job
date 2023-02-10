@@ -27,7 +27,7 @@ public class ShiftPublisherGraphic {
         return (str != null && !str.equals(""));
     }
 
-    public String setDateTime(String date, String time) throws InvalidDateException, ParseException {
+    public String setDateTime(String date, String time) throws ParseException {
         JobDateTime dateTime;
         if (date.equals("") || time.equals("")) {
             throw new InvalidDateException("Date cannot be empty");

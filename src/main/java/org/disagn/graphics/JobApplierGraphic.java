@@ -2,7 +2,6 @@ package org.disagn.graphics;
 
 import org.disagn.beans.JobApplierBean;
 import org.disagn.controllers.JobApplier;
-import org.disagn.exceptions.InvalidDateException;
 import org.disagn.exceptions.ShiftAlreadyApplied;
 import org.disagn.models.job.Shift;
 import org.disagn.models.job.ShiftApply;
@@ -39,7 +38,7 @@ public class JobApplierGraphic {
         this.controller.pullAppliances(user);
     }
 
-    public void removeAppliance(ShiftApply apply) throws InvalidDateException, ParseException, IOException, SQLException {
+    public void removeAppliance(ShiftApply apply) throws ParseException, IOException, SQLException {
         this.controller.removeAppliance(apply);
     }
 }
