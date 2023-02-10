@@ -113,7 +113,7 @@ public class JobApplier {
 
     }
 
-    public void removeAppliance(ShiftApply apply) throws InvalidDateException, ParseException, IOException, SQLException {
+    public void removeAppliance(ShiftApply apply) throws ParseException, IOException, SQLException {
         DAO dao = DaoManager.getDaoManager();
 
         try {

@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class WebTest {
     //Selenium test Dissan Uddin Ahmed
@@ -35,6 +36,8 @@ class WebTest {
         assertNotNull(poundValue);
         float pound = getValue(poundValue);
         driver.quit();
+
+        assertTrue(dollar > 1.07);
         // Close the browser window
         // Print the contents of the section in the console
         Printer.print("Change 1 EUR = " + dollar + " USD");

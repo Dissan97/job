@@ -12,7 +12,6 @@ import org.disagn.interfaces.JobView;
 import org.disagn.models.users.User;
 
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
 
 public class LoginGraphic {
 
@@ -29,7 +28,7 @@ public class LoginGraphic {
             view.startUi();
     }
 
-    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, Macros type) throws UserAlreadyExistException, InvalidDateException, SQLException, FileNotFoundException {
+    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, Macros type) throws UserAlreadyExistException, InvalidDateException, FileNotFoundException {
             controller.signUp(username, password, name, surname, dateOfBirth, cityOfBirth, type);
     }
 
