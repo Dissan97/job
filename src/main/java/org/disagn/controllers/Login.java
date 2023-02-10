@@ -16,7 +16,6 @@ import org.disagn.models.users.User;
 
 import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -44,7 +43,7 @@ public class Login {
     }
 
 
-    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, Macros type) throws UserAlreadyExistException, InvalidDateException, SQLException, FileNotFoundException {
+    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, Macros type) throws UserAlreadyExistException, InvalidDateException,  FileNotFoundException {
         if(verify(username) == Macros.ERROR){
             throw new UserAlreadyExistException(username);
         }

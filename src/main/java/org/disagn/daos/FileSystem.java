@@ -219,8 +219,9 @@ public class FileSystem implements DAO {
     @Override
     public List<ShiftApply> pullSchedules(User user) throws FileNotFoundException {
         String type = user.getUserType().name().toLowerCase();
-        String u = "users";
-        String path = DAO_PATH + u + "/" + type + "/" + user.getUsername() + DEMISES;
+        String u = "users/";
+        type += "/";
+        String path = DAO_PATH + u + type + user.getUsername() + DEMISES;
         JsonElement reader;
 
 
