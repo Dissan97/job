@@ -1,7 +1,9 @@
 package org.disagn.daos;
 
 import org.disagn.DBConfigJson;
+import org.disagn.Macros;
 import org.disagn.cli.io.Printer;
+import org.disagn.exceptions.InvalidDateException;
 import org.disagn.interfaces.DAO;
 import org.disagn.models.job.Demise;
 import org.disagn.models.job.Shift;
@@ -81,8 +83,32 @@ public class MariaDbJDBC implements DAO {
     }
 
     @Override
-    public List<User> getUserList() {
-        return new ArrayList<>();
+    public List<User> pullUsers() throws SQLException {
+        Connection connection = this.getConnection();
+        CallableStatement statement = connection.prepareCall("{ call pullUsers() }");
+        statement.execute();
+        ResultSet resultSet = statement.getResultSet();
+        List<User> userList = new ArrayList<>();
+
+        while (resultSet.next()){
+            String username = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            String name = resultSet.getString("name");
+            String surname = resultSet.getString("surname");
+            String dateOfBirth = resultSet.getString("dateOfBirth");
+            String cityOfBirth = resultSet.getString("cityOfBirth");
+            String userType = resultSet.getString("userType");
+            try {
+                User user = new User(username, password, name, surname, dateOfBirth, cityOfBirth, Macros.valueOf(userType));
+                userList.add(user);
+            } catch (InvalidDateException e) {
+                Printer.exception(e);
+            }
+        }
+
+        statement.close();
+        connection.close();
+        return userList;
     }
 
     @Override
@@ -107,8 +133,24 @@ public class MariaDbJDBC implements DAO {
     }
 
     @Override
-    public List<Shift> pullShifts() {
-        return new ArrayList<>();
+    public List<Shift> pullShifts() throws SQLException {
+        Connection connection = this.getConnection();
+        CallableStatement statement = connection.prepareCall("{ call pullShifts() }");
+        statement.execute();
+        ResultSet resultSet = statement.getResultSet();
+        List<Shift> shiftList = new ArrayList<>();
+
+        while (resultSet.next()) {
+            String employer = resultSet.getString("employer");
+            String jobName = resultSet.getString("jobName");
+            String jobPlace = resultSet.getString("jobPlace");
+            String jobDateTime = resultSet.getString("jobDateTime");
+            String description = resultSet.getString("jobDescription");
+            Shift shift = new Shift(employer, jobName, jobPlace, jobDateTime, description);
+            shiftList.add(shift);
+
+        }
+        return shiftList;
     }
 
     @Override
@@ -128,7 +170,7 @@ public class MariaDbJDBC implements DAO {
         statement.setString(6, shiftApply.getEmployee());
 
         if (statement.execute()){
-            throw new SQLException();
+            throw new SQLException("Cannot push appliance");
         }
 
         this.messagePrinter("push Appliance");

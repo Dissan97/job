@@ -16,6 +16,7 @@ import org.disagn.models.users.User;
 
 import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,7 +29,7 @@ public class Login {
     public Login(){
         this.dao = DaoManager.getDaoManager();
     }
-    public void signIn(String username, String password, boolean store) throws UserLoginFailedException, FileNotFoundException {
+    public void signIn(String username, String password, boolean store) throws UserLoginFailedException, FileNotFoundException, SQLException {
 
         Macros userKind = verify(username, password);
 
@@ -43,7 +44,7 @@ public class Login {
     }
 
 
-    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, Macros type) throws UserAlreadyExistException, InvalidDateException,  FileNotFoundException {
+    public void signUp(String username, String password, String name, String surname, String dateOfBirth, String cityOfBirth, Macros type) throws UserAlreadyExistException, InvalidDateException, FileNotFoundException, SQLException {
         if(verify(username) == Macros.ERROR){
             throw new UserAlreadyExistException(username);
         }
@@ -64,9 +65,9 @@ public class Login {
     }
 
 
-    private Macros verify(String username, String password) throws FileNotFoundException {
+    private Macros verify(String username, String password) throws FileNotFoundException, SQLException {
 
-        List<User> users = this.dao.getUserList();
+        List<User> users = this.dao.pullUsers();
         password = shaPassword(password);
 
         for (User u: users
@@ -80,8 +81,8 @@ public class Login {
         return Macros.ERROR;
     }
 
-    private Macros verify(String username) throws FileNotFoundException {
-        List<User> users = this.dao.getUserList();
+    private Macros verify(String username) throws FileNotFoundException, SQLException {
+        List<User> users = this.dao.pullUsers();
         if (this.user != null) {
             for (User u : users
             ) {
@@ -99,9 +100,9 @@ public class Login {
                 .toString();
     }
 
-    public void pullEmployee(AccountBean bean) throws FileNotFoundException {
+    public void pullEmployee(AccountBean bean) throws FileNotFoundException, SQLException {
         DAO daoManager = DaoManager.getDaoManager();
-        List<User> users = daoManager.getUserList();
+        List<User> users = daoManager.pullUsers();
         List<User> listBean = new ArrayList<>();
         if (users != null){
             for (User u:

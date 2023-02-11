@@ -22,7 +22,7 @@ public class JobApplierGraphic {
         this.controller = new JobApplier(this.bean);
     }
 
-    public void pullShifts(User user) throws FileNotFoundException {
+    public void pullShifts(User user) throws FileNotFoundException, SQLException {
         this.controller.pullShifts(user);
     }
 

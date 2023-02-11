@@ -116,6 +116,7 @@ public class AssistantGui {
                 GuiManager.exception(ex);
             }
             popup.close();
+            this.buildView();
         });
 
         Button refuseButton = new Button("Refuse");
@@ -127,6 +128,7 @@ public class AssistantGui {
                 GuiManager.exception(ex);
             }
             popup.close();
+            this.buildView();
         });
 
         VBox root = new VBox();

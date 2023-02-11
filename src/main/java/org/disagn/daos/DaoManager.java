@@ -29,10 +29,16 @@ public class DaoManager implements DAO, Runnable {
     private ShiftApply appliance;
     private Demise demise;
 
+    private static boolean pullDatabase = false;
+
     private DaoManager() {
         this.fileSystem = new FileSystem();
         this.mariaDbJDBC = new MariaDbJDBC();
         thread = new Thread(this);
+    }
+
+    public static void setPullDatabase(boolean b) {
+        pullDatabase = b;
     }
 
     @Override
@@ -44,6 +50,13 @@ public class DaoManager implements DAO, Runnable {
     }
 
     @Override
+    public List<User> pullUsers() throws FileNotFoundException, SQLException {
+        if(pullDatabase){
+            return this.mariaDbJDBC.pullUsers();
+        }
+        return this.fileSystem.pullUsers();
+    }
+    @Override
     public void saveConfig(User user) {
         this.fileSystem.saveConfig(user);
     }
@@ -53,10 +66,7 @@ public class DaoManager implements DAO, Runnable {
         return this.fileSystem.loadConfig();
     }
 
-    @Override
-    public List<User> getUserList() throws FileNotFoundException {
-        return this.fileSystem.getUserList();
-    }
+
 
     @Override
     public void pushShift(Shift shift) throws IOException {
@@ -67,7 +77,10 @@ public class DaoManager implements DAO, Runnable {
     }
 
     @Override
-    public List<Shift> pullShifts() throws FileNotFoundException {
+    public List<Shift> pullShifts() throws FileNotFoundException, SQLException {
+        if (pullDatabase){
+            return this.mariaDbJDBC.pullShifts();
+        }
         return this.fileSystem.pullShifts();
     }
 
@@ -190,11 +203,6 @@ public class DaoManager implements DAO, Runnable {
                 }catch (SQLException e){
                     Printer.exception(e);
                 }
-            }
-
-            case LOAD_CONFIG -> {
-                List<User> userList = this.mariaDbJDBC.getUserList();
-                Printer.print(userList.toString());
             }
         }
         this.state = null;

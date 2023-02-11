@@ -44,7 +44,7 @@ public class FileSystem implements DAO {
 
         BufferedWriter writer;
 
-        List<User> users = this.getUserList();
+        List<User> users = this.pullUsers();
 
         String folder = user.getUserType().name().toLowerCase(Locale.ROOT) + "/";
         String path = DAO_PATH + "users/" + folder + user.getUsername();
@@ -139,7 +139,7 @@ public class FileSystem implements DAO {
     }
 
     @Override
-    public List<User> getUserList() throws FileNotFoundException {
+    public List<User> pullUsers() throws FileNotFoundException {
         JsonElement reader;
 
             reader = JsonParser.parseReader(
@@ -326,6 +326,14 @@ public class FileSystem implements DAO {
             d.getApplication().equals(demise.getApplication())
         );
 
+        List<Demise> demiseList = pullDemises();
+
+        demiseList.removeIf(d ->
+                d.getApplication().equals(demise.getApplication())
+        );
+
+        demiseList.add(demise);
+
         listDemise.add(demise);
         Gson gson = new Gson();
 
@@ -336,6 +344,12 @@ public class FileSystem implements DAO {
         gson.toJson(listDemise, writer);
         writer.close();
 
+        writer = new BufferedWriter(
+                new FileWriter(DEMISE_PATH)
+        );
+
+        gson.toJson(demiseList, writer);
+        writer.close();
 
     }
 

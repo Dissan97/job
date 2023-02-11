@@ -13,6 +13,7 @@ import org.disagn.states.commandline.CliMachine;
 
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class ApplyShift extends JobAbstractState {
         try {
             controller.pullShifts(this.user);
             shiftList = bean.getShiftList();
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | SQLException e) {
             Printer.exception(e);
         }
         this.page = "Apply shift: " + this.user.getUsername();

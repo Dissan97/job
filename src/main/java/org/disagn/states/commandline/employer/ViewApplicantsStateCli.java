@@ -13,6 +13,7 @@ import org.disagn.states.commandline.CliMachine;
 
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class ViewApplicantsStateCli extends JobAbstractState {
         ApplicationAcceptorGraphic acceptorController = new ApplicationAcceptorGraphic();
         try {
             acceptorController.getUserData(this.user);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | SQLException e) {
             Printer.exception(e);
         }
 

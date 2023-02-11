@@ -29,7 +29,7 @@ class ShiftPublisherTest {
         try {
             employer = new User("testName", "password", "nameTest", "surnameTest", "2002-02-21", "cityTest", Macros.EMPLOYER);
             controller.signUp(employer.getUsername(), "password", employer.getName(), employer.getSurname(), employer.getDateOfBirth(), employer.getCityOfBirth(), employer.getUserType());
-        } catch (UserAlreadyExistException | InvalidDateException | FileNotFoundException e) {
+        } catch (UserAlreadyExistException | InvalidDateException | FileNotFoundException | SQLException e) {
             Printer.exception(e); //ignoring already existing user
         }
     }

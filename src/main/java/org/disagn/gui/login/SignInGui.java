@@ -11,6 +11,7 @@ import org.disagn.interfaces.JobView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class SignInGui implements JobView {
 
@@ -42,7 +43,7 @@ public class SignInGui implements JobView {
               GuiManager.exception(e);
             } catch (NoInterfaceException e) {
                 Printer.print(e.getMessage());
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | SQLException e) {
                 Printer.exception(e);
             }
         }else{

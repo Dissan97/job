@@ -19,11 +19,11 @@ public interface DAO {
 
     User loadConfig();
 
-    List<User> getUserList() throws FileNotFoundException;
+    List<User> pullUsers() throws FileNotFoundException, SQLException;
 
     void pushShift(Shift shift) throws SQLException, IOException;
 
-    List<Shift> pullShifts() throws FileNotFoundException;
+    List<Shift> pullShifts() throws FileNotFoundException, SQLException;
 
     List<ShiftApply> pullSchedules(User employer) throws FileNotFoundException;
 

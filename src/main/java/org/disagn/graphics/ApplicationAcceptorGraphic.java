@@ -30,7 +30,7 @@ public class ApplicationAcceptorGraphic {
         return this.accountBean;
     }
 
-    public void getUserData(User employer) throws FileNotFoundException {
+    public void getUserData(User employer) throws FileNotFoundException, SQLException {
         JobApplierGraphic jobApplierController = new JobApplierGraphic();
         this.applierBean = jobApplierController.getBean();
         jobApplierController.pullAppliances(employer);

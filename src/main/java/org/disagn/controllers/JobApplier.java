@@ -34,7 +34,7 @@ public class JobApplier {
     /**
      * pull shift list that is available...
      */
-    public void pullShifts(User user) throws FileNotFoundException {
+    public void pullShifts(User user) throws FileNotFoundException, SQLException {
         DAO dao = DaoManager.getDaoManager();
         List<Shift> oldShiftList = dao.pullShifts();
         List<Shift> updatedList = new ArrayList<>();

@@ -1,29 +1,29 @@
 [
   {
-    "username": "assistant",
-    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "dissan",
-    "surname": "ahmed",
-    "dateOfBirth": "1997-10-09",
-    "cityOfBirth": "Rome",
-    "userType": "ASSISTANT"
-  },
-  {
-    "username": "dissan",
-    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "dissan",
-    "surname": "ahmed",
-    "dateOfBirth": "1997-10-09",
-    "cityOfBirth": "Rome",
-    "userType": "EMPLOYER"
-  },
-  {
     "username": "employee",
     "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
-    "name": "Employee",
-    "surname": "Eeyolpme",
-    "dateOfBirth": "1980-10-12",
-    "cityOfBirth": "Rome",
+    "name": "empName",
+    "surname": "empSurname",
+    "dateOfBirth": "1977-10-08",
+    "cityOfBirth": "empCity",
     "userType": "EMPLOYEE"
-  }
+  },
+  {
+    "username": "employer",
+    "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+    "name": "empName",
+    "surname": "empSurname",
+    "dateOfBirth": "1977-10-09",
+    "cityOfBirth": "empCity",
+    "userType": "EMPLOYER"
+  },{
+  "username": "assistant",
+  "password": "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8",
+  "name": "assistantName",
+  "surname": "assistantSurname",
+  "dateOfBirth": "1977-10-09",
+  "cityOfBirth": "assistantCity",
+  "userType": "ASSISTANT"
+}
+
 ]

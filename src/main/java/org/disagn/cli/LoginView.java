@@ -12,6 +12,7 @@ import org.disagn.graphics.LoginGraphic;
 import org.disagn.interfaces.JobView;
 import org.disagn.models.time.JobDate;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.disagn.Macros.*;
@@ -220,7 +221,7 @@ public class LoginView implements JobView{
             return SIGN_IN_FAILED;
         } catch (NoInterfaceException e) {
             Printer.print(e.getMessage());
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | SQLException e) {
             Printer.exception(e);
         }
         return SIGN_IN_SUCCESS;

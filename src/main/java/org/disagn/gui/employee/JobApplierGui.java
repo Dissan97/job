@@ -15,6 +15,7 @@ import org.disagn.gui.ViewAction;
 import org.disagn.models.job.Shift;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 
 public class JobApplierGui {
 
@@ -31,7 +32,7 @@ public class JobApplierGui {
         JobApplierBean bean = controller.getBean();
         try {
             controller.pullShifts(GuiStarter.getUser());
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | SQLException e) {
             GuiManager.exception(e);
         }
         this.vBox.getChildren().clear();

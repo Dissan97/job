@@ -18,6 +18,7 @@ import org.disagn.models.job.ShiftApply;
 import org.disagn.models.users.User;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +47,7 @@ public class ViewApplicantsGui {
         ApplicationAcceptorGraphic acceptorController = new ApplicationAcceptorGraphic();
         try {
             acceptorController.getUserData(GuiStarter.getUser());
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | SQLException e) {
             GuiManager.exception(e);
         }
 
@@ -123,6 +124,7 @@ public class ViewApplicantsGui {
                 GuiManager.exception(ex);
             }
             popup.close();
+            this.buildView();
         });
         refuseButton.setOnAction(e -> {
             try {
@@ -132,6 +134,7 @@ public class ViewApplicantsGui {
                 GuiManager.exception(ex);
             }
             popup.close();
+            this.buildView();
         });
 
         Label name = new Label("Name: " + user.getUsername());

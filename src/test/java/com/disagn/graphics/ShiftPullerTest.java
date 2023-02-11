@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,7 +30,7 @@ class ShiftPullerTest {
         try {
             employee = new User("testName", "password", "nameTest", "surnameTest", "2002-02-21", "cityTest", Macros.EMPLOYER);
             controller.signUp(employee.getUsername(), "password", employee.getName(), employee.getSurname(), employee.getDateOfBirth(), employee.getCityOfBirth(), employee.getUserType());
-        } catch (UserAlreadyExistException | InvalidDateException | FileNotFoundException e) {
+        } catch (UserAlreadyExistException | InvalidDateException | FileNotFoundException | SQLException e) {
             Printer.exception(e); //ignoring already existing user
         }
     }
@@ -41,7 +42,7 @@ class ShiftPullerTest {
         //calling the publish method
         try {
             controller.pullShifts(employee);
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException | SQLException e) {
             assertNull(e);
         }
 

@@ -56,16 +56,16 @@ create table if not exists `Job`.`Demises`
 CREATE TABLE `Job`.`Schedules` (
        `appliance` VARCHAR(128) NOT NULL,
        `scheduleDate` VARCHAR(32) NOT NULL,
-       `user` VARCHAR(45) NOT NULL,
-       PRIMARY KEY (`appliance`, "user"),
-       INDEX `fk_new_table_2_idx` (`user` ASC) VISIBLE,
+       `scheduleUser` VARCHAR(45) NOT NULL,
+       PRIMARY KEY (`appliance`, `scheduleUser`),
+       INDEX `fk_new_table_2_idx` (`scheduleUser` ASC) VISIBLE,
        CONSTRAINT `fk_new_table_1`
            FOREIGN KEY (`appliance`)
                REFERENCES `Job`.`ShiftAppliance` (`applianceCode`)
                ON DELETE NO ACTION
                ON UPDATE NO ACTION,
        CONSTRAINT `fk_new_table_2`
-           FOREIGN KEY (`user`)
+           FOREIGN KEY (`scheduleUser`)
                REFERENCES `Job`.`Users` (`username`)
                ON DELETE NO ACTION
                ON UPDATE NO ACTION
@@ -231,9 +231,9 @@ BEGIN
     select `applianceDate` from `Job`.`ShiftAppliance` sa where sa.`applianceCode` = apply_code into var_date;
     select `shiftEmployee` from `Job`.`ShiftAppliance` sa where sa.`applianceCode` = apply_code into var_employee;
     select `shiftEmployer` from `Job`.`ShiftAppliance` sa where sa.`applianceCode` = apply_code into var_employer;
-    INSERT INTO `Job`.`Schedules`(`appliance`,`scheduleDate`,`user`)
+    INSERT INTO `Job`.`Schedules`(`appliance`,`scheduleDate`,`scheduleUser`)
     VALUES(apply_code, var_date,var_employee);
-    INSERT INTO `Job`.`Schedules`(`appliance`,`scheduleDate`,`user`)
+    INSERT INTO `Job`.`Schedules`(`appliance`,`scheduleDate`,`scheduleUser`)
     VALUES(apply_code, var_date,var_employer);
 
     commit;
@@ -243,6 +243,108 @@ END $$
 
 DELIMITER ;
 
+-- PULL USERS
+
+DELIMITER $$
+USE `job`$$
+CREATE PROCEDURE `pullUsers` ()
+BEGIN
+    declare exit handler for sqlexception
+        begin
+            rollback;
+            resignal;
+        end;
+
+    set transaction isolation level read committed;
+    start transaction;
+
+    SELECT `users`.`username`,`users`.`password`,`users`.`name`,`users`.`surname`,`users`.`cityOfBirth`,`users`.`dateOfBirth`,`users`.`userType`
+	FROM `job`.`users`;
+    commit;
+
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+USE `job`$$
+CREATE PROCEDURE `pullShifts` ()
+BEGIN
+    declare exit handler for sqlexception
+        begin
+            rollback;
+            resignal;
+        end;
+
+    set transaction isolation level read committed;
+    start transaction;
+
+	SELECT `shifts`.`shiftCode`,
+		`shifts`.`jobName`,
+		`shifts`.`JobPlace`,
+		`shifts`.`jobDateTime`,
+		`shifts`.`jobDescription`,
+		`shifts`.`employer`
+	FROM `job`.`shifts`;
+
+    commit;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pullAppliances`()
+BEGIN
+    declare exit handler for sqlexception
+        begin
+            rollback;
+            resignal;
+        end;
+
+    set transaction isolation level read committed;
+    start transaction;
+
+	SELECT
+		`shiftAppliance`.`applianceDate`,
+		`shiftAppliance`.`shiftDate`,
+		`shiftAppliance`.`isAccepted`,
+		`shiftAppliance`.`shiftEmployer`,
+		`shiftAppliance`.`shiftEmployee`
+	FROM `job`.`shiftAppliance`;
+
+
+    commit;
+END $$
+
+DELIMITER;
+
+DELIMITER $$
+USE `job`$$
+CREATE PROCEDURE `pullDemises` ()
+BEGIN
+    declare exit handler for sqlexception
+        begin
+            rollback;
+            resignal;
+        end;
+
+    set transaction isolation level read committed;
+    start transaction;
+
+    SELECT `demises`.`shiftAppliance`,
+    `demises`.`motivation`,
+    `demises`.`shiftApplianceEmployee`,
+    `demises`.`shiftDate`,
+    `demises`.`accepted`,
+    `demises`.`sent`
+	FROM `job`.`demises`;
+
+
+    commit;
+END$$
+
+DELIMITER ;
 
 
 drop user if exists 'job'@'localhost';
@@ -253,5 +355,9 @@ grant  execute on procedure `Job`.`pushAppliance`  to 'job'@'localhost';
 grant  execute on procedure `Job`.`pushDemise`  to 'job'@'localhost';
 grant  execute on procedure `Job`.`pushShift`  to 'job'@'localhost';
 grant  execute on procedure `Job`.`pushSchedule`  to 'job'@'localhost';
+grant  execute on procedure `Job`.`pullUsers`  to 'job'@'localhost';
+grant  execute on procedure `Job`.`pullShifts`  to 'job'@'localhost';
+grant  execute on procedure `Job`.`pullAppliances`  to 'job'@'localhost';
+grant  execute on procedure `Job`.`pullDemises`  to 'job'@'localhost';
 
 

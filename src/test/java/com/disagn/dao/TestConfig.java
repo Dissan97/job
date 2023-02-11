@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class TestConfig {
 
@@ -33,13 +32,10 @@ class TestConfig {
         try {
             //Try connection to MariaDb driver
             Connection connection = DriverManager.getConnection(connectionUrl);
-            assertNotNull(connection);
             Printer.print("Connection success");
             connection.close();
         } catch (SQLException e) {
-            Printer.print(e.getMessage());
+            assertNull(e);
         }
-
-
     }
 }

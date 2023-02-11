@@ -47,4 +47,6 @@ public class ShiftSchedulerGraphic {
     public void pullSchedules() {
         this.bean.setSchedules(new ArrayList<>());
     }
+
+
 }
