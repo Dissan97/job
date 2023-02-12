@@ -92,15 +92,15 @@ public class MariaDbJDBC implements DAO {
 
         while (resultSet.next()){
             String username = resultSet.getString("username");
-            String password = resultSet.getString("password");
+            String pwd = resultSet.getString("password");
             String name = resultSet.getString("name");
             String surname = resultSet.getString("surname");
             String dateOfBirth = resultSet.getString("dateOfBirth");
             String cityOfBirth = resultSet.getString("cityOfBirth");
             String userType = resultSet.getString("userType");
             try {
-                User user = new User(username, password, name, surname, dateOfBirth, cityOfBirth, Macros.valueOf(userType));
-                userList.add(user);
+                User localUser = new User(username, pwd, name, surname, dateOfBirth, cityOfBirth, Macros.valueOf(userType));
+                userList.add(localUser);
             } catch (InvalidDateException e) {
                 Printer.exception(e);
             }
