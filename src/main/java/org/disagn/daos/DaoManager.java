@@ -14,6 +14,11 @@ import java.util.List;
 
 import static org.disagn.daos.DAOState.PUSH_SCHEDULE;
 
+/**
+ * Dao manager that has the responsibilities to choose if to use FileSystem or Database
+ * It's a Singleton class
+ */
+
 public class DaoManager implements DAO, Runnable {
 
     private final FileSystem fileSystem;

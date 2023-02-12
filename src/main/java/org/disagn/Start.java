@@ -13,7 +13,7 @@ public class Start{
 
         boolean gui = true;
         boolean local = true;
-        JobView startView = null;
+        JobView startView;
 
         try {
             if (args[0].equalsIgnoreCase("CLI")){
@@ -23,6 +23,7 @@ public class Start{
                 local = false;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            // Agnese Agueli we will avoid bad argument so the gui will be charged
             gui = true;
             UiFactory.setGui(true);
         }
@@ -43,9 +44,10 @@ public class Start{
         try {
             startView = UiFactory.getUi(starter, user);
         } catch (NoInterfaceException e) {
+            //Dissan Uddin Ahmed If no interfaces are found then the application should be closed
             Printer.print(e.getMessage());
+            return;
         }
-        assert startView != null;
         startView.startUi();
 
     }

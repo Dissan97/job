@@ -122,10 +122,12 @@ public class JobApplier {
             dao.removeAppliance(apply);
 
         }catch (InvalidDateException e){
+            //Dissan Uddin Ahmed the controller catch the exception then try to push the application to the demise state
             if (this.checkDemises(apply)){
                 Demise demise = new Demise(apply, "");
                 dao.pushEmployeeDemise(demise);
             }
+            //User will be notified by that exception
             throw new InvalidDateException();
         } catch (IOException e) {
             Printer.exception(e);

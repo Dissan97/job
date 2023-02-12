@@ -86,7 +86,7 @@ public class DemiseManagerGui {
                         controller.pushPendingDemise();
                         GuiManager.popUp("Demise sent");
                     } catch (Exception ex) {
-                        ex.printStackTrace();
+                       GuiManager.exception(ex);
                     }
                 }
             });

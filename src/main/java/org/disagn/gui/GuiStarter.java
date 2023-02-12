@@ -1,5 +1,6 @@
 package org.disagn.gui;
 
+import org.disagn.cli.io.Printer;
 import org.disagn.interfaces.JobView;
 import org.disagn.models.users.User;
 
@@ -15,7 +16,9 @@ public class GuiStarter implements JobView {
             String file = user.getUserType().name().toLowerCase(Locale.ROOT)+".fxml";
             GuiManager.setUp(file);
         } catch (IOException e) {
-            GuiManager.exception(e);
+            //Agnese Agueli if we are not able to launch a gui interface the user should be notice in the shell that there's a problem
+            Printer.print("Some error occurred unable to launch the first interface");
+            Printer.exception(e);
         }
     }
 

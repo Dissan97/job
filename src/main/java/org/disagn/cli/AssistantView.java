@@ -7,8 +7,6 @@ import org.disagn.states.commandline.CliMachine;
 
 public class AssistantView extends JobAbstractState {
 
-
-
     public AssistantView(User user) {
         Printer.print(user.getUsername());
         //implements this view

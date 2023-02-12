@@ -5,6 +5,10 @@ import org.disagn.daos.FileSystem;
 import org.disagn.daos.MariaDbJDBC;
 import org.disagn.interfaces.DAO;
 
+/**
+ * Previous usage of Dao manager
+ */
+
 public class DAOFactory {
 
     private static FileSystem fileSystem = null;

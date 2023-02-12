@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class used by views to load their command list to avoid code duplication
+ */
+
 public class CommandLoader {
     List<String> commandList = new ArrayList<>();
     public static final String HELP = "Type help or 0 to get command list";
