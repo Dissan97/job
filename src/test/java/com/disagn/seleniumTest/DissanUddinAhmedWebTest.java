@@ -12,7 +12,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class WebTest {
+class DissanUddinAhmedWebTest {
     //Selenium test Dissan Uddin Ahmed
     @Test
     void webTest() {
